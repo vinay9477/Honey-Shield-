@@ -95,6 +95,9 @@
     }
     .fg select option { background: #0d0b16; }
     .filter-btns { display: flex; gap: 8px; align-self: flex-end; }
+    .btn-download-csv { display:flex;align-items:center;gap:6px;padding:8px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;border:1px solid rgba(0,245,196,0.3);border-radius:6px;background:rgba(0,245,196,0.07);color:#00f5c4;cursor:pointer;transition:all .2s;text-transform:uppercase; }
+    .btn-download-csv:hover { background:rgba(0,245,196,0.14);border-color:rgba(0,245,196,0.6);transform:translateY(-1px); }
+    .btn-download-csv svg { width:13px;height:13px; }
     .btn-apply {
       padding: 10px 18px;
       background: linear-gradient(135deg, var(--violet), #5b21b6);
@@ -512,6 +515,10 @@
       <div class="filter-btns">
         <button class="btn-clear" onclick="clearFilters()">CLEAR</button>
         <button class="btn-apply" onclick="applyFilters()">APPLY</button>
+        <button class="btn-download-csv" onclick="downloadMyLogs()">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          EXPORT CSV
+        </button>
       </div>
     </div>
 
@@ -592,6 +599,38 @@ function logout() { localStorage.clear(); window.location.href = 'login.html'; }
 // ── STATE ──────────────────────────────────────────────────
 let allLogs      = [];
 let filteredLogs = [];
+
+// ── DOWNLOAD MY LOGS (own logs only, no cross-user data) ──────
+function downloadMyLogs(){
+  if(!filteredLogs.length){ alert('No logs to export'); return; }
+
+  // Get current user info for filename only
+  const userRaw = localStorage.getItem('user');
+  const user = userRaw ? JSON.parse(userRaw) : {};
+  const safeEmail = (user.email||'user').replace(/[^a-z0-9]/gi,'-');
+
+  // Only include own log fields — no userId, no other user data
+  const headers = ['Time','Date','Type','IP','Message'];
+  const rows = filteredLogs.map(l => {
+    const d = new Date(l.createdAt);
+    return [
+      d.toLocaleTimeString('en-IN',{hour12:false}),
+      d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}),
+      l.type||'',
+      l.ip||'',
+      '"'+(l.message||'').replace(/"/g,"''")+'"'
+    ].join(',');
+  });
+
+  const csv = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `my-logs-${safeEmail}-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 let currentSort  = { field: null, dir: 'desc' };
 let currentPage  = 1;
 const PAGE_SIZE  = 25;

@@ -385,7 +385,7 @@ async function doLogin(){
     if(res.ok){
       localStorage.setItem('admin',JSON.stringify({username}));
       showLock(true);
-      setTimeout(()=>window.location.href='admin-dashboard.html',1600);
+      setTimeout(()=>window.location.replace('admin-dashboard.html'),2000);
     } else {
       showLock(false);
       setStatus('✗ '+(data.message||'Invalid credentials'),'error');
@@ -396,7 +396,7 @@ async function doLogin(){
     if(username==='admin'&&password==='admin'){
       localStorage.setItem('admin',JSON.stringify({username}));
       showLock(true);
-      setTimeout(()=>window.location.href='admin-dashboard.html',1600);
+      setTimeout(()=>window.location.replace('admin-dashboard.html'),2000);
     } else {
       showLock(false);
       setStatus('⚠ Server unreachable — check backend','error');
