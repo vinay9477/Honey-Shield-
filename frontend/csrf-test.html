@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
     resultDiv.className = "success";
     resultDiv.innerHTML = "<b>✓ CSRF Token Valid</b><br>Token: " + token.substring(0, 20) + "...<br>Request would be accepted.";
 
-    fetch("https://honey-shield-1.onrender.com/api/logs", {
+    fetch("http://localhost:3000/api/logs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -184,3 +184,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
+

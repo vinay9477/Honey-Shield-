@@ -686,7 +686,7 @@
     }
 
     // Send password change request to backend
-    fetch("https://honey-shield-1.onrender.com/api/auth/change-password", {
+    fetch("http://localhost:3000/api/auth/change-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -735,3 +735,4 @@
 
 </body>
 </html>
+

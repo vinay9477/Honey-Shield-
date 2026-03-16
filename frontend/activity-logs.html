@@ -844,7 +844,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const userId = user._id || user.id;
-  fetch(`https://honey-shield-1.onrender.com/api/logs?userId=${userId}`)
+  fetch(`http://localhost:3000/api/logs?userId=${userId}`)
     .then(r => r.json())
     .then(logs => {
       allLogs = (logs || []).filter(l =>
@@ -878,3 +878,4 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="public/js/common.js"></script>
 </body>
 </html>
+

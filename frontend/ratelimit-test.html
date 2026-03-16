@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCounter();
       }, 5000);
 
-      fetch("https://honey-shield-1.onrender.com/api/logs", {
+      fetch("http://localhost:3000/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({userId: getUserId(),
@@ -206,3 +206,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
+

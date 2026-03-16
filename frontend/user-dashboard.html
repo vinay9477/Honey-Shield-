@@ -456,7 +456,7 @@ function countCats(logs){
 async function loadDashboard(){
   try{
     const userId=user._id||user.id;
-    const res=await fetch(`https://honey-shield-1.onrender.com/api/logs?userId=${userId}`);
+    const res=await fetch(`http://localhost:3000/api/logs?userId=${userId}`);
     const logs=(await res.json())||[];
     const userLogs=logs.filter(l=>!l.userId||l.userId===userId||l.userId?.toString()===userId?.toString()||l.email===user.email);
 
@@ -624,3 +624,4 @@ refreshAttacks();
 </script>
 </body>
 </html>
+
