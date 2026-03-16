@@ -6,7 +6,7 @@ function logout() {
 const usersTable = document.getElementById("usersTable");
 const statUsers = document.getElementById("statUsers");
 
-fetch("http://localhost:3000/api/admin/users")
+fetch("https://honey-shield-1.onrender.com/api/admin/users")
   .then(res => res.json())
   .then(data => {
 

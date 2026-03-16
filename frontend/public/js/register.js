@@ -20,7 +20,7 @@ function register() {
     return;
   }
 
-  fetch("http://localhost:3000/api/auth/register", {
+  fetch("https://honey-shield-1.onrender.com/api/auth/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

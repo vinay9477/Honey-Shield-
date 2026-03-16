@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultDiv.className = "locked";
       resultDiv.innerHTML = "<b>✗ Account Locked!</b><br>Too many failed attempts. Account locked for 15 minutes.";
 
-      fetch("http://localhost:3000/api/logs", {
+      fetch("https://honey-shield-1.onrender.com/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({userId: getUserId(),

@@ -726,9 +726,9 @@ function downloadAdminLogs(){
 async function loadAll(){
   try{
     const [statsRes,usersRes,logsRes]=await Promise.all([
-      fetch('http://localhost:3000/api/admin/stats'),
-      fetch('http://localhost:3000/api/admin/users'),
-      fetch('http://localhost:3000/api/admin/logs'),
+      fetch('https://honey-shield-1.onrender.com/api/admin/stats'),
+      fetch('https://honey-shield-1.onrender.com/api/admin/users'),
+      fetch('https://honey-shield-1.onrender.com/api/admin/logs'),
     ]);
     const stats=await statsRes.json();
     allUsers=await usersRes.json()||[];
@@ -861,7 +861,7 @@ function selectSvc(el){
 async function saveSvc(){
   if(!svcEditId)return;
   try{
-    const res=await fetch(`http://localhost:3000/api/admin/users/${svcEditId}/service`,{
+    const res=await fetch(`https://honey-shield-1.onrender.com/api/admin/users/${svcEditId}/service`,{
       method:'PATCH',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({service:svcEditSel})
     });
@@ -899,7 +899,7 @@ async function doDeleteUser(){
   if(!deleteUserId)return;
   closeConfirmModal();
   try{
-    await fetch(`http://localhost:3000/api/admin/users/${deleteUserId}`,{method:'DELETE'});
+    await fetch(`https://honey-shield-1.onrender.com/api/admin/users/${deleteUserId}`,{method:'DELETE'});
   }catch(e){}
   allUsers=allUsers.filter(u=>u._id!==deleteUserId);
   filteredUsers=filteredUsers.filter(u=>u._id!==deleteUserId);

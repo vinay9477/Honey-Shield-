@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultDiv.className = "blocked";
       resultDiv.innerHTML = "<b>✗ Invalid File Type!</b><br>Allowed: JPG, PNG, PDF<br>Received: " + file.type;
 
-      fetch("http://localhost:3000/api/logs", {
+      fetch("https://honey-shield-1.onrender.com/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({userId: getUserId(),
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultDiv.className = "blocked";
       resultDiv.innerHTML = "<b>✗ File Too Large!</b><br>Max size: 5MB<br>Received: " + (file.size / 1024 / 1024).toFixed(2) + "MB";
 
-      fetch("http://localhost:3000/api/logs", {
+      fetch("https://honey-shield-1.onrender.com/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({userId: getUserId(),

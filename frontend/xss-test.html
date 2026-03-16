@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultDiv.className = "warning";
       resultDiv.innerHTML = "<b>✓ XSS Attack Detected!</b><br>Malicious payload blocked successfully.";
 
-      fetch("http://localhost:3000/api/logs", {
+      fetch("https://honey-shield-1.onrender.com/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

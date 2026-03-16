@@ -321,7 +321,7 @@ async function attemptLogin() {
   document.getElementById('attemptBtn').disabled = true;
 
   try {
-    const res = await fetch('http://localhost:3000/api/logs', {
+    const res = await fetch('https://honey-shield-1.onrender.com/api/logs', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({

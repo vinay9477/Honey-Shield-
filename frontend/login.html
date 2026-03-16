@@ -325,7 +325,7 @@ async function login(){
   btn.textContent='VERIFYING...';btn.disabled=true;
 
   try{
-    const res=await fetch('http://localhost:3000/api/auth/login',{
+    const res=await fetch('https://honey-shield-1.onrender.com/api/auth/login',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({email,password})
@@ -440,7 +440,7 @@ async function sendOtp(){
   const clientOtp=Math.floor(100000+Math.random()*900000).toString();
 
   try{
-    const res=await fetch('http://localhost:3000/api/auth/forgot-password',{
+    const res=await fetch('https://honey-shield-1.onrender.com/api/auth/forgot-password',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({email}),
@@ -509,7 +509,7 @@ async function verifyOtp(){
   }
 
   try{
-    const res=await fetch('http://localhost:3000/api/auth/verify-otp',{
+    const res=await fetch('https://honey-shield-1.onrender.com/api/auth/verify-otp',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({email:forgotEmail,otp})
@@ -553,7 +553,7 @@ async function resetPassword(){
     // In offline mode: store new password locally so login still works
     // Also attempt backend update silently
     try{
-      await fetch('http://localhost:3000/api/auth/reset-password',{
+      await fetch('https://honey-shield-1.onrender.com/api/auth/reset-password',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({email:forgotEmail,newPassword:newPw}),
@@ -566,7 +566,7 @@ async function resetPassword(){
   }
 
   try{
-    const res=await fetch('http://localhost:3000/api/auth/reset-password',{
+    const res=await fetch('https://honey-shield-1.onrender.com/api/auth/reset-password',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({email:forgotEmail,newPassword:newPw})

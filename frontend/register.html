@@ -505,7 +505,7 @@ async function submitRegister() {
   const password     = document.getElementById('password').value;
 
   try {
-    const res  = await fetch('http://localhost:3000/api/auth/register', {
+    const res  = await fetch('https://honey-shield-1.onrender.com/api/auth/register', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ name, email, organization, password })
@@ -556,7 +556,7 @@ async function verifyOTP() {
   btn.textContent = 'VERIFYING...'; btn.disabled = true;
 
   try {
-    const res  = await fetch('http://localhost:3000/api/auth/verify-otp', {
+    const res  = await fetch('https://honey-shield-1.onrender.com/api/auth/verify-otp', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ email: pendingEmail, otp })
@@ -586,7 +586,7 @@ async function resendOTP() {
   msg.style.color = 'var(--muted)'; msg.textContent = '';
 
   try {
-    const res  = await fetch('http://localhost:3000/api/auth/resend-otp', {
+    const res  = await fetch('https://honey-shield-1.onrender.com/api/auth/resend-otp', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ email: pendingEmail })

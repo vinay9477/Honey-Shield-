@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultDiv.className = "bot-detected";
       resultDiv.innerHTML = "<b>✗ Bot Detected!</b><br>Automated form submission detected. Request blocked.";
 
-      fetch("http://localhost:3000/api/logs", {
+      fetch("https://honey-shield-1.onrender.com/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
