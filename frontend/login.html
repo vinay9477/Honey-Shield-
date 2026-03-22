@@ -60,8 +60,6 @@
     @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
     .shake{animation:shake .4s ease}
     @keyframes particle{from{opacity:1;transform:translate(-50%,-50%)}to{opacity:0;transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty)))}}
-
-    /* ── FORGOT PASSWORD MODAL ── */
     .modal-backdrop{position:fixed;inset:0;z-index:100;background:rgba(3,1,10,0.85);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
     .modal-backdrop.open{opacity:1;pointer-events:all}
     .modal{background:#0d0b16;border:1px solid rgba(255,255,255,0.09);border-radius:18px;width:100%;max-width:400px;margin:16px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.7);transform:translateY(20px) scale(0.97);transition:transform .3s cubic-bezier(.16,1,.3,1)}
@@ -85,8 +83,11 @@
     .otp-row{display:flex;gap:10px;justify-content:center}
     .otp-box{width:52px;height:58px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;text-align:center;outline:none;transition:border-color .2s,box-shadow .2s}
     .otp-box:focus{border-color:rgba(0,245,255,0.5);box-shadow:0 0 0 3px rgba(0,245,255,0.08)}
+    /* ── RESEND ROW — only added timer styles, no color changes ── */
     .resend-row{text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
     .resend-row a{color:var(--cyan);cursor:pointer;text-decoration:underline}
+    .resend-row a.disabled{color:var(--muted);cursor:not-allowed;text-decoration:none;pointer-events:none}
+    .resend-timer{color:var(--cyan)}
     .success-icon{text-align:center;font-size:52px;animation:lockPop .4s cubic-bezier(.16,1,.3,1) both}
     .success-msg{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;text-align:center;color:var(--green)}
     .success-sub{font-size:13px;color:var(--muted);text-align:center;line-height:1.6}
@@ -98,32 +99,26 @@
 <div class="glow glow-2"></div>
 <div class="grid-bg"></div>
 
-<!-- ── FORGOT PASSWORD MODAL ── -->
+<!-- FORGOT PASSWORD MODAL -->
 <div class="modal-backdrop" id="forgotBackdrop">
   <div class="modal">
-    <div class="modal::before"></div>
     <div class="modal-head">
       <div class="modal-title">FORGOT KEY?</div>
       <button class="modal-close" onclick="closeForgot()">✕</button>
     </div>
     <div class="modal-body">
-
-      <!-- Step 1: Enter email -->
       <div class="modal-step active" id="step1">
         <div class="modal-desc">Enter your registered email address. We'll send a 6-digit reset code.</div>
         <div class="field">
           <label>// Operator Email</label>
-          <input type="email" id="forgotEmail" placeholder="you@example.com"
-                 onkeydown="if(event.key==='Enter')sendOtp()">
+          <input type="email" id="forgotEmail" placeholder="you@example.com" onkeydown="if(event.key==='Enter')sendOtp()">
           <div class="field-error" id="forgotEmailErr"></div>
         </div>
         <div class="modal-status" id="step1Status"></div>
         <button class="btn-modal" id="sendOtpBtn" onclick="sendOtp()">SEND RESET CODE</button>
       </div>
-
-      <!-- Step 2: Enter OTP -->
       <div class="modal-step" id="step2">
-        <div class="modal-desc">Enter the 6-digit code sent to <strong id="sentToEmail" style="color:var(--cyan)"></strong></div>
+        <div class="modal-desc">Enter the 6-digit code sent to your email: <strong id="sentToEmail" style="color:var(--cyan)"></strong></div>
         <div class="otp-row">
           <input class="otp-box" id="otp0" maxlength="1" oninput="otpInput(0)" onkeydown="otpKey(event,0)">
           <input class="otp-box" id="otp1" maxlength="1" oninput="otpInput(1)" onkeydown="otpKey(event,1)">
@@ -132,19 +127,17 @@
           <input class="otp-box" id="otp4" maxlength="1" oninput="otpInput(4)" onkeydown="otpKey(event,4)">
           <input class="otp-box" id="otp5" maxlength="1" oninput="otpInput(5)" onkeydown="otpKey(event,5)">
         </div>
-        <div class="resend-row">Didn't receive it? <a onclick="resendOtp()">Resend code</a></div>
+        <!-- RESEND ROW WITH TIMER -->
+        <div class="resend-row" id="resendRow">Didn't receive it? <a id="resendLink" onclick="resendOtp()">Resend code</a></div>
         <div class="modal-status" id="step2Status"></div>
         <button class="btn-modal" id="verifyOtpBtn" onclick="verifyOtp()">VERIFY CODE</button>
       </div>
-
-      <!-- Step 3: New password -->
       <div class="modal-step" id="step3">
         <div class="modal-desc">Choose a strong new access key for your account.</div>
         <div class="field">
           <label>// New Access Key</label>
           <div class="pw-wrap">
-            <input type="password" id="newPw" placeholder="Min 6 characters"
-                   oninput="clrModalErr()" onkeydown="if(event.key==='Enter')resetPassword()">
+            <input type="password" id="newPw" placeholder="Min 6 characters" oninput="clrModalErr()" onkeydown="if(event.key==='Enter')resetPassword()">
             <button class="pw-toggle" type="button" onclick="toggleModalPw('newPw',this)">SHOW</button>
           </div>
           <div class="field-error" id="newPwErr"></div>
@@ -152,8 +145,7 @@
         <div class="field">
           <label>// Confirm Key</label>
           <div class="pw-wrap">
-            <input type="password" id="confirmPw" placeholder="Repeat your key"
-                   oninput="clrModalErr()" onkeydown="if(event.key==='Enter')resetPassword()">
+            <input type="password" id="confirmPw" placeholder="Repeat your key" oninput="clrModalErr()" onkeydown="if(event.key==='Enter')resetPassword()">
             <button class="pw-toggle" type="button" onclick="toggleModalPw('confirmPw',this)">SHOW</button>
           </div>
           <div class="field-error" id="confirmPwErr"></div>
@@ -161,27 +153,23 @@
         <div class="modal-status" id="step3Status"></div>
         <button class="btn-modal" id="resetPwBtn" onclick="resetPassword()">RESET KEY</button>
       </div>
-
-      <!-- Step 4: Done -->
       <div class="modal-step" id="step4">
         <div class="success-icon">🔓</div>
         <div class="success-msg">KEY UPDATED!</div>
         <div class="success-sub">Your access key has been reset successfully.<br>You can now log in with your new key.</div>
         <button class="btn-modal" onclick="closeForgot();return false;">BACK TO LOGIN</button>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- ── LOGIN CARD ── -->
+<!-- LOGIN CARD -->
 <div class="card">
   <div class="lock-overlay" id="lockOverlay">
     <div class="lock-icon" id="lockIcon">🔒</div>
     <div class="lock-msg" id="lockMsg" style="color:var(--text)">AUTHENTICATING</div>
     <div class="lock-sub" id="lockSub" style="color:var(--muted)">Please wait...</div>
   </div>
-
   <div class="card-head">
     <div class="shield-wrap">
       <svg width="26" height="26" viewBox="0 0 44 44" fill="none">
@@ -195,19 +183,16 @@
       <div class="head-title">HoneyShield</div>
     </div>
   </div>
-
   <div class="card-body">
     <div class="field">
       <label>// Operator ID</label>
-      <input type="email" id="email" placeholder="you@example.com" autocomplete="email"
-             oninput="clrErr('emailErr')" onkeydown="if(event.key==='Enter')login()">
+      <input type="email" id="email" placeholder="you@example.com" autocomplete="email" oninput="clrErr('emailErr')" onkeydown="if(event.key==='Enter')login()">
       <div class="field-error" id="emailErr"></div>
     </div>
     <div class="field">
       <label>// Access Key</label>
       <div class="pw-wrap">
-        <input type="password" id="password" placeholder="Your password" autocomplete="current-password"
-               oninput="clrErr('passwordErr')" onkeydown="if(event.key==='Enter')login()">
+        <input type="password" id="password" placeholder="Your password" autocomplete="current-password" oninput="clrErr('passwordErr')" onkeydown="if(event.key==='Enter')login()">
         <button class="pw-toggle" type="button" onclick="togglePw()">SHOW</button>
       </div>
       <div class="field-error" id="passwordErr"></div>
@@ -222,7 +207,6 @@
     <div class="status-msg" id="statusMsg"></div>
     <button class="btn-login" id="loginBtn" onclick="login()">AUTHENTICATE</button>
   </div>
-
   <div class="card-foot">
     No account? <a href="register.html">Create one →</a>
     &nbsp;·&nbsp;
@@ -231,7 +215,7 @@
 </div>
 
 <script>
-// ── MATRIX BG ──
+// MATRIX BG
 const mc=document.getElementById('matrix'),mct=mc.getContext('2d');
 function rsz(){mc.width=innerWidth;mc.height=innerHeight}
 rsz();window.addEventListener('resize',rsz);
@@ -251,126 +235,69 @@ setInterval(()=>{
   });
 },55);
 
-// ── LOGIN LOGIC ──
+// LOGIN LOGIC
 let attempts=[];
 const TIME_LIMIT=3000;
-
 function clrErr(id){document.getElementById(id).textContent=''}
 function setErr(id,msg){document.getElementById(id).textContent='>> '+msg}
 function setStatus(msg,type){const el=document.getElementById('statusMsg');el.textContent=msg;el.className='status-msg '+type}
-
-function togglePw(){
-  const inp=document.getElementById('password'),btn=document.querySelector('.pw-toggle');
-  inp.type=inp.type==='password'?'text':'password';
-  btn.textContent=inp.type==='password'?'SHOW':'HIDE';
-}
-
+function togglePw(){const inp=document.getElementById('password'),btn=document.querySelector('.pw-toggle');inp.type=inp.type==='password'?'text':'password';btn.textContent=inp.type==='password'?'SHOW':'HIDE';}
 function showLock(success){
-  const overlay=document.getElementById('lockOverlay');
-  const icon=document.getElementById('lockIcon');
-  const msg=document.getElementById('lockMsg');
-  const sub=document.getElementById('lockSub');
+  const overlay=document.getElementById('lockOverlay'),icon=document.getElementById('lockIcon'),msg=document.getElementById('lockMsg'),sub=document.getElementById('lockSub');
   overlay.classList.add('show');
-  if(success){
-    icon.textContent='🔓';
-    msg.style.color='var(--green)';msg.textContent='ACCESS GRANTED';
-    sub.style.color='var(--green)';sub.textContent='Redirecting to dashboard...';
-    spawnParticles('#00f5c4');
-  } else {
-    icon.textContent='🚫';
-    msg.style.color='var(--red)';msg.textContent='ACCESS DENIED';
-    sub.style.color='var(--red)';sub.textContent='Invalid credentials';
-    document.querySelector('.card').classList.add('shake');
-    setTimeout(()=>{
-      document.querySelector('.card').classList.remove('shake');
-      overlay.classList.remove('show');
-      icon.textContent='🔒';
-      msg.style.color='var(--text)';msg.textContent='AUTHENTICATING';
-      sub.style.color='var(--muted)';sub.textContent='Please wait...';
-    },1600);
-  }
+  if(success){icon.textContent='🔓';msg.style.color='var(--green)';msg.textContent='ACCESS GRANTED';sub.style.color='var(--green)';sub.textContent='Redirecting to dashboard...';spawnParticles('#00f5c4');}
+  else{icon.textContent='🚫';msg.style.color='var(--red)';msg.textContent='ACCESS DENIED';sub.style.color='var(--red)';sub.textContent='Invalid credentials';document.querySelector('.card').classList.add('shake');setTimeout(()=>{document.querySelector('.card').classList.remove('shake');overlay.classList.remove('show');icon.textContent='🔒';msg.style.color='var(--text)';msg.textContent='AUTHENTICATING';sub.style.color='var(--muted)';sub.textContent='Please wait...';},1600);}
 }
-
 function spawnParticles(color){
   const overlay=document.getElementById('lockOverlay');
-  for(let i=0;i<16;i++){
-    const p=document.createElement('div');
-    const angle=(i/16)*360;
-    const dist=60+Math.random()*60;
-    p.style.cssText=`position:absolute;width:5px;height:5px;border-radius:50%;background:${color};top:50%;left:50%;transform:translate(-50%,-50%);animation:particle .8s ease-out ${i*0.03}s forwards;--tx:${Math.cos(angle*Math.PI/180)*dist}px;--ty:${Math.sin(angle*Math.PI/180)*dist}px;`;
-    overlay.appendChild(p);
-    setTimeout(()=>p.remove(),1000);
-  }
+  for(let i=0;i<16;i++){const p=document.createElement('div'),angle=(i/16)*360,dist=60+Math.random()*60;p.style.cssText=`position:absolute;width:5px;height:5px;border-radius:50%;background:${color};top:50%;left:50%;transform:translate(-50%,-50%);animation:particle .8s ease-out ${i*0.03}s forwards;--tx:${Math.cos(angle*Math.PI/180)*dist}px;--ty:${Math.sin(angle*Math.PI/180)*dist}px;`;overlay.appendChild(p);setTimeout(()=>p.remove(),1000);}
 }
-
 async function login(){
   clrErr('emailErr');clrErr('passwordErr');
   document.getElementById('statusMsg').className='status-msg';
   document.getElementById('verifyBanner').classList.remove('show');
-
   const email=document.getElementById('email').value.trim();
   const password=document.getElementById('password').value;
-
   let ok=true;
   if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){setErr('emailErr','Valid email required');ok=false}
   if(!password||password.length<6){setErr('passwordErr','Password must be at least 6 characters');ok=false}
   if(!ok)return;
-
-  const now=Date.now();
-  attempts.push(now);
-  attempts=attempts.filter(t=>now-t<=TIME_LIMIT);
+  const now=Date.now();attempts.push(now);attempts=attempts.filter(t=>now-t<=TIME_LIMIT);
   if(attempts.length>=3){window.location.href='http://localhost:4000';return}
-
-  const btn=document.getElementById('loginBtn');
-  btn.textContent='VERIFYING...';btn.disabled=true;
-
+  const btn=document.getElementById('loginBtn');btn.textContent='VERIFYING...';btn.disabled=true;
   try{
-    const res=await fetch('http://localhost:3000/api/auth/login',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email,password})
-    });
+    const res=await fetch('http://localhost:3000/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
     const data=await res.json();
+    if(res.ok&&data.message==='Login successful'){localStorage.setItem('user',JSON.stringify({email,...data.user,_id:data.user._id||data.user.id||email}));showLock(true);setTimeout(()=>{window.location.href='user-dashboard.html'},2800);}
+    else if(data.needsVerification){btn.textContent='AUTHENTICATE';btn.disabled=false;document.getElementById('verifyBanner').classList.add('show');setStatus('>> Email not verified — check your inbox for OTP','warn');}
+    else{btn.textContent='AUTHENTICATE';btn.disabled=false;showLock(false);setStatus('>> '+(data.message||'Invalid credentials'),'error');}
+  }catch(err){btn.textContent='AUTHENTICATE';btn.disabled=false;setStatus('>> Connection error — server not reachable','error');}
+}
 
-    if(res.ok&&data.message==='Login successful'){
-      const userData={email,...data.user,_id:data.user._id||data.user.id||email};
-      localStorage.setItem('user',JSON.stringify(userData));
-      showLock(true);
-      setTimeout(()=>{window.location.href='user-dashboard.html'},2800);
-    } else if(data.needsVerification){
-      btn.textContent='AUTHENTICATE';btn.disabled=false;
-      document.getElementById('verifyBanner').classList.add('show');
-      setStatus('>> Email not verified — check your inbox for OTP','warn');
-    } else {
-      btn.textContent='AUTHENTICATE';btn.disabled=false;
-      showLock(false);
-      setStatus('>> '+(data.message||'Invalid credentials'),'error');
+// FORGOT PASSWORD MODAL
+let forgotEmail='',generatedOtp='',currentStep=1,offlineMode=false;
+let resendInterval=null;
+
+// ── RESEND TIMER (new feature) ──
+function startResendTimer(seconds=60){
+  const row=document.getElementById('resendRow');
+  let remaining=seconds;
+  row.innerHTML=`Resend code in <span class="resend-timer" id="resendTimer">${remaining}s</span>`;
+  clearInterval(resendInterval);
+  resendInterval=setInterval(()=>{
+    remaining--;
+    const el=document.getElementById('resendTimer');
+    if(el) el.textContent=remaining+'s';
+    if(remaining<=0){
+      clearInterval(resendInterval);
+      row.innerHTML=`Didn't receive it? <a id="resendLink" onclick="resendOtp()">Resend code</a>`;
     }
-  } catch(err){
-    btn.textContent='AUTHENTICATE';btn.disabled=false;
-    setStatus('>> Connection error — server not reachable','error');
-  }
+  },1000);
 }
 
-// ── FORGOT PASSWORD MODAL ──
-let forgotEmail='';
-let generatedOtp='';
-let currentStep=1;
-
-function openForgot(){
-  resetForgotModal();
-  document.getElementById('forgotBackdrop').classList.add('open');
-  setTimeout(()=>document.getElementById('forgotEmail').focus(),300);
-}
-
-function closeForgot(){
-  document.getElementById('forgotBackdrop').classList.remove('open');
-}
-
-// Close on backdrop click
-document.getElementById('forgotBackdrop').addEventListener('click',function(e){
-  if(e.target===this)closeForgot();
-});
+function openForgot(){resetForgotModal();document.getElementById('forgotBackdrop').classList.add('open');setTimeout(()=>document.getElementById('forgotEmail').focus(),300);}
+function closeForgot(){document.getElementById('forgotBackdrop').classList.remove('open');clearInterval(resendInterval);}
+document.getElementById('forgotBackdrop').addEventListener('click',function(e){if(e.target===this)closeForgot();});
 
 function resetForgotModal(){
   goStep(1);
@@ -381,94 +308,39 @@ function resetForgotModal(){
   document.getElementById('newPw').value='';
   document.getElementById('confirmPw').value='';
   forgotEmail='';generatedOtp='';
+  clearInterval(resendInterval);
+  // reset resend row
+  document.getElementById('resendRow').innerHTML=`Didn't receive it? <a id="resendLink" onclick="resendOtp()">Resend code</a>`;
 }
 
-function goStep(n){
-  for(let i=1;i<=4;i++){
-    document.getElementById('step'+i).classList.toggle('active',i===n);
-  }
-  currentStep=n;
-}
-
-function setModalStatus(id,msg,type){
-  const el=document.getElementById(id);
-  el.textContent=msg;
-  el.className='modal-status'+(type?' '+type:'');
-}
-
-function clrModalErr(){
-  document.getElementById('newPwErr').textContent='';
-  document.getElementById('confirmPwErr').textContent='';
-}
-
-function toggleModalPw(id,btn){
-  const inp=document.getElementById(id);
-  inp.type=inp.type==='password'?'text':'password';
-  btn.textContent=inp.type==='password'?'SHOW':'HIDE';
-}
-
-// OTP box auto-advance
-function otpInput(idx){
-  const val=document.getElementById('otp'+idx).value;
-  if(val&&idx<5)document.getElementById('otp'+(idx+1)).focus();
-}
-function otpKey(e,idx){
-  if(e.key==='Backspace'&&!document.getElementById('otp'+idx).value&&idx>0){
-    document.getElementById('otp'+(idx-1)).focus();
-  }
-  if(e.key==='Enter')verifyOtp();
-}
-function getOtp(){
-  return Array.from({length:6},(_,i)=>document.getElementById('otp'+i).value).join('');
-}
-
-// offline-capable OTP flow — tries backend, falls back to client-side
-let offlineMode = false;
+function goStep(n){for(let i=1;i<=4;i++)document.getElementById('step'+i).classList.toggle('active',i===n);currentStep=n;}
+function setModalStatus(id,msg,type){const el=document.getElementById(id);el.textContent=msg;el.className='modal-status'+(type?' '+type:'');}
+function clrModalErr(){document.getElementById('newPwErr').textContent='';document.getElementById('confirmPwErr').textContent='';}
+function toggleModalPw(id,btn){const inp=document.getElementById(id);inp.type=inp.type==='password'?'text':'password';btn.textContent=inp.type==='password'?'SHOW':'HIDE';}
+function otpInput(idx){const val=document.getElementById('otp'+idx).value;if(val&&idx<5)document.getElementById('otp'+(idx+1)).focus();}
+function otpKey(e,idx){if(e.key==='Backspace'&&!document.getElementById('otp'+idx).value&&idx>0)document.getElementById('otp'+(idx-1)).focus();if(e.key==='Enter')verifyOtp();}
+function getOtp(){return Array.from({length:6},(_,i)=>document.getElementById('otp'+i).value).join('');}
 
 async function sendOtp(){
   const email=document.getElementById('forgotEmail').value.trim();
   document.getElementById('forgotEmailErr').textContent='';
-  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    document.getElementById('forgotEmailErr').textContent='>> Valid email required';return;
-  }
-
-  const btn=document.getElementById('sendOtpBtn');
-  btn.textContent='SENDING...';btn.disabled=true;
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('forgotEmailErr').textContent='>> Valid email required';return;}
+  const btn=document.getElementById('sendOtpBtn');btn.textContent='SENDING...';btn.disabled=true;
   setModalStatus('step1Status','','');
-
-  // Generate OTP client-side (used in offline fallback)
   const clientOtp=Math.floor(100000+Math.random()*900000).toString();
-
   try{
-    const res=await fetch('http://localhost:3000/api/auth/forgot-password',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email}),
-      signal:AbortSignal.timeout(3000)
-    });
+    const res=await fetch('http://localhost:3000/api/auth/forgot-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email}),signal:AbortSignal.timeout(5000)});
     const data=await res.json();
     if(res.ok){
-      offlineMode=false;
-      forgotEmail=email;
-      if(data.otp) generatedOtp=data.otp;
+      offlineMode=false;forgotEmail=email;
+      if(data.otp)generatedOtp=data.otp;
       advanceToOtp(email);
-    } else {
-      setModalStatus('step1Status','>> '+(data.message||'Email not found'),'error');
-      btn.textContent='SEND RESET CODE';btn.disabled=false;
-    }
-  } catch(err){
-    // Backend unreachable — run fully client-side
-    offlineMode=true;
-    forgotEmail=email;
-    generatedOtp=clientOtp;
-    // Show OTP in a styled banner so user can see it (dev/offline mode)
-    setModalStatus('step1Status',`// DEV MODE — Your reset code: ${clientOtp}`,'info');
-    setTimeout(()=>{
-      advanceToOtp(email);
-      setModalStatus('step2Status',`// DEV MODE — Code: ${generatedOtp}`,'info');
-    },1800);
-    btn.textContent='SEND RESET CODE';btn.disabled=false;
-    return;
+    }else{setModalStatus('step1Status','>> '+(data.message||'Email not found'),'error');}
+  }catch(err){
+    offlineMode=true;forgotEmail=email;generatedOtp=clientOtp;
+    setModalStatus('step1Status',`// DEV MODE — Reset code: ${clientOtp}`,'info');
+    setTimeout(()=>{advanceToOtp(email);setModalStatus('step2Status',`// DEV MODE — Code: ${generatedOtp}`,'info');},1800);
+    btn.textContent='SEND RESET CODE';btn.disabled=false;return;
   }
   btn.textContent='SEND RESET CODE';btn.disabled=false;
 }
@@ -476,113 +348,57 @@ async function sendOtp(){
 function advanceToOtp(email){
   document.getElementById('sentToEmail').textContent=email;
   goStep(2);
-  setTimeout(()=>document.getElementById('otp0').focus(),100);
+  setTimeout(()=>{document.getElementById('otp0').focus();startResendTimer(60);},100);
 }
 
 async function resendOtp(){
   for(let i=0;i<6;i++)document.getElementById('otp'+i).value='';
   setModalStatus('step2Status','','');
   await sendOtp();
-  if(goStep) goStep(2);
+  goStep(2);
 }
 
 async function verifyOtp(){
   const otp=getOtp();
   if(otp.length<6){setModalStatus('step2Status','>> Enter all 6 digits','error');return;}
-
-  const btn=document.getElementById('verifyOtpBtn');
-  btn.textContent='VERIFYING...';btn.disabled=true;
-  setModalStatus('step2Status','','');
-
+  const btn=document.getElementById('verifyOtpBtn');btn.textContent='VERIFYING...';btn.disabled=true;setModalStatus('step2Status','','');
   if(offlineMode){
-    // Client-side verification
-    if(otp===generatedOtp){
-      goStep(3);
-      setTimeout(()=>document.getElementById('newPw').focus(),100);
-    } else {
-      setModalStatus('step2Status','>> Incorrect code — try again','error');
-      for(let i=0;i<6;i++)document.getElementById('otp'+i).value='';
-      document.getElementById('otp0').focus();
-    }
-    btn.textContent='VERIFY CODE';btn.disabled=false;
-    return;
+    if(otp===generatedOtp){goStep(3);setTimeout(()=>document.getElementById('newPw').focus(),100);}
+    else{setModalStatus('step2Status','>> Incorrect code — try again','error');for(let i=0;i<6;i++)document.getElementById('otp'+i).value='';document.getElementById('otp0').focus();}
+    btn.textContent='VERIFY CODE';btn.disabled=false;return;
   }
-
   try{
-    const res=await fetch('http://localhost:3000/api/auth/verify-otp',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email:forgotEmail,otp})
-    });
+    const res=await fetch('http://localhost:3000/api/auth/verify-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:forgotEmail,otp})});
     const data=await res.json();
-    if(res.ok){
-      goStep(3);
-      setTimeout(()=>document.getElementById('newPw').focus(),100);
-    } else {
-      setModalStatus('step2Status','>> '+(data.message||'Invalid or expired code'),'error');
-      for(let i=0;i<6;i++)document.getElementById('otp'+i).value='';
-      document.getElementById('otp0').focus();
-    }
-  } catch(err){
-    // Fallback to client-side check if server dropped mid-flow
-    if(otp===generatedOtp){
-      offlineMode=true;
-      goStep(3);
-      setTimeout(()=>document.getElementById('newPw').focus(),100);
-    } else {
-      setModalStatus('step2Status','>> Incorrect code — try again','error');
-    }
+    if(res.ok){goStep(3);setTimeout(()=>document.getElementById('newPw').focus(),100);}
+    else{setModalStatus('step2Status','>> '+(data.message||'Invalid or expired code'),'error');for(let i=0;i<6;i++)document.getElementById('otp'+i).value='';document.getElementById('otp0').focus();}
+  }catch(err){
+    if(otp===generatedOtp){offlineMode=true;goStep(3);setTimeout(()=>document.getElementById('newPw').focus(),100);}
+    else setModalStatus('step2Status','>> Incorrect code — try again','error');
   }
   btn.textContent='VERIFY CODE';btn.disabled=false;
 }
 
 async function resetPassword(){
   clrModalErr();
-  const newPw=document.getElementById('newPw').value;
-  const confirmPw=document.getElementById('confirmPw').value;
+  const newPw=document.getElementById('newPw').value,confirmPw=document.getElementById('confirmPw').value;
   let ok=true;
   if(!newPw||newPw.length<6){document.getElementById('newPwErr').textContent='>> Min 6 characters';ok=false}
   if(newPw!==confirmPw){document.getElementById('confirmPwErr').textContent='>> Keys do not match';ok=false}
   if(!ok)return;
-
-  const btn=document.getElementById('resetPwBtn');
-  btn.textContent='UPDATING...';btn.disabled=true;
-  setModalStatus('step3Status','','');
-
+  const btn=document.getElementById('resetPwBtn');btn.textContent='UPDATING...';btn.disabled=true;setModalStatus('step3Status','','');
   if(offlineMode){
-    // In offline mode: store new password locally so login still works
-    // Also attempt backend update silently
-    try{
-      await fetch('http://localhost:3000/api/auth/reset-password',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({email:forgotEmail,newPassword:newPw}),
-        signal:AbortSignal.timeout(2000)
-      });
-    } catch(e){ /* silent — backend still down */ }
-    goStep(4);
-    btn.textContent='RESET KEY';btn.disabled=false;
-    return;
+    try{await fetch('http://localhost:3000/api/auth/reset-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:forgotEmail,newPassword:newPw}),signal:AbortSignal.timeout(2000)});}catch(e){}
+    goStep(4);btn.textContent='RESET KEY';btn.disabled=false;return;
   }
-
   try{
-    const res=await fetch('http://localhost:3000/api/auth/reset-password',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email:forgotEmail,newPassword:newPw})
-    });
+    const res=await fetch('http://localhost:3000/api/auth/reset-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:forgotEmail,newPassword:newPw})});
     const data=await res.json();
-    if(res.ok){
-      goStep(4);
-    } else {
-      setModalStatus('step3Status','>> '+(data.message||'Reset failed'),'error');
-    }
-  } catch(err){
-    setModalStatus('step3Status','>> Connection error','error');
-  }
+    if(res.ok)goStep(4);
+    else setModalStatus('step3Status','>> '+(data.message||'Reset failed'),'error');
+  }catch(err){setModalStatus('step3Status','>> Connection error','error');}
   btn.textContent='RESET KEY';btn.disabled=false;
 }
 </script>
 </body>
 </html>
-
