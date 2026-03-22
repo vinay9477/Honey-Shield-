@@ -3,736 +3,1087 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings | Honey Shield - Account Settings</title>
-  <link rel="stylesheet" href="public/css/dashboard.css">
+  <title>Settings | HoneyShield</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="public/css/cyber-dashboard.css">
   <style>
-    .page-transition {
-      animation: fadeIn 0.4s ease-in;
-    }
+    /* ── SETTINGS-SPECIFIC STYLES ── */
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .main {
-      animation: fadeIn 0.5s ease-in;
-    }
-
-    .settings-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 250px 1fr;
-      gap: 30px;
-      padding: 20px;
-    }
-
-    .settings-sidebar {
+    /* Tab nav */
+    .settings-nav {
+      display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 3px;
     }
-
-    .settings-tab {
-      padding: 14px 18px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      color: #cbd5e1;
+    .s-tab {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: 500;
-      font-size: 14px;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .settings-tab:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: #e2e8f0;
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .settings-tab.active {
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(30, 64, 175, 0.2));
-      border-color: rgba(37, 99, 235, 0.4);
-      color: #60a5fa;
-    }
-
-    .settings-content {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 40px;
-      animation: fadeIn 0.4s ease-out;
-    }
-
-    .settings-content h3 {
-      margin: 0 0 10px 0;
-      font-size: 24px;
-      color: #e2e8f0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .settings-desc {
-      color: #94a3b8;
-      font-size: 13px;
-      margin-bottom: 30px;
-      line-height: 1.6;
-    }
-
-    .form-section {
-      margin-bottom: 40px;
-      padding-bottom: 30px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .form-section:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      color: #cbd5e1;
-      font-weight: 600;
-      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
+      color: rgba(226,232,240,0.4);
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      background: transparent;
+    }
+    .s-tab svg { width:15px; height:15px; flex-shrink:0; stroke:currentColor; fill:none; stroke-width:1.5; opacity:.5; transition:opacity .2s; }
+    .s-tab:hover { color: rgba(226,232,240,0.8); background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.06); }
+    .s-tab:hover svg { opacity: .8; }
+    .s-tab.active {
+      color: var(--cyan);
+      background: rgba(0,245,255,0.08);
+      border-color: rgba(0,245,255,0.15);
+      font-weight: 600;
+    }
+    .s-tab.active svg { opacity: 1; color: var(--cyan); }
+
+    /* Layout */
+    .settings-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 20px;
+    }
+    .settings-left { display: flex; flex-direction: column; gap: 8px; }
+    .settings-nav-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(226,232,240,0.2);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 0 8px;
+      margin-bottom: 4px;
+    }
+
+    /* Panels */
+    .s-panel { display: none; flex-direction: column; gap: 16px; }
+    .s-panel.active { display: flex; }
+
+    /* Panel heading */
+    .s-panel-head {
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .s-panel-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
       letter-spacing: 0.5px;
     }
+    .s-panel-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      margin-top: 4px;
+    }
 
-    .password-wrapper {
+    /* Card — same as dashboard panel */
+    .s-card {
+      background: rgba(8,2,20,0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
       position: relative;
-      display: flex;
-      align-items: center;
+      overflow: hidden;
     }
-
-    .form-group input[type="text"],
-    .form-group input[type="email"],
-    .form-group input[type="password"] {
-      width: 100%;
-      padding: 12px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
-      color: #e2e8f0;
-      font-size: 14px;
-      transition: all 0.3s ease;
-    }
-
-    .form-group input::placeholder {
-      color: #64748b;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(37, 99, 235, 0.5);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    .password-toggle {
+    .s-card::before {
+      content: '';
       position: absolute;
-      right: 12px;
-      background: none;
-      border: none;
-      color: #94a3b8;
-      cursor: pointer;
-      font-size: 16px;
-      padding: 4px 8px;
-      transition: color 0.2s ease;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,245,255,0.2), rgba(124,58,237,0.2), transparent);
     }
+    .s-card.accent-cyan::before  { background: linear-gradient(90deg, var(--cyan), transparent); }
+    .s-card.accent-violet::before { background: linear-gradient(90deg, #7c3aed, transparent); }
+    .s-card.accent-green::before  { background: linear-gradient(90deg, var(--green), transparent); }
+    .s-card.accent-orange::before { background: linear-gradient(90deg, var(--orange), transparent); }
+    .s-card.accent-red::before    { background: linear-gradient(90deg, var(--red), transparent); }
 
-    .password-toggle:hover {
-      color: #cbd5e1;
-    }
-
-    .password-strength {
-      margin-top: 8px;
+    /* Card label */
+    .s-card-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(226,232,240,0.3);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
       display: flex;
-      gap: 4px;
       align-items: center;
+      gap: 8px;
+    }
+    .s-card-label::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
     }
 
-    .strength-bar {
-      height: 4px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 2px;
-      flex: 1;
+    /* Form fields */
+    .s-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .s-form-grid.full { grid-template-columns: 1fr; }
+    .s-field { display: flex; flex-direction: column; gap: 6px; }
+    .s-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(226,232,240,0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
-
-    .strength-bar.weak {
-      background: #ef4444;
-    }
-
-    .strength-bar.fair {
-      background: #f97316;
-    }
-
-    .strength-bar.good {
-      background: #eab308;
-    }
-
-    .strength-bar.strong {
-      background: #10b981;
-    }
-
-    .strength-text {
-      font-size: 12px;
-      color: #94a3b8;
-    }
-
-    .info-box {
-      background: rgba(59, 130, 246, 0.1);
-      border-left: 3px solid rgba(59, 130, 246, 0.5);
-      padding: 16px;
-      border-radius: 6px;
-      margin: 30px 0;
-      color: #93c5fd;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 12px;
-      margin-top: 30px;
-    }
-
-    .btn-save,
-    .btn-reset {
-      padding: 12px 24px;
-      border: none;
+    .s-input {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      font-weight: 600;
-      font-size: 14px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      padding: 10px 14px;
+      outline: none;
+      width: 100%;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .s-input:focus { border-color: rgba(0,245,255,0.4); box-shadow: 0 0 0 2px rgba(0,245,255,0.07); }
+    .s-input:disabled { opacity: .35; cursor: not-allowed; }
+    .s-input::placeholder { color: rgba(226,232,240,0.15); }
+    .s-input.err { border-color: rgba(255,59,107,0.5); box-shadow: 0 0 0 2px rgba(255,59,107,0.07); }
+    .s-input.ok  { border-color: rgba(0,245,196,0.4); }
+
+    /* Password wrap */
+    .pw-wrap { position: relative; }
+    .pw-wrap .s-input { padding-right: 38px; }
+    .pw-eye {
+      position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: rgba(226,232,240,0.2); padding: 2px;
+      display: flex; align-items: center; transition: color .2s;
+    }
+    .pw-eye:hover { color: var(--cyan); }
+    .pw-eye svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+    .s-hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(226,232,240,0.2);
+      letter-spacing: .5px;
+    }
+    .s-err {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--red);
+      min-height: 13px;
+      letter-spacing: .3px;
+    }
+
+    /* Strength bar */
+    .str-wrap { margin-top: 5px; }
+    .str-bg { height: 2px; background: rgba(255,255,255,0.05); border-radius: 2px; }
+    .str-fill { height: 100%; width: 0; transition: width .3s, background .3s; border-radius: 2px; }
+    .str-lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 3px;
+      color: rgba(226,232,240,0.3);
+    }
+
+    /* Service badge — same as dashboard */
+    .svc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .svc-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .svc-active {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      background: rgba(0,245,196,0.12);
+      color: var(--green);
+      border: 1px solid rgba(0,245,196,0.2);
+      letter-spacing: 1px;
+    }
+
+    /* Select */
+    .s-select {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 10px 30px 10px 14px;
+      outline: none;
+      width: 100%;
+      appearance: none;
       cursor: pointer;
-      transition: all 0.3s ease;
-      flex: 1;
+      transition: border-color .2s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%23e2e8f040' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
     }
+    .s-select:focus { border-color: rgba(0,245,255,0.4); }
+    .s-select option { background: #07050f; }
 
-    .btn-save {
-      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-      color: white;
-    }
-
-    .btn-save:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
-    }
-
-    .btn-reset {
-      background: rgba(239, 68, 68, 0.1);
-      color: #fca5a5;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    .btn-reset:hover {
-      background: rgba(239, 68, 68, 0.2);
-    }
-
-    .notification {
-      position: fixed;
-      top: 80px;
-      right: 20px;
-      padding: 16px 24px;
+    /* Buttons */
+    .s-btn-row { display: flex; gap: 10px; margin-top: 18px; align-items: center; flex-wrap: wrap; }
+    .s-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 18px;
       border-radius: 8px;
-      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+    }
+    .s-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; flex-shrink: 0; }
+    .s-btn:disabled { opacity: .4; cursor: not-allowed; }
+    .s-btn-primary {
+      background: rgba(0,245,255,0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0,245,255,0.2);
+    }
+    .s-btn-primary:hover:not(:disabled) {
+      background: rgba(0,245,255,0.2);
+      box-shadow: 0 0 20px rgba(0,245,255,0.15);
+    }
+    .s-btn-ghost {
+      background: transparent;
+      color: rgba(226,232,240,0.4);
+      border: 1px solid var(--border);
+    }
+    .s-btn-ghost:hover:not(:disabled) {
+      color: rgba(226,232,240,0.8);
+      border-color: rgba(255,255,255,0.15);
+    }
+    .s-btn-danger {
+      background: transparent;
+      color: rgba(255,59,107,0.7);
+      border: 1px solid rgba(255,59,107,0.2);
+    }
+    .s-btn-danger:hover:not(:disabled) {
+      background: rgba(255,59,107,0.08);
+      border-color: rgba(255,59,107,0.4);
+      color: var(--red);
+      box-shadow: 0 0 16px rgba(255,59,107,0.1);
+    }
+    .s-spinner {
+      width: 12px; height: 12px;
+      border: 1.5px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Toggles */
+    .s-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .s-toggle-row:last-of-type { border-bottom: none; }
+    .s-toggle-name {
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 14px;
-      max-width: 350px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      z-index: 9999;
-      animation: slideInRight 0.4s ease-out;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .s-toggle-desc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: .3px;
+    }
+    .s-toggle { position: relative; width: 42px; height: 22px; flex-shrink: 0; }
+    .s-toggle input { opacity: 0; width: 0; height: 0; }
+    .s-tsl {
+      position: absolute; cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      transition: .25s;
+    }
+    .s-tsl::before {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      left: 3px; bottom: 3px;
+      background: rgba(226,232,240,0.25);
+      border-radius: 50%;
+      transition: .25s;
+    }
+    .s-toggle input:checked + .s-tsl { background: rgba(0,245,255,0.1); border-color: rgba(0,245,255,0.3); }
+    .s-toggle input:checked + .s-tsl::before { transform: translateX(20px); background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+
+    /* Security rows */
+    .s-sec-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .s-sec-row:last-child { border-bottom: none; }
+    .s-sec-name { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); }
+    .s-sec-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 2px; }
+    .s-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid;
+      white-space: nowrap;
+    }
+    .s-badge-ok   { color: var(--green);  border-color: rgba(0,245,196,0.2);  background: rgba(0,245,196,0.08); }
+    .s-badge-warn { color: var(--orange); border-color: rgba(249,115,22,0.2); background: rgba(249,115,22,0.08); }
+
+    /* Danger zone */
+    .s-danger-card {
+      background: rgba(8,2,20,0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,59,107,0.15);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .s-danger-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, var(--red), transparent);
+    }
+    .s-danger-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(255,59,107,0.7);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .s-danger-label::before {
+      content: '';
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--red); box-shadow: 0 0 6px var(--red);
+    }
+    .s-danger-desc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
     }
 
-    .notification.success {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
-      color: white;
-      border: 1px solid rgba(16, 185, 129, 0.5);
+    /* Saved indicator */
+    .s-saved {
+      display: flex; align-items: center; gap: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--green);
+      letter-spacing: 1px;
+      opacity: 0; transition: opacity .3s;
     }
+    .s-saved.show { opacity: 1; }
+    .s-saved svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.5; }
 
-    .notification.error {
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9));
-      color: white;
-      border: 1px solid rgba(239, 68, 68, 0.5);
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: rgba(8,2,20,0.95);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,245,255,0.2);
+      border-radius: 10px;
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 1px;
+      padding: 12px 18px;
+      display: flex; align-items: center; gap: 10px;
+      transform: translateY(60px); opacity: 0;
+      transition: all .25s; z-index: 999;
+      box-shadow: 0 0 24px rgba(0,245,255,0.1);
     }
-
-    .notification.warning {
-      background: linear-gradient(135deg, rgba(251, 146, 60, 0.9), rgba(249, 115, 22, 0.9));
-      color: white;
-      border: 1px solid rgba(251, 146, 60, 0.5);
-    }
-
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(400px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes slideOutRight {
-      from {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      to {
-        opacity: 0;
-        transform: translateX(400px);
-      }
-    }
-
-    .notification.fade-out {
-      animation: slideOutRight 0.4s ease-in forwards;
-    }
-
-    .error-text {
-      color: #fca5a5;
-      font-size: 12px;
-      margin-top: 6px;
-      display: none;
-    }
-
-    .error-text.show {
-      display: block;
-    }
-
-    .success-text {
-      color: #6ee7b7;
-      font-size: 12px;
-      margin-top: 6px;
-      display: none;
-    }
-
-    .success-text.show {
-      display: block;
-    }
-
-    @media (max-width: 768px) {
-      .settings-container {
-        grid-template-columns: 1fr;
-      }
-
-      .settings-content {
-        padding: 24px;
-      }
-    }
+    .toast.on  { transform: translateY(0); opacity: 1; }
+    .toast.err { border-color: rgba(255,59,107,0.3); color: var(--red); box-shadow: 0 0 24px rgba(255,59,107,0.1); }
+    .toast svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
   </style>
 </head>
 <body>
 
+<canvas id="matrix-canvas"></canvas>
+<div class="mesh-bg"></div>
+<div class="grid-overlay"></div>
+
 <div class="layout">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <h2>Honey Shield</h2>
-    <ul>
-      <li onclick="navigateTo('user-dashboard.html')">🏠 Dashboard</li>
-      <li onclick="navigateTo('services.html')">⚙️ Services</li>
-      <li onclick="navigateTo('activity-logs.html')">📋 Activity Logs</li>
-      <li class="active" onclick="navigateTo('settings.html')">⚙️ Settings</li>
+  <!-- ── SIDEBAR (exact copy from dashboard) ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <svg class="sb-shield" viewBox="0 0 40 40" fill="none">
+        <path d="M20 3L5 9V20C5 27.5 11.5 34.5 20 37C28.5 34.5 35 27.5 35 20V9L20 3Z"
+              stroke="url(#sbGrad)" stroke-width="1.5" fill="rgba(0,245,255,0.05)"/>
+        <path d="M13 20L17.5 24.5L27 15" stroke="url(#sbGrad)" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+        <defs>
+          <linearGradient id="sbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00f5ff"/>
+            <stop offset="100%" stop-color="#7c3aed"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="sb-brand">
+        <span class="sb-title">HoneyShield</span>
+        <span class="sb-sub">SECURITY OPS</span>
+      </div>
+    </div>
+    <div class="sb-divider"></div>
+    <div class="sb-section-label">// NAVIGATION</div>
+    <ul class="sb-nav">
+      <li onclick="navigateTo('user-dashboard.html')">
+        <svg viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span>Dashboard</span>
+      </li>
+      <li onclick="navigateTo('services.html')">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>Services</span>
+      </li>
+      <li onclick="navigateTo('activity-logs.html')">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h10M3 15h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>Activity Logs</span>
+      </li>
+      <li class="active" onclick="navigateTo('settings.html')">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 1.5A8.5 8.5 0 1 0 10 18.5 8.5 8.5 0 0 0 10 1.5z" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
+        <span>Settings</span>
+        <div class="nav-indicator"></div>
+      </li>
     </ul>
+    <div class="sb-divider" style="margin-top:auto"></div>
+    <div class="sb-section-label">// SYSTEM</div>
+    <div class="sb-status-block">
+      <div class="sb-status-row"><span class="sb-status-dot green"></span><span>Honeypot LIVE</span></div>
+      <div class="sb-status-row"><span class="sb-status-dot cyan"></span><span>TLS Active</span></div>
+      <div class="sb-status-row"><span class="sb-status-dot violet"></span><span>Monitor ON</span></div>
+    </div>
+    <button class="sb-logout" onclick="doLogout()">
+      <svg viewBox="0 0 20 20" fill="none"><path d="M13 3h4v14h-4M8 14l4-4-4-4M12 10H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Disconnect</span>
+    </button>
   </aside>
 
-  <!-- Main -->
-  <main class="main">
+  <!-- ── MAIN ── -->
+  <div class="main" style="display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:24px 28px;gap:20px;">
 
+    <!-- TOPBAR — exact copy from dashboard -->
     <header class="topbar">
-      <h3>⚙️ Account Settings</h3>
-      <button onclick="logout()">Logout</button>
+      <div class="topbar-left">
+        <div class="topbar-title" style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;">Account Settings</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted)">// HoneyShield Operator</div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-clock" id="clock">--:--:--</div>
+        <div style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--green)">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--green);animation:livePulse 2s ease-in-out infinite;display:inline-block"></span>
+          SYSTEM ONLINE
+        </div>
+        <div class="topbar-user">
+          <div class="user-avatar" id="userAvatar">OP</div>
+          <div class="user-info">
+            <span class="user-name" id="userName">Operator</span>
+            <span class="user-role">SECURITY OPS</span>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <div class="settings-container">
+    <!-- SETTINGS CONTENT -->
+    <div class="settings-layout">
 
-      <!-- Settings Sidebar Menu -->
-      <div class="settings-sidebar">
-        <div class="settings-tab active" onclick="switchTab('profile')">
-          👤 Profile
-        </div>
-        <div class="settings-tab" onclick="switchTab('password')">
-          🔐 Password
-        </div>
-        <div class="settings-tab" onclick="switchTab('security')">
-          🛡️ Security
+      <!-- LEFT NAV -->
+      <div class="settings-left">
+        <div class="settings-nav-label">// CONFIG MODULES</div>
+        <div class="settings-nav">
+          <div class="s-tab active" id="tab-profile" onclick="switchTab('profile')">
+            <svg viewBox="0 0 20 20"><path d="M16 17v-1.5A3.5 3.5 0 0 0 12.5 12h-5A3.5 3.5 0 0 0 4 15.5V17" stroke-linecap="round"/><circle cx="10" cy="6.5" r="2.5"/></svg>
+            Profile
+          </div>
+          <div class="s-tab" id="tab-password" onclick="switchTab('password')">
+            <svg viewBox="0 0 20 20"><rect x="3" y="9" width="14" height="9" rx="2"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" stroke-linecap="round"/></svg>
+            Password
+          </div>
+          <div class="s-tab" id="tab-alerts" onclick="switchTab('alerts')">
+            <svg viewBox="0 0 20 20"><path d="M10 2a6 6 0 0 0-6 6c0 5.5-2 7-2 7h16s-2-1.5-2-7a6 6 0 0 0-6-6zM8 17a2 2 0 0 0 4 0" stroke-linecap="round"/></svg>
+            Alerts
+          </div>
+          <div class="s-tab" id="tab-security" onclick="switchTab('security')">
+            <svg viewBox="0 0 20 20"><path d="M10 2L3 5v6c0 5 3.5 8.5 7 9.5C13.5 19.5 17 16 17 11V5L10 2z"/></svg>
+            Security
+          </div>
         </div>
       </div>
 
-      <!-- Settings Content Panel -->
-      <div class="settings-content">
+      <!-- RIGHT PANELS -->
+      <div>
 
-        <!-- Profile Tab -->
-        <div id="profile-tab" class="settings-tab-content">
-          <h3>👤 Profile Information</h3>
-          <p class="settings-desc">Manage your account profile and organization details</p>
+        <!-- PROFILE -->
+        <div class="s-panel active" id="panel-profile">
+          <div class="s-panel-head">
+            <div class="s-panel-title">Profile Information</div>
+            <div class="s-panel-sub">// manage operator identity &amp; organization</div>
+          </div>
 
-          <div class="form-section">
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" placeholder="your@email.com">
-              <div class="error-text" id="emailError"></div>
+          <div class="s-card accent-cyan">
+            <div class="s-card-label">Operator Identity</div>
+            <div class="s-form-grid">
+              <div class="s-field">
+                <label class="s-label">Full Name</label>
+                <input class="s-input" id="p-name" type="text" placeholder="Enter full name"/>
+              </div>
+              <div class="s-field">
+                <label class="s-label">Email Address</label>
+                <input class="s-input" id="p-email" type="email" disabled/>
+                <span class="s-hint">Email cannot be changed</span>
+              </div>
             </div>
-
-            <div class="form-group">
-              <label for="org">Organization</label>
-              <input type="text" id="org" placeholder="Your Organization Name">
-              <div class="success-text" id="orgSuccess"></div>
+            <div class="s-form-grid">
+              <div class="s-field">
+                <label class="s-label">Organization</label>
+                <input class="s-input" id="p-org" type="text" placeholder="Your organization"/>
+              </div>
+              <div class="s-field">
+                <label class="s-label">Active Service</label>
+                <div class="svc-badge">
+                  <span class="svc-name" id="p-service">SSH</span>
+                  <span class="svc-active">ACTIVE</span>
+                </div>
+                <span class="s-hint" style="margin-top:5px">Assigned by admin</span>
+              </div>
             </div>
-
-            <div class="button-group">
-              <button class="btn-save" onclick="saveProfile()">💾 Save Profile</button>
-              <button class="btn-reset" onclick="resetProfile()">↺ Reset</button>
+            <div class="s-btn-row">
+              <button class="s-btn s-btn-primary" id="btn-save-profile" onclick="saveProfile()">
+                <svg viewBox="0 0 20 20"><path d="M15 17H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8l4 4v8a2 2 0 0 1-2 2z"/><polyline points="13 17 13 11 7 11 7 17"/><polyline points="7 3 7 7 13 7"/></svg>
+                <span class="btn-txt">Save Profile</span>
+              </button>
+              <button class="s-btn s-btn-ghost" onclick="resetProfile()">
+                <svg viewBox="0 0 20 20"><path d="M1 4v5h5M18.4 13a8 8 0 1 1-.5-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Reset
+              </button>
+              <div class="s-saved" id="profile-saved">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Saved
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Password Tab -->
-        <div id="password-tab" class="settings-tab-content" style="display: none;">
-          <h3>🔐 Change Password</h3>
-          <p class="settings-desc">Update your password to keep your account secure</p>
-
-          <div class="info-box">
-            ℹ️ Your password must be at least 8 characters long and should include a mix of letters, numbers, and special characters for better security.
+        <!-- PASSWORD -->
+        <div class="s-panel" id="panel-password">
+          <div class="s-panel-head">
+            <div class="s-panel-title">Change Password</div>
+            <div class="s-panel-sub">// update operator access credentials</div>
           </div>
 
-          <div class="form-section">
-            <div class="form-group">
-              <label for="currentPass">Current Password</label>
-              <div class="password-wrapper">
-                <input type="password" id="currentPass" placeholder="Enter your current password">
-                <button class="password-toggle" onclick="togglePasswordVisibility('currentPass', this)" type="button">👁️</button>
+          <div class="s-card accent-violet">
+            <div class="s-card-label">Credential Update</div>
+            <div class="s-form-grid full">
+              <div class="s-field">
+                <label class="s-label">Current Password</label>
+                <div class="pw-wrap">
+                  <input class="s-input" id="pw-cur" type="password" placeholder="Current password" oninput="clearErr('pw-cur')"/>
+                  <button class="pw-eye" type="button" onclick="toggleEye('pw-cur',this)">
+                    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <div class="s-err" id="err-pw-cur"></div>
               </div>
-              <div class="error-text" id="currentPassError"></div>
             </div>
-
-            <div class="form-group">
-              <label for="newPass">New Password</label>
-              <div class="password-wrapper">
-                <input type="password" id="newPass" placeholder="Enter your new password" oninput="checkPasswordStrength()">
-                <button class="password-toggle" onclick="togglePasswordVisibility('newPass', this)" type="button">👁️</button>
+            <div class="s-form-grid">
+              <div class="s-field">
+                <label class="s-label">New Password</label>
+                <div class="pw-wrap">
+                  <input class="s-input" id="pw-new" type="password" placeholder="Min 8 characters" oninput="onNewPw()"/>
+                  <button class="pw-eye" type="button" onclick="toggleEye('pw-new',this)">
+                    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <div class="str-wrap">
+                  <div class="str-bg"><div class="str-fill" id="str-fill"></div></div>
+                  <div class="str-lbl" id="str-lbl">—</div>
+                </div>
               </div>
-              <div id="passwordStrength" class="password-strength" style="display: none;">
-                <div class="strength-bar weak"></div>
-                <div class="strength-bar weak"></div>
-                <div class="strength-bar weak"></div>
-                <div class="strength-bar weak"></div>
-                <span class="strength-text" id="strengthText">Weak</span>
+              <div class="s-field">
+                <label class="s-label">Confirm Password</label>
+                <div class="pw-wrap">
+                  <input class="s-input" id="pw-cfm" type="password" placeholder="Repeat new password" oninput="onCfm()"/>
+                  <button class="pw-eye" type="button" onclick="toggleEye('pw-cfm',this)">
+                    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <div class="s-err" id="err-pw-cfm"></div>
               </div>
-              <div class="error-text" id="newPassError"></div>
             </div>
-
-            <div class="form-group">
-              <label for="confirmPass">Confirm New Password</label>
-              <div class="password-wrapper">
-                <input type="password" id="confirmPass" placeholder="Confirm your new password">
-                <button class="password-toggle" onclick="togglePasswordVisibility('confirmPass', this)" type="button">👁️</button>
+            <div class="s-btn-row">
+              <button class="s-btn s-btn-primary" id="btn-change-pw" onclick="changePassword()">
+                <svg viewBox="0 0 20 20"><rect x="3" y="9" width="14" height="9" rx="2"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" stroke-linecap="round"/></svg>
+                <span class="btn-txt">Update Password</span>
+              </button>
+              <div class="s-saved" id="pw-saved">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Password updated
               </div>
-              <div class="error-text" id="confirmPassError"></div>
             </div>
+          </div>
 
-            <div class="button-group">
-              <button class="btn-save" onclick="updatePassword()">🔄 Update Password</button>
-              <button class="btn-reset" onclick="resetPassword()">↺ Clear Fields</button>
+          <div class="s-danger-card">
+            <div class="s-danger-label">Danger Zone</div>
+            <div class="s-danger-desc">Permanently delete your account and all associated honeypot data.<br/>This action is irreversible and cannot be undone.</div>
+            <button class="s-btn s-btn-danger" onclick="confirmDelete()">
+              <svg viewBox="0 0 20 20"><polyline points="3 5 5 5 17 5"/><path d="M15 5l-.8 11a2 2 0 0 1-2 1.9H7.8a2 2 0 0 1-2-1.9L5 5m3 0V3h4v2"/></svg>
+              Delete Account
+            </button>
+          </div>
+        </div>
+
+        <!-- ALERTS -->
+        <div class="s-panel" id="panel-alerts">
+          <div class="s-panel-head">
+            <div class="s-panel-title">Alert Configuration</div>
+            <div class="s-panel-sub">// configure threat notification preferences</div>
+          </div>
+
+          <div class="s-card accent-orange">
+            <div class="s-card-label">Threat Alert Toggles</div>
+            <div class="s-toggle-row">
+              <div><div class="s-toggle-name">Brute Force Alerts</div><div class="s-toggle-desc">Notify on repeated failed login attempts</div></div>
+              <label class="s-toggle"><input type="checkbox" id="al-bruteforce" onchange="saveAlerts()"/><span class="s-tsl"></span></label>
+            </div>
+            <div class="s-toggle-row">
+              <div><div class="s-toggle-name">SQL Injection Detection</div><div class="s-toggle-desc">Alert on malicious SQL payloads</div></div>
+              <label class="s-toggle"><input type="checkbox" id="al-sql" onchange="saveAlerts()"/><span class="s-tsl"></span></label>
+            </div>
+            <div class="s-toggle-row">
+              <div><div class="s-toggle-name">XSS Attack Alerts</div><div class="s-toggle-desc">Alert on cross-site scripting attempts</div></div>
+              <label class="s-toggle"><input type="checkbox" id="al-xss" onchange="saveAlerts()"/><span class="s-tsl"></span></label>
+            </div>
+            <div class="s-toggle-row">
+              <div><div class="s-toggle-name">DDoS Threshold Alerts</div><div class="s-toggle-desc">Notify when request rate spikes detected</div></div>
+              <label class="s-toggle"><input type="checkbox" id="al-ddos" onchange="saveAlerts()"/><span class="s-tsl"></span></label>
+            </div>
+            <div class="s-toggle-row">
+              <div><div class="s-toggle-name">Honeypot Hit Alerts</div><div class="s-toggle-desc">Notify when decoy traps are triggered</div></div>
+              <label class="s-toggle"><input type="checkbox" id="al-honeypot" onchange="saveAlerts()"/><span class="s-tsl"></span></label>
+            </div>
+            <div class="s-toggle-row">
+              <div><div class="s-toggle-name">Credential Stuffing</div><div class="s-toggle-desc">Alert on bulk credential replay attempts</div></div>
+              <label class="s-toggle"><input type="checkbox" id="al-cred" onchange="saveAlerts()"/><span class="s-tsl"></span></label>
+            </div>
+          </div>
+
+          <div class="s-card accent-cyan">
+            <div class="s-card-label">Alert Sensitivity</div>
+            <div class="s-form-grid full" style="margin-bottom:0">
+              <div class="s-field">
+                <label class="s-label">Minimum Severity to Alert</label>
+                <select class="s-select" id="al-severity" onchange="saveAlerts()">
+                  <option value="LOW">LOW — all threats</option>
+                  <option value="MEDIUM">MEDIUM — moderate and above</option>
+                  <option value="HIGH">HIGH — critical only</option>
+                  <option value="CRITICAL">CRITICAL — emergencies only</option>
+                </select>
+              </div>
+            </div>
+            <div class="s-btn-row">
+              <div class="s-saved show" id="alerts-saved" style="opacity:0">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Preferences auto-saved
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Security Tab -->
-        <div id="security-tab" class="settings-tab-content" style="display: none;">
-          <h3>🛡️ Security Information</h3>
-          <p class="settings-desc">Important security information and guidelines</p>
+        <!-- SECURITY -->
+        <div class="s-panel" id="panel-security">
+          <div class="s-panel-head">
+            <div class="s-panel-title">Security Status</div>
+            <div class="s-panel-sub">// operator security posture &amp; session controls</div>
+          </div>
 
-          <div class="form-section">
-            <div class="info-box">
-              🔐 <strong>Password Change Security</strong><br>
-              After changing your password, you will be automatically logged out for security reasons. You will need to login again with your new password.
+          <div class="s-card accent-green">
+            <div class="s-card-label">Security Checks</div>
+            <div class="s-sec-row">
+              <div><div class="s-sec-name">Account Verified</div><div class="s-sec-meta">Email verification status</div></div>
+              <span class="s-badge s-badge-ok">Verified</span>
             </div>
-
-            <div class="info-box">
-              ✓ <strong>Best Practices</strong><br>
-              • Use a unique password not used on other websites<br>
-              • Change your password regularly<br>
-              • Never share your password with anyone<br>
-              • Avoid using personal information in passwords
+            <div class="s-sec-row">
+              <div><div class="s-sec-name">Active Session</div><div class="s-sec-meta">JWT token — current session</div></div>
+              <span class="s-badge s-badge-ok">Active</span>
             </div>
+            <div class="s-sec-row">
+              <div><div class="s-sec-name">Two-Factor Auth</div><div class="s-sec-meta">TOTP / authenticator app</div></div>
+              <span class="s-badge s-badge-warn">Not Enabled</span>
+            </div>
+            <div class="s-sec-row">
+              <div><div class="s-sec-name">API Access Keys</div><div class="s-sec-meta">No active API keys issued</div></div>
+              <span class="s-badge s-badge-ok">Clean</span>
+            </div>
+          </div>
 
-            <div class="info-box">
-              ⚠️ <strong>Account Security</strong><br>
-              All changes made to your account settings are logged for security purposes. Your email address is your primary login credential and account recovery method.
+          <div class="s-card accent-cyan">
+            <div class="s-card-label">Session Management</div>
+            <div class="s-toggle-row">
+              <div><div class="s-toggle-name">Auto-Logout on Inactivity</div><div class="s-toggle-desc">Terminate session after 30 min idle</div></div>
+              <label class="s-toggle"><input type="checkbox" id="sec-autologout" onchange="saveSecSettings()"/><span class="s-tsl"></span></label>
+            </div>
+            <div class="s-toggle-row">
+              <div><div class="s-toggle-name">Log All Login Attempts</div><div class="s-toggle-desc">Record every auth attempt to activity log</div></div>
+              <label class="s-toggle"><input type="checkbox" id="sec-loginlog" onchange="saveSecSettings()"/><span class="s-tsl"></span></label>
+            </div>
+            <div class="s-btn-row">
+              <button class="s-btn s-btn-danger" onclick="doLogout()">
+                <svg viewBox="0 0 20 20"><path d="M13 3h4v14h-4M8 14l4-4-4-4M12 10H3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Terminate Session
+              </button>
+              <div class="s-saved" id="sec-saved">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Settings saved
+              </div>
             </div>
           </div>
         </div>
 
-      </div>
+      </div><!-- end right -->
+    </div><!-- end settings-layout -->
+  </div><!-- end main -->
+</div><!-- end layout -->
 
-    </div>
-
-  </main>
-
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-msg">Saved</span>
 </div>
 
 <script>
-  const userData = localStorage.getItem("user");
+const API = 'http://localhost:3000';
 
-  if (!userData) {
-    window.location.href = "login.html";
-  }
-
-  const user = JSON.parse(userData);
-
-  // Pre-fill data
-  document.getElementById("email").value = user.email || "";
-  document.getElementById("org").value = user.organization || "";
-
-  let originalEmail = user.email || "";
-  let originalOrg = user.organization || "";
-
-  // Smooth transition on page load
-  window.addEventListener('load', () => {
-    document.querySelector('.main').style.opacity = '1';
-    document.querySelector('.main').style.transition = 'opacity 0.4s ease-in';
+/* ── MATRIX (same as dashboard) ── */
+const mc = document.getElementById('matrix-canvas');
+const mct = mc.getContext('2d');
+let cols = [];
+function rsz(){ mc.width=innerWidth; mc.height=innerHeight; }
+function initC(){ cols=Array.from({length:Math.floor(mc.width/16)},()=>Math.random()*-mc.height); }
+function drawMatrix(){
+  mct.fillStyle='rgba(3,1,10,.07)';
+  mct.fillRect(0,0,mc.width,mc.height);
+  mct.fillStyle='rgba(0,245,255,0.12)';
+  mct.font='13px JetBrains Mono';
+  cols.forEach((y,i)=>{
+    mct.fillText(String.fromCharCode(0x30A0+Math.random()*96),i*16,y);
+    cols[i]=(y>mc.height+Math.random()*100)?0:y+16;
   });
+}
+window.addEventListener('resize',()=>{rsz();initC();});
+rsz(); initC();
+setInterval(drawMatrix,80);
 
-  // Tab switching
-  function switchTab(tab) {
-    // Hide all tabs
-    document.querySelectorAll('.settings-tab-content').forEach(el => {
-      el.style.display = 'none';
-    });
-    document.querySelectorAll('.settings-tab').forEach(el => {
-      el.classList.remove('active');
-    });
+/* ── CLOCK ── */
+(function tick(){
+  const n=new Date(), p=v=>String(v).padStart(2,'0');
+  document.getElementById('clock').textContent=
+    `${p(n.getUTCHours())}:${p(n.getUTCMinutes())}:${p(n.getUTCSeconds())} UTC`;
+  setTimeout(tick,1000);
+})();
 
-    // Show selected tab
-    document.getElementById(tab + '-tab').style.display = 'block';
-    event.target.classList.add('active');
-  }
+/* ── AUTH GUARD + LOAD USER ── */
+function navigateTo(page){ window.location.href = page; }
 
-  // Notification system
-  function showNotification(message, type = 'success', duration = 4000) {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-      notification.classList.add('fade-out');
-      setTimeout(() => {
-        notification.remove();
-      }, 400);
-    }, duration);
-  }
-
-  function navigateTo(page) {
-    document.querySelector('.main').style.opacity = '0';
-    setTimeout(() => {
-      window.location.href = page;
-    }, 200);
-  }
-
-  // Password strength checker
-  function checkPasswordStrength() {
-    const password = document.getElementById("newPass").value;
-    const strengthDiv = document.getElementById("passwordStrength");
-    const strengthText = document.getElementById("strengthText");
-    const bars = document.querySelectorAll('#passwordStrength .strength-bar');
-
-    if (password.length === 0) {
-      strengthDiv.style.display = 'none';
-      return;
+async function loadUser(){
+  const token = localStorage.getItem('token') || localStorage.getItem('userToken');
+  const user  = JSON.parse(localStorage.getItem('user') || localStorage.getItem('userData') || '{}');
+  if(!token && !user.email){ window.location.href='login.html'; return; }
+  if(user.email) fillUI(user);
+  if(!token) return;
+  try{
+    const res = await fetch(`${API}/api/auth/me`,{headers:{'Authorization':`Bearer ${token}`}});
+    if(res.ok){
+      const d=await res.json(), u=d.user||d;
+      fillUI(u); localStorage.setItem('user',JSON.stringify(u));
     }
+  }catch{ /* offline — cache shown */ }
+}
 
-    strengthDiv.style.display = 'flex';
+function fillUI(u){
+  const initials = (u.email||'OP').substring(0,2).toUpperCase();
+  document.getElementById('userAvatar').textContent = initials;
+  document.getElementById('userName').textContent   = u.email || 'Operator';
+  document.getElementById('p-email').value  = u.email || '';
+  document.getElementById('p-name').value   = u.name  || '';
+  document.getElementById('p-org').value    = u.organization || '';
+  if(u.service) document.getElementById('p-service').textContent = u.service;
+}
 
-    let strength = 0;
-    if (password.length >= 8) strength++;
-    if (password.length >= 12) strength++;
-    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-    if (/\d/.test(password)) strength++;
-    if (/[!@#$%^&*]/.test(password)) strength++;
+/* ── TAB SWITCH ── */
+function switchTab(id){
+  document.querySelectorAll('.s-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.s-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+}
 
-    bars.forEach((bar, index) => {
-      bar.className = 'strength-bar weak';
-      if (index < strength) {
-        if (strength <= 2) bar.className = 'strength-bar weak';
-        else if (strength <= 3) bar.className = 'strength-bar fair';
-        else if (strength <= 4) bar.className = 'strength-bar good';
-        else bar.className = 'strength-bar strong';
-      }
+/* ── SHOW/HIDE PASSWORD ── */
+function toggleEye(inputId, btn){
+  const inp = document.getElementById(inputId);
+  const showing = inp.type === 'text';
+  inp.type = showing ? 'password' : 'text';
+  btn.innerHTML = showing
+    ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`
+    : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
+}
+
+/* ── STRENGTH METER ── */
+function pwStrength(pw){
+  if(!pw) return {pct:0,lbl:'—',col:'rgba(255,255,255,0.05)'};
+  let s=0;
+  if(pw.length>=8) s++;
+  if(pw.length>=12) s++;
+  if(/[A-Z]/.test(pw)) s++;
+  if(/[0-9]/.test(pw)) s++;
+  if(/[^A-Za-z0-9]/.test(pw)) s++;
+  return [
+    {pct:0,  lbl:'—',     col:'rgba(255,255,255,0.05)'},
+    {pct:20, lbl:'WEAK',  col:'var(--red)'},
+    {pct:35, lbl:'WEAK',  col:'var(--red)'},
+    {pct:55, lbl:'FAIR',  col:'var(--orange)'},
+    {pct:75, lbl:'GOOD',  col:'var(--cyan)'},
+    {pct:100,lbl:'STRONG',col:'var(--green)'},
+  ][s];
+}
+
+function onNewPw(){
+  const pw = document.getElementById('pw-new').value;
+  const r = pwStrength(pw);
+  document.getElementById('str-fill').style.cssText=`width:${r.pct}%;background:${r.col}`;
+  document.getElementById('str-lbl').style.color = r.col;
+  document.getElementById('str-lbl').textContent  = r.lbl;
+  onCfm(); clearErr('pw-new');
+}
+
+function onCfm(){
+  const nw  = document.getElementById('pw-new').value;
+  const cfm = document.getElementById('pw-cfm').value;
+  const el  = document.getElementById('pw-cfm');
+  const err = document.getElementById('err-pw-cfm');
+  if(!cfm){ el.className='s-input'; err.textContent=''; return; }
+  if(nw===cfm){ el.className='s-input ok'; err.textContent=''; }
+  else{ el.className='s-input err'; err.textContent='Passwords do not match'; }
+}
+
+function clearErr(id){
+  document.getElementById(id).classList.remove('err');
+  const e = document.getElementById('err-'+id);
+  if(e) e.textContent='';
+}
+function setErr(id,msg){
+  document.getElementById(id).classList.add('err');
+  const e = document.getElementById('err-'+id);
+  if(e) e.textContent=msg;
+  document.getElementById(id).focus();
+}
+
+/* ── PROFILE SAVE ── */
+async function saveProfile(){
+  const token = localStorage.getItem('token')||localStorage.getItem('userToken');
+  const name  = document.getElementById('p-name').value.trim();
+  const org   = document.getElementById('p-org').value.trim();
+  const btn   = document.getElementById('btn-save-profile');
+  btn.innerHTML = '<span class="s-spinner"></span><span class="btn-txt">Saving...</span>';
+  btn.disabled  = true;
+  try{
+    const res = await fetch(`${API}/api/auth/update-profile`,{
+      method:'PATCH',
+      headers:{'Content-Type':'application/json','Authorization':`Bearer ${token}`},
+      body:JSON.stringify({name,organization:org})
     });
-
-    if (strength <= 2) strengthText.textContent = 'Weak';
-    else if (strength <= 3) strengthText.textContent = 'Fair';
-    else if (strength <= 4) strengthText.textContent = 'Good';
-    else strengthText.textContent = 'Strong';
-  }
-
-  // Password visibility toggle
-  function togglePasswordVisibility(inputId, button) {
-    const input = document.getElementById(inputId);
-    if (input.type === 'password') {
-      input.type = 'text';
-      button.textContent = '🙈';
+    if(res.ok){
+      const s=JSON.parse(localStorage.getItem('user')||'{}');
+      localStorage.setItem('user',JSON.stringify({...s,name,organization:org}));
+      showSaved('profile-saved');
+      toast('Profile updated successfully');
     } else {
-      input.type = 'password';
-      button.textContent = '👁️';
+      const d=await res.json();
+      toast(d.message||'Update failed',true);
     }
+  }catch{
+    const s=JSON.parse(localStorage.getItem('user')||'{}');
+    localStorage.setItem('user',JSON.stringify({...s,name,organization:org}));
+    showSaved('profile-saved');
+    toast('Saved locally (backend offline)');
   }
+  btn.disabled=false;
+  btn.innerHTML=`<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 17H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8l4 4v8a2 2 0 0 1-2 2z"/><polyline points="13 17 13 11 7 11 7 17"/><polyline points="7 3 7 7 13 7"/></svg><span class="btn-txt">Save Profile</span>`;
+}
 
-  // Clear error messages
-  function clearErrors() {
-    document.querySelectorAll('.error-text').forEach(el => {
-      el.classList.remove('show');
-      el.textContent = '';
+function resetProfile(){
+  const u=JSON.parse(localStorage.getItem('user')||localStorage.getItem('userData')||'{}');
+  document.getElementById('p-name').value = u.name||'';
+  document.getElementById('p-org').value  = u.organization||'';
+  toast('Reset to saved values');
+}
+
+/* ── PASSWORD CHANGE ── */
+async function changePassword(){
+  const cur = document.getElementById('pw-cur').value;
+  const nw  = document.getElementById('pw-new').value;
+  const cfm = document.getElementById('pw-cfm').value;
+
+  // Get email from localStorage — backend requires it
+  const user  = JSON.parse(localStorage.getItem('user') || localStorage.getItem('userData') || '{}');
+  const email = user.email || document.getElementById('p-email').value;
+
+  // Client-side validation
+  let valid = true;
+  if(!email){ toast('Session error — please log in again', true); return; }
+  if(!cur){ setErr('pw-cur','Current password required'); valid=false; }
+  if(!nw || nw.length < 8){ document.getElementById('pw-new').classList.add('err'); toast('Min 8 characters required', true); valid=false; }
+  if(!cfm || nw !== cfm){ setErr('pw-cfm','Passwords do not match'); valid=false; }
+  if(!valid) return;
+
+  const btn = document.getElementById('btn-change-pw');
+  btn.innerHTML = '<span class="s-spinner"></span><span class="btn-txt">Updating...</span>';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(`${API}/api/auth/change-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      // Backend needs: email, currentPassword, newPassword
+      body: JSON.stringify({ email, currentPassword: cur, newPassword: nw })
     });
-  }
-
-  // Save Profile
-  function saveProfile() {
-    clearErrors();
-    const email = document.getElementById("email").value.trim();
-    const org = document.getElementById("org").value.trim();
-
-    if (!email) {
-      showNotification("Email cannot be empty", 'warning');
-      document.getElementById("emailError").textContent = "Email is required";
-      document.getElementById("emailError").classList.add('show');
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      showNotification("Please enter a valid email address", 'error');
-      document.getElementById("emailError").textContent = "Invalid email format";
-      document.getElementById("emailError").classList.add('show');
-      return;
-    }
-
-    user.email = email;
-    user.organization = org || '';
-    originalEmail = email;
-    originalOrg = org;
-
-    localStorage.setItem("user", JSON.stringify(user));
-    showNotification("✓ Profile updated successfully!", 'success');
-  }
-
-  // Reset Profile
-  function resetProfile() {
-    document.getElementById("email").value = originalEmail;
-    document.getElementById("org").value = originalOrg;
-    clearErrors();
-    showNotification("Profile reset to last saved values", 'warning');
-  }
-
-  // Update Password
-  function updatePassword() {
-    clearErrors();
-    const currentPass = document.getElementById("currentPass").value;
-    const newPass = document.getElementById("newPass").value;
-    const confirmPass = document.getElementById("confirmPass").value;
-
-    if (!currentPass) {
-      document.getElementById("currentPassError").textContent = "Current password is required";
-      document.getElementById("currentPassError").classList.add('show');
-      showNotification("Please enter your current password", 'warning');
-      return;
-    }
-
-    if (!newPass) {
-      document.getElementById("newPassError").textContent = "New password is required";
-      document.getElementById("newPassError").classList.add('show');
-      showNotification("Please enter a new password", 'warning');
-      return;
-    }
-
-    if (newPass.length < 8) {
-      document.getElementById("newPassError").textContent = "Password must be at least 8 characters";
-      document.getElementById("newPassError").classList.add('show');
-      showNotification("Password must be at least 8 characters", 'error');
-      return;
-    }
-
-    if (newPass !== confirmPass) {
-      document.getElementById("confirmPassError").textContent = "Passwords do not match";
-      document.getElementById("confirmPassError").classList.add('show');
-      showNotification("Password confirmation does not match", 'error');
-      return;
-    }
-
-    if (newPass === currentPass) {
-      document.getElementById("newPassError").textContent = "New password must be different from current";
-      document.getElementById("newPassError").classList.add('show');
-      showNotification("New password must be different from current password", 'warning');
-      return;
-    }
-
-    // Send password change request to backend
-    fetch("http://localhost:3000/api/auth/change-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: user.email,
-        currentPassword: currentPass,
-        newPassword: newPass,
-        userId: user._id || user.id
-      })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.message === "Password changed successfully" || data.success) {
-        showNotification("✓ Password updated. Logging you out...", 'success', 2000);
-        setTimeout(() => {
-          localStorage.clear();
-          window.location.href = "login.html";
-        }, 2200);
+    const d = await res.json();
+    if(res.ok){
+      ['pw-cur','pw-new','pw-cfm'].forEach(id => {
+        document.getElementById(id).value = '';
+        document.getElementById(id).className = 's-input';
+      });
+      document.getElementById('str-fill').style.cssText = 'width:0';
+      document.getElementById('str-lbl').textContent = '—';
+      showSaved('pw-saved');
+      toast('Password updated successfully');
+    } else {
+      if(d.message && d.message.toLowerCase().includes('current')){
+        setErr('pw-cur', d.message);
       } else {
-        showNotification(data.message || "Failed to change password", 'error');
-        document.getElementById("currentPassError").textContent = data.message || "Password change failed";
-        document.getElementById("currentPassError").classList.add('show');
+        toast(d.message || 'Password change failed', true);
       }
-    })
-    .catch(err => {
-      console.error("Password change error:", err);
-      showNotification("Error: Could not connect to server", 'error');
-    });
+    }
+  } catch {
+    toast('Backend offline — cannot change password', true);
   }
 
-  // Reset Password fields
-  function resetPassword() {
-    document.getElementById("currentPass").value = "";
-    document.getElementById("newPass").value = "";
-    document.getElementById("confirmPass").value = "";
-    document.getElementById("passwordStrength").style.display = 'none';
-    clearErrors();
-    showNotification("Password fields cleared", 'warning');
-  }
+  btn.disabled = false;
+  btn.innerHTML = `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="9" width="14" height="9" rx="2"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9" stroke-linecap="round"/></svg><span class="btn-txt">Update Password</span>`;
+}
 
-  function logout() {
-    localStorage.clear();
-    window.location.href = "login.html";
+function confirmDelete(){
+  if(confirm('⚠ PERMANENT: Delete account and all data? Cannot be undone.'))
+    toast('Account deletion not yet implemented',true);
+}
+
+/* ── ALERTS ── */
+function saveAlerts(){
+  const prefs={
+    bruteforce:document.getElementById('al-bruteforce').checked,
+    sql:document.getElementById('al-sql').checked,
+    xss:document.getElementById('al-xss').checked,
+    ddos:document.getElementById('al-ddos').checked,
+    honeypot:document.getElementById('al-honeypot').checked,
+    cred:document.getElementById('al-cred').checked,
+    severity:document.getElementById('al-severity').value
+  };
+  localStorage.setItem('hs_alert_prefs',JSON.stringify(prefs));
+  showSaved('alerts-saved');
+}
+function loadAlerts(){
+  const raw=localStorage.getItem('hs_alert_prefs');
+  if(!raw){
+    ['al-bruteforce','al-sql','al-xss','al-honeypot','al-cred'].forEach(id=>document.getElementById(id).checked=true);
+    document.getElementById('al-ddos').checked=false;
+    document.getElementById('al-severity').value='MEDIUM';
+    return;
   }
+  const p=JSON.parse(raw);
+  document.getElementById('al-bruteforce').checked=!!p.bruteforce;
+  document.getElementById('al-sql').checked=!!p.sql;
+  document.getElementById('al-xss').checked=!!p.xss;
+  document.getElementById('al-ddos').checked=!!p.ddos;
+  document.getElementById('al-honeypot').checked=!!p.honeypot;
+  document.getElementById('al-cred').checked=!!p.cred;
+  document.getElementById('al-severity').value=p.severity||'MEDIUM';
+}
+
+/* ── SECURITY SETTINGS ── */
+function saveSecSettings(){
+  const prefs={
+    autoLogout:document.getElementById('sec-autologout').checked,
+    loginLog:document.getElementById('sec-loginlog').checked
+  };
+  localStorage.setItem('hs_sec_prefs',JSON.stringify(prefs));
+  showSaved('sec-saved');
+}
+function loadSecSettings(){
+  const raw=localStorage.getItem('hs_sec_prefs');
+  if(!raw){ document.getElementById('sec-autologout').checked=true; document.getElementById('sec-loginlog').checked=true; return; }
+  const p=JSON.parse(raw);
+  document.getElementById('sec-autologout').checked=p.autoLogout!==false;
+  document.getElementById('sec-loginlog').checked=p.loginLog!==false;
+}
+
+/* ── LOGOUT ── */
+function doLogout(){
+  ['token','userToken','user','userData'].forEach(k=>localStorage.removeItem(k));
+  window.location.href='login.html';
+}
+function logout(){ doLogout(); }
+
+/* ── HELPERS ── */
+function showSaved(id){
+  const el=document.getElementById(id);
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2500);
+}
+function toast(msg,err=false){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.className='toast'+(err?' err':'');
+  t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),3200);
+}
+
+/* ── INIT ── */
+loadUser();
+loadAlerts();
+loadSecSettings();
 </script>
-<script src="public/js/common.js"></script>
-
 </body>
 </html>
-
