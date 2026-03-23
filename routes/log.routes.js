@@ -20,14 +20,24 @@ router.post("/", async (req, res) => {
     await log.save();
 
     // Send email alert if this is a known attack type
-    if (ALERT_TYPES.includes(type) && userId) {
+    if (ALERT_TYPES.includes(type)) {
       try {
-        const user = await User.findById(userId);
-        if (user && user.email) {
+        let targetEmail = process.env.EMAIL_USER; // Default to admin
+        let targetName = "Administrator";
+
+        if (userId && userId !== "ANONYMOUS" && mongoose.Types.ObjectId.isValid(userId)) {
+          const user = await User.findById(userId);
+          if (user && user.email) {
+            targetEmail = user.email;
+            targetName = user.name;
+          }
+        }
+
+        if (targetEmail) {
           // Fire and forget — don't block the response
           sendAttackAlert({
-            toEmail: user.email,
-            userName: user.name,
+            toEmail: targetEmail,
+            userName: targetName,
             attackType: type,
             ip,
             message,
@@ -35,7 +45,7 @@ router.post("/", async (req, res) => {
           }).catch(err => console.error("[HoneyShield] Email error:", err));
         }
       } catch (emailErr) {
-        console.error("[HoneyShield] Failed to fetch user for alert:", emailErr);
+        console.error("[HoneyShield] Failed to handle alert:", emailErr);
       }
     }
 
