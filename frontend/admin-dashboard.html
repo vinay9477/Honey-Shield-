@@ -352,6 +352,8 @@
     .btn-confirm-no { flex:1;padding:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:3px;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;cursor:pointer;transition:all .2s; }
     .btn-confirm-no:hover { background:rgba(255,255,255,0.08);color:var(--text); }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
 <canvas id="bgCanvas"></canvas>
@@ -726,9 +728,9 @@ function downloadAdminLogs(){
 async function loadAll(){
   try{
     const [statsRes,usersRes,logsRes]=await Promise.all([
-      fetch('http://localhost:3000/api/admin/stats'),
-      fetch('http://localhost:3000/api/admin/users'),
-      fetch('http://localhost:3000/api/admin/logs'),
+      fetch(`${API_BASE}/api/admin/stats`),
+      fetch(`${API_BASE}/api/admin/users`),
+      fetch(`${API_BASE}/api/admin/logs`),
     ]);
     const stats=await statsRes.json();
     allUsers=await usersRes.json()||[];
@@ -861,7 +863,7 @@ function selectSvc(el){
 async function saveSvc(){
   if(!svcEditId)return;
   try{
-    const res=await fetch(`http://localhost:3000/api/admin/users/${svcEditId}/service`,{
+    const res=await fetch(`${API_BASE}/api/admin/users/${svcEditId}/service`,{
       method:'PATCH',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({service:svcEditSel})
     });
@@ -899,7 +901,7 @@ async function doDeleteUser(){
   if(!deleteUserId)return;
   closeConfirmModal();
   try{
-    await fetch(`http://localhost:3000/api/admin/users/${deleteUserId}`,{method:'DELETE'});
+    await fetch(`${API_BASE}/api/admin/users/${deleteUserId}`,{method:'DELETE'});
   }catch(e){}
   allUsers=allUsers.filter(u=>u._id!==deleteUserId);
   filteredUsers=filteredUsers.filter(u=>u._id!==deleteUserId);
@@ -1138,6 +1140,7 @@ loadAll();
   </div>
 </div>
 
+<script src="public/js/mobile-menu.js"></script>
 </body>
 </html>
 

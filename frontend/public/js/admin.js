@@ -6,7 +6,7 @@ function logout() {
 const usersTable = document.getElementById("usersTable");
 const statUsers = document.getElementById("statUsers");
 
-fetch("http://localhost:3000/api/admin/users")
+fetch(API_BASE + "/api/admin/users")
   .then(res => res.json())
   .then(data => {
 

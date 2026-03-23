@@ -177,6 +177,8 @@
     .card-foot a { color:var(--cyan); text-decoration:none; }
     .card-foot a:hover { text-decoration:underline; }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
 
@@ -321,7 +323,7 @@ async function attemptLogin() {
   document.getElementById('attemptBtn').disabled = true;
 
   try {
-    const res = await fetch('http://localhost:3000/api/logs', {
+    const res = await fetch(`${API_BASE}/api/logs`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({

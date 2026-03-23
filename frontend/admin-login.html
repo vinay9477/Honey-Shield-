@@ -260,6 +260,8 @@
     }
     .shake { animation: shake 0.4s ease; }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
 <div class="bg-grid"></div>
@@ -376,7 +378,7 @@ async function doLogin(){
   document.getElementById('statusMsg').className='status-msg';
 
   try{
-    const res=await fetch('http://localhost:3000/api/admin/login',{
+    const res=await fetch(`${API_BASE}/api/admin/login`,{
       method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({username,password}),
       signal:AbortSignal.timeout(4000)

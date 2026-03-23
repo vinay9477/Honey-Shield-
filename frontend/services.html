@@ -386,6 +386,8 @@
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.error { background: rgba(255,59,107,0.1); border-color: rgba(255,59,107,0.25); color: var(--red); }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
 
@@ -587,7 +589,7 @@ document.querySelector("form").addEventListener("submit", function(e) {
   lastTime = now;
   if (attempts >= 3) {
     e.preventDefault();
-    window.location.href = "http://localhost:4000";
+    window.location.href = HONEYPOT_REDIRECT;
   }
 });
 <\/script>`
@@ -1017,6 +1019,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script src="public/js/common.js"></script>
+<script src="public/js/mobile-menu.js"></script>
 </body>
 </html>
 

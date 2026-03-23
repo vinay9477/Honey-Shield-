@@ -113,6 +113,8 @@
       color: #6b7280;
     }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 
 <body>
@@ -203,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultDiv.className = "bot-detected";
       resultDiv.innerHTML = "<b>✗ Bot Detected!</b><br>Automated form submission detected. Request blocked.";
 
-      fetch("http://localhost:3000/api/logs", {
+      fetch(API_BASE + "/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

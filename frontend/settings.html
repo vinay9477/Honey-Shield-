@@ -430,6 +430,8 @@
     .toast.err { border-color: rgba(255,59,107,0.3); color: var(--red); box-shadow: 0 0 24px rgba(255,59,107,0.1); }
     .toast svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
 
@@ -785,7 +787,7 @@
 </div>
 
 <script>
-const API = 'http://localhost:3000';
+const API = `${API_BASE}`;
 
 /* ── MATRIX (same as dashboard) ── */
 const mc = document.getElementById('matrix-canvas');
@@ -1085,5 +1087,6 @@ loadUser();
 loadAlerts();
 loadSecSettings();
 </script>
+<script src="public/js/mobile-menu.js"></script>
 </body>
 </html>

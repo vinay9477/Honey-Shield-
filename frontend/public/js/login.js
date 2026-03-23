@@ -55,11 +55,11 @@ function login() {
 
   // Honeypot redirection
   if (attempts.length >= 3) {
-    window.location.href = "http://localhost:4000";
+    window.location.href = HONEYPOT_REDIRECT;
     return;
   }
 
-  fetch("http://localhost:3000/api/auth/login", {
+  fetch(API_BASE + "/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

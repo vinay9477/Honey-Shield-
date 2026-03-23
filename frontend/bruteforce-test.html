@@ -101,6 +101,8 @@
       color: #374151;
     }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 
 <body>
@@ -184,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultDiv.className = "locked";
       resultDiv.innerHTML = "<b>✗ Account Locked!</b><br>Too many failed attempts. Account locked for 15 minutes.";
 
-      fetch("http://localhost:3000/api/logs", {
+      fetch(API_BASE + "/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({userId: getUserId(),

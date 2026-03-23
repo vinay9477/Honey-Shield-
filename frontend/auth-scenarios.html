@@ -136,6 +136,8 @@
     /* LOG BADGE */
     .log-logged{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--green);background:rgba(0,245,196,0.06);border:1px solid rgba(0,245,196,0.15);border-radius:20px;padding:3px 10px;margin-top:8px;}
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
 <canvas id="bgCanvas"></canvas>
@@ -451,7 +453,7 @@ async function bruteDefend(){
     // Log to backend
     const user=JSON.parse(localStorage.getItem('user')||'{}');
     try{
-      await fetch('http://localhost:3000/api/logs',{
+      await fetch(`${API_BASE}/api/logs`,{
         method:'POST', headers:{'Content-Type':'application/json'},
         body:JSON.stringify({userId:user._id,ip:'192.168.'+Math.floor(Math.random()*255)+'.'+Math.floor(Math.random()*255),type:'BRUTE_FORCE',message:`Brute force scenario demo — ${bfDefendCount} attempts detected`})
       });
@@ -516,7 +518,7 @@ async function botLogin(){
     // Log to backend
     const user=JSON.parse(localStorage.getItem('user')||'{}');
     try{
-      await fetch('http://localhost:3000/api/logs',{
+      await fetch(`${API_BASE}/api/logs`,{
         method:'POST', headers:{'Content-Type':'application/json'},
         body:JSON.stringify({userId:user._id,ip:'bot.spam.'+Math.floor(Math.random()*99)+'.'+Math.floor(Math.random()*99),type:'BOT_DETECTED',message:`Honeypot trap triggered — hidden field filled with: "${trap}"`})
       });

@@ -261,6 +261,8 @@
     .charts-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .chart-canvas-wrap-sm { height:180px; position:relative; padding:14px 16px; }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
 
@@ -730,7 +732,7 @@ function buildSeverityChart(attackLogs){
 async function loadDashboard(){
   try{
     const userId=user._id||user.id;
-    const res=await fetch(`http://localhost:3000/api/logs?userId=${userId}`);
+    const res=await fetch(`${API_BASE}/api/logs?userId=${userId}`);
     const raw = await res.json();
     // Handle both array response and error object
     const logs = Array.isArray(raw) ? raw : (raw.data || raw.logs || []);
@@ -903,5 +905,6 @@ loadDashboard();
 refreshAttacks();
 startRefreshTimer();
 </script>
+<script src="public/js/mobile-menu.js"></script>
 </body>
 </html>

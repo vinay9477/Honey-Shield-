@@ -111,6 +111,8 @@
       margin-top: 10px;
     }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 
 <body>
@@ -186,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultDiv.className = "suspicious";
       resultDiv.innerHTML = "<b>⚠️ Suspicious Activity Detected!</b><br>Abnormal keyboard activity pattern detected. This may indicate a keylogger.";
 
-      fetch("http://localhost:3000/api/logs", {
+      fetch(API_BASE + "/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({userId: getUserId(),

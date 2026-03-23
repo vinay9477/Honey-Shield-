@@ -354,6 +354,8 @@
       .log-msg { max-width: 180px; }
     }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
 
@@ -844,7 +846,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const userId = user._id || user.id;
-  fetch(`http://localhost:3000/api/logs?userId=${userId}`)
+  fetch(`${API_BASE}/api/logs?userId=${userId}`)
     .then(r => r.json())
     .then(logs => {
       allLogs = (logs || []).filter(l =>
@@ -876,6 +878,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script src="public/js/common.js"></script>
+<script src="public/js/mobile-menu.js"></script>
 </body>
 </html>
 

@@ -112,6 +112,8 @@
       margin-top: 10px;
     }
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 
 <body>
@@ -182,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resultDiv.className = "injection-detected";
       resultDiv.innerHTML = "<b>✗ SQL Injection Detected!</b><br>Malicious SQL pattern detected and blocked.";
 
-      fetch("http://localhost:3000/api/logs", {
+      fetch(API_BASE + "/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

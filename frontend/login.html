@@ -92,6 +92,8 @@
     .success-msg{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;text-align:center;color:var(--green)}
     .success-sub{font-size:13px;color:var(--muted);text-align:center;line-height:1.6}
   </style>
+  <script src="public/js/config.js"></script>
+  <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
 <canvas id="matrix"></canvas>
@@ -263,10 +265,10 @@ async function login(){
   if(!password||password.length<6){setErr('passwordErr','Password must be at least 6 characters');ok=false}
   if(!ok)return;
   const now=Date.now();attempts.push(now);attempts=attempts.filter(t=>now-t<=TIME_LIMIT);
-  if(attempts.length>=3){window.location.href='http://localhost:4000';return}
+  if(attempts.length>=3){window.location.href=HONEYPOT_REDIRECT;return}
   const btn=document.getElementById('loginBtn');btn.textContent='VERIFYING...';btn.disabled=true;
   try{
-    const res=await fetch('http://localhost:3000/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
+    const res=await fetch(`${API_BASE}/api/auth/login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
     const data=await res.json();
     if(res.ok&&data.message==='Login successful'){localStorage.setItem('user',JSON.stringify({email,...data.user,_id:data.user._id||data.user.id||email}));showLock(true);setTimeout(()=>{window.location.href='user-dashboard.html'},2800);}
     else if(data.needsVerification){btn.textContent='AUTHENTICATE';btn.disabled=false;document.getElementById('verifyBanner').classList.add('show');setStatus('>> Email not verified — check your inbox for OTP','warn');}
@@ -329,7 +331,7 @@ async function sendOtp(){
   setModalStatus('step1Status','','');
   const clientOtp=Math.floor(100000+Math.random()*900000).toString();
   try{
-    const res=await fetch('http://localhost:3000/api/auth/forgot-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email}),signal:AbortSignal.timeout(5000)});
+    const res=await fetch(`${API_BASE}/api/auth/forgot-password`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email}),signal:AbortSignal.timeout(5000)});
     const data=await res.json();
     if(res.ok){
       offlineMode=false;forgotEmail=email;
@@ -368,7 +370,7 @@ async function verifyOtp(){
     btn.textContent='VERIFY CODE';btn.disabled=false;return;
   }
   try{
-    const res=await fetch('http://localhost:3000/api/auth/verify-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:forgotEmail,otp})});
+    const res=await fetch(`${API_BASE}/api/auth/verify-otp`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:forgotEmail,otp})});
     const data=await res.json();
     if(res.ok){goStep(3);setTimeout(()=>document.getElementById('newPw').focus(),100);}
     else{setModalStatus('step2Status','>> '+(data.message||'Invalid or expired code'),'error');for(let i=0;i<6;i++)document.getElementById('otp'+i).value='';document.getElementById('otp0').focus();}
@@ -388,11 +390,11 @@ async function resetPassword(){
   if(!ok)return;
   const btn=document.getElementById('resetPwBtn');btn.textContent='UPDATING...';btn.disabled=true;setModalStatus('step3Status','','');
   if(offlineMode){
-    try{await fetch('http://localhost:3000/api/auth/reset-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:forgotEmail,newPassword:newPw}),signal:AbortSignal.timeout(2000)});}catch(e){}
+    try{await fetch(`${API_BASE}/api/auth/reset-password`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:forgotEmail,newPassword:newPw}),signal:AbortSignal.timeout(2000)});}catch(e){}
     goStep(4);btn.textContent='RESET KEY';btn.disabled=false;return;
   }
   try{
-    const res=await fetch('http://localhost:3000/api/auth/reset-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:forgotEmail,newPassword:newPw})});
+    const res=await fetch(`${API_BASE}/api/auth/reset-password`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:forgotEmail,newPassword:newPw})});
     const data=await res.json();
     if(res.ok)goStep(4);
     else setModalStatus('step3Status','>> '+(data.message||'Reset failed'),'error');

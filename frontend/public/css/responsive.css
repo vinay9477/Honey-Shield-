@@ -1,0 +1,508 @@
+/* ===================================================================
+   HONEY-SHIELD — Mobile Responsive Styles
+   Include AFTER cyber-dashboard.css and page-specific styles
+   =================================================================== */
+
+/* ── HAMBURGER MENU BUTTON (hidden by default, shown on mobile) ── */
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(5, 1, 15, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  color: var(--cyan, #00f5ff);
+  font-size: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.mobile-menu-btn:hover {
+  border-color: rgba(0, 245, 255, 0.5);
+  box-shadow: 0 0 16px rgba(0, 245, 255, 0.15);
+}
+
+/* ── MOBILE OVERLAY (backdrop when sidebar open) ── */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(3, 1, 10, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.mobile-overlay.show {
+  display: block;
+}
+
+/* ===================================================================
+   TABLET (≤ 900px) — Sidebar collapses to icons
+   =================================================================== */
+@media (max-width: 900px) {
+
+  /* Dashboard inline grids */
+  .stat-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .mid-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .charts-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .live-counter-strip {
+    grid-template-columns: 1fr 1fr 1fr !important;
+  }
+
+  .map-stats-row {
+    flex-wrap: wrap;
+  }
+
+  /* Settings layout */
+  .settings-layout {
+    flex-direction: column !important;
+  }
+
+  .settings-left {
+    flex-direction: row !important;
+    overflow-x: auto;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  .settings-nav {
+    flex-direction: row !important;
+    gap: 6px !important;
+  }
+}
+
+/* ===================================================================
+   MOBILE (≤ 768px) — Full mobile layout
+   =================================================================== */
+@media (max-width: 768px) {
+
+  /* Show hamburger */
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  /* Body scroll */
+  body {
+    overflow: auto !important;
+  }
+
+  /* Layout goes vertical */
+  .layout {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 100vh;
+  }
+
+  /* Sidebar: hidden off-screen, slides in */
+  .sidebar {
+    position: fixed !important;
+    top: 0;
+    left: -260px;
+    width: 240px !important;
+    height: 100vh !important;
+    z-index: 100;
+    transition: left 0.3s cubic-bezier(.16, 1, .3, 1);
+    padding-top: 60px !important;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Re-show sidebar text when open on mobile */
+  .sidebar.open .sb-brand,
+  .sidebar.open .sb-section-label,
+  .sidebar.open .sb-nav li span,
+  .sidebar.open .sb-status-block,
+  .sidebar.open .sb-logout span,
+  .sidebar.open .sb-sub {
+    display: flex !important;
+  }
+
+  .sidebar.open .sb-nav li {
+    justify-content: flex-start !important;
+  }
+
+  .sidebar.open .sidebar-header {
+    justify-content: flex-start !important;
+  }
+
+  .sidebar.open .sb-logout {
+    justify-content: flex-start !important;
+  }
+
+  /* Main content: full width */
+  .main {
+    width: 100% !important;
+    padding: 60px 12px 24px !important;
+    overflow-y: visible !important;
+  }
+
+  /* Topbar */
+  .topbar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px !important;
+  }
+
+  .topbar-right {
+    gap: 10px !important;
+    flex-wrap: wrap;
+  }
+
+  .topbar-clock {
+    display: none !important;
+  }
+
+  .user-info {
+    display: none !important;
+  }
+
+  .topbar-label {
+    font-size: 9px !important;
+    letter-spacing: 2px !important;
+  }
+
+  .topbar-live {
+    font-size: 14px !important;
+  }
+
+  /* Stat cards */
+  .stat-row {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .scard {
+    padding: 14px 16px !important;
+  }
+
+  .scard-val {
+    font-size: 22px !important;
+  }
+
+  /* Mid row */
+  .mid-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Charts */
+  .charts-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Live counter strip */
+  .live-counter-strip {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .lc-card {
+    padding: 12px 14px !important;
+  }
+
+  .lc-val {
+    font-size: 26px !important;
+  }
+
+  /* Breakdown grid */
+  .breakdown-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    padding: 12px !important;
+  }
+
+  /* Map */
+  .map-wrap {
+    height: 220px !important;
+  }
+
+  .map-stats-row {
+    flex-wrap: wrap !important;
+  }
+
+  .map-stat {
+    flex: 1 1 45% !important;
+    padding: 8px !important;
+  }
+
+  .map-legend {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  /* Ticker */
+  .ticker-wrap {
+    height: 30px !important;
+  }
+
+  .ticker-badge {
+    padding: 0 10px !important;
+    font-size: 9px !important;
+  }
+
+  /* Live attacks list */
+  .live-list {
+    max-height: 200px !important;
+    padding: 10px !important;
+  }
+
+  .live-item {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    padding: 10px !important;
+  }
+
+  .live-right {
+    margin-left: 0 !important;
+  }
+
+  /* Content padding */
+  .content {
+    padding: 16px 0 !important;
+    gap: 14px !important;
+  }
+
+  /* Panel */
+  .panel {
+    border-radius: 10px !important;
+  }
+
+  .panel-head {
+    padding: 10px 14px !important;
+  }
+
+  .panel-body {
+    padding: 12px 14px !important;
+  }
+
+  /* Services grid */
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .services-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .filter-tabs {
+    gap: 6px !important;
+  }
+
+  .ftab {
+    padding: 6px 12px !important;
+    font-size: 9px !important;
+  }
+
+  /* Activity logs table */
+  .logs-table-wrap {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 600px !important;
+  }
+
+  /* Settings */
+  .settings-layout {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .settings-left {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    gap: 0 !important;
+    padding: 0 !important;
+  }
+
+  .settings-nav {
+    flex-direction: row !important;
+    gap: 4px !important;
+    white-space: nowrap;
+  }
+
+  .s-tab {
+    padding: 8px 14px !important;
+    font-size: 11px !important;
+    white-space: nowrap;
+  }
+
+  .s-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .s-card {
+    padding: 16px !important;
+  }
+
+  /* Admin dashboard */
+  .admin-stats {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .admin-table-wrap {
+    overflow-x: auto !important;
+  }
+
+  /* Modal */
+  .modal {
+    max-width: 95vw !important;
+    margin: 8px !important;
+  }
+
+  .modal-body {
+    padding: 16px !important;
+  }
+
+  .code-block {
+    max-height: 200px !important;
+  }
+
+  /* Toast */
+  .toast {
+    bottom: 12px !important;
+    right: 12px !important;
+    left: 12px !important;
+  }
+}
+
+/* ===================================================================
+   SMALL MOBILE (≤ 480px) — Extra tight
+   =================================================================== */
+@media (max-width: 480px) {
+  .main {
+    padding: 56px 8px 20px !important;
+  }
+
+  /* Stat cards single col */
+  .stat-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .scard-val {
+    font-size: 20px !important;
+  }
+
+  /* Breakdown single col */
+  .breakdown-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Brand title on landing page */
+  .brand-title {
+    font-size: 36px !important;
+  }
+
+  .brand-sub {
+    font-size: 13px !important;
+  }
+
+  .wrapper {
+    padding: 24px 12px !important;
+    gap: 32px !important;
+  }
+
+  .stats-row {
+    gap: 12px !important;
+  }
+
+  .stat {
+    padding: 10px 8px !important;
+  }
+
+  .stat-num {
+    font-size: 18px !important;
+  }
+
+  .action-card {
+    padding: 16px !important;
+    gap: 12px !important;
+  }
+
+  /* Live counter */
+  .lc-val {
+    font-size: 22px !important;
+  }
+
+  /* Map */
+  .map-wrap {
+    height: 180px !important;
+  }
+
+  .map-stat-val {
+    font-size: 16px !important;
+  }
+
+  /* Register / Login cards */
+  .card {
+    margin: 12px 8px !important;
+  }
+
+  .card-head {
+    padding: 20px 20px 16px !important;
+  }
+
+  .card-body {
+    padding: 20px !important;
+    gap: 14px !important;
+  }
+
+  .card-foot {
+    padding: 12px 20px !important;
+  }
+
+  /* OTP boxes */
+  .otp-box {
+    width: 42px !important;
+    height: 48px !important;
+    font-size: 18px !important;
+  }
+
+  .modal-step .otp-row {
+    gap: 6px !important;
+  }
+
+  /* Admin cards */
+  .admin-stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Settings tabs scroll */
+  .settings-left {
+    padding-bottom: 8px !important;
+  }
+}
