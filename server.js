@@ -22,6 +22,28 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/logs",  logRoutes);
 app.use("/api/decoy", decoyRoutes);
 
+// Diagnostic email test endpoint
+app.get("/api/test-email", async (req, res) => {
+  try {
+    const { sendAttackAlert } = require("./utils/mailer");
+    await sendAttackAlert({
+      toEmail: process.env.EMAIL_USER,
+      userName: "HoneyShield Admin",
+      attackType: "SYSTEM_TEST",
+      ip: req.ip || "127.0.0.1",
+      message: "This is a diagnostic test to verify your SMTP email configuration is working on the live server.",
+    });
+    res.json({ success: true, message: `Test email successfully sent to ${process.env.EMAIL_USER}` });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      message: "Email sending failed", 
+      error: error.message,
+      hint: "Check if your EMAIL_USER and EMAIL_PASS are correct, or if your App Password was revoked."
+    });
+  }
+});
+
 app.get("/", (req, res) => {
   res.send("🛡️ HoneyShield API Running");
 });
