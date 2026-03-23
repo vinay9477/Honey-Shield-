@@ -16,7 +16,11 @@
   const overlay = document.createElement('div');
   overlay.className = 'mobile-overlay';
   overlay.id = 'mobileOverlay';
-  document.body.appendChild(overlay);
+  if (sidebar.parentElement) {
+    sidebar.parentElement.appendChild(overlay);
+  } else {
+    document.body.appendChild(overlay);
+  }
 
   function toggleMenu() {
     sidebar.classList.toggle('open');
