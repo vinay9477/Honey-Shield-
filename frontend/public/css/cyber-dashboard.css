@@ -16,6 +16,25 @@
   --sb-w:    240px;
 }
 
+body.light-mode {
+  --cyan:    #0284c7;  /* Deep Ocean Blue */
+  --violet:  #6d28d9;  /* Dark Purple */
+  --pink:    #c026d3;  /* Magenta */
+  --green:   #059669;  /* Forest Green */
+  --orange:  #ea580c;  /* Burnt Orange */
+  --red:     #dc2626;  /* Crimson Red */
+  --bg:      #f8fafc;  /* Soft White/Gray */
+  --surface: #ffffff;  /* Pure White Surface */
+  --border:  rgba(0,0,0,0.08); /* Dark subtle border */
+  --text:    #0f172a;  /* Near Black text */
+  --muted:   #64748b;  /* legible gray */
+}
+
+/* Base Body transitions for smooth mode switching */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 /* ===== RESET ===== */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
