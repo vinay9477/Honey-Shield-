@@ -353,7 +353,7 @@
     .btn-confirm-no:hover { background:rgba(255,255,255,0.08);color:var(--text); }
   </style>
   <script src="public/js/config.js"></script>
-  <link rel="stylesheet" href="public/css/responsive.css">
+  <link rel="stylesheet" href="public/css/responsive.css?v=2">
 </head>
 <body>
 <canvas id="bgCanvas"></canvas>
@@ -451,6 +451,10 @@
     <div class="tb-right">
       <div class="tb-clock" id="clock">--:--:--</div>
       <div class="alert-badge"><div class="alert-dot"></div>ADMIN MODE</div>
+      <button class="mobile-topbar-logout" style="display: none;" onclick="logout()">
+        <svg viewBox="0 0 20 20" fill="none" style="width:16px;height:16px;margin-right:4px;"><path d="M13 3h4v14h-4M8 14l4-4-4-4M12 10H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;font-weight:600;">LOGOUT</span>
+      </button>
     </div>
   </header>
 
@@ -1039,8 +1043,30 @@ function buildCharts(){
   allLogs.forEach(l=>{const t=(l.type||'').toUpperCase();CAT_KEYS.forEach(c=>{if(t.includes(c.k))catCounts[c.k]++;});});
 
   const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const atkD=new Array(7).fill(0),authD=new Array(7).fill(0);
-  allLogs.forEach(l=>{const d=new Date(l.createdAt).getDay(),idx=d===0?6:d-1;if(isAttack(l))atkD[idx]++;else authD[idx]++;});
+  const authD=new Array(7).fill(0);
+  const trendAttackMap={};
+  allLogs.forEach(l=>{
+    const d=new Date(l.createdAt).getDay(),idx=d===0?6:d-1;
+    if(!isAttack(l)){
+      authD[idx]++;
+    } else {
+      const t=(l.type||'').toUpperCase();
+      let matchIdx = CAT_KEYS.findIndex(c => t.includes(c.k));
+      let lbl, col;
+      if (matchIdx !== -1) {
+        lbl = CAT_KEYS[matchIdx].l;
+        col = CHART_COLORS[matchIdx % CHART_COLORS.length];
+      } else {
+        lbl = 'Other';
+        col = CHART_COLORS[CHART_COLORS.length - 1];
+      }
+      if(!trendAttackMap[lbl]){
+        trendAttackMap[lbl] = { data: new Array(7).fill(0), color: col };
+      }
+      trendAttackMap[lbl].data[idx]++;
+    }
+  });
+
   document.getElementById('chartMeta').textContent=`${allLogs.length} total events`;
 
   Object.values(charts).forEach(c=>c.destroy?.());charts={};
@@ -1052,12 +1078,19 @@ function buildCharts(){
     scales:{y:{beginAtZero:true,grid:{color:gridColor},ticks:{color:tickColor,font:{family:'DM Mono',size:9}}},
             x:{grid:{display:false},ticks:{color:tickColor,font:{family:'DM Mono',size:9}}}}};
 
+  const trendDatasets = [
+    {label:'Auth',  data:authD,borderColor:'#00f596',backgroundColor:'rgba(0,245,150,0.07)',borderWidth:2,tension:0.4,fill:true,pointRadius:4,pointBackgroundColor:'#00f596'}
+  ];
+  Object.keys(trendAttackMap).forEach(k => {
+    trendDatasets.push({
+      label: k, data: trendAttackMap[k].data, borderColor: trendAttackMap[k].color, backgroundColor: trendAttackMap[k].color+'15', borderWidth: 2, tension: 0.4, fill: true, pointRadius: 3, pointBackgroundColor: trendAttackMap[k].color
+    });
+  });
+
   charts.trend=new Chart(document.getElementById('trendChart'),{
     type:'line',
-    data:{labels:days,datasets:[
-      {label:'Attacks',data:atkD,borderColor:'#ff2a4a',backgroundColor:'rgba(255,42,74,0.07)',borderWidth:2,tension:0.4,fill:true,pointRadius:4,pointBackgroundColor:'#ff2a4a'},
-      {label:'Auth',  data:authD,borderColor:'#00f596',backgroundColor:'rgba(0,245,150,0.07)',borderWidth:2,tension:0.4,fill:true,pointRadius:4,pointBackgroundColor:'#00f596'},
-    ]},options:{...baseChartOpts}
+    data:{labels:days,datasets:trendDatasets},
+    options:{...baseChartOpts}
   });
 
   const distEntries=CAT_KEYS.map((c,i)=>({label:c.l,val:catCounts[c.k],color:CHART_COLORS[i]})).filter(e=>e.val>0);
