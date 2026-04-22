@@ -109,7 +109,7 @@
 
   <span class="badge">CSRF Test Mode</span>
 
-  <h2>🛡️ CSRF Protection Test</h2>
+  <h2> CSRF Protection Test</h2>
 
   <p>
     This page tests CSRF (Cross-Site Request Forgery) protection
@@ -135,17 +135,14 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  // Get userId from localStorage
+document.addEventListener("DOMContentLoaded", function () {
   function getUserId() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     return user._id || user.id || user.email || "ANONYMOUS";
   }
 
   const form = document.getElementById("testForm");
-  const resultDiv = document.getElementById("result");
-
-  // Generate CSRF Token
+  const resultDiv = document.getElementById("result");
   function generateCSRFToken() {
     return 'csrf_' + Math.random().toString(36).substr(2, 9);
   }
@@ -164,12 +161,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!token || token.length === 0) {
       resultDiv.className = "fail";
-      resultDiv.innerHTML = "<b>✗ CSRF Validation Failed</b><br>No token present!";
+      resultDiv.innerHTML = "<b> CSRF Validation Failed</b><br>No token present!";
       return;
     }
 
     resultDiv.className = "success";
-    resultDiv.innerHTML = "<b>✓ CSRF Token Valid</b><br>Token: " + token.substring(0, 20) + "...<br>Request would be accepted.";
+    resultDiv.innerHTML = "<b> CSRF Token Valid</b><br>Token: " + token.substring(0, 20) + "...<br>Request would be accepted.";
 
     fetch(API_BASE + "/api/logs", {
       method: "POST",

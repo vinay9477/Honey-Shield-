@@ -7,9 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="public/css/cyber-dashboard.css">
   <style>
-    /* ── SETTINGS-SPECIFIC STYLES ── */
+    
 
-    /* Tab nav */
+    
     .settings-nav {
       display: flex;
       flex-direction: column;
@@ -42,7 +42,7 @@
     }
     .s-tab.active svg { opacity: 1; color: var(--cyan); }
 
-    /* Layout */
+    
     .settings-layout {
       display: grid;
       grid-template-columns: 220px 1fr;
@@ -59,11 +59,11 @@
       margin-bottom: 4px;
     }
 
-    /* Panels */
+    
     .s-panel { display: none; flex-direction: column; gap: 16px; }
     .s-panel.active { display: flex; }
 
-    /* Panel heading */
+    
     .s-panel-head {
       padding-bottom: 14px;
       border-bottom: 1px solid var(--border);
@@ -83,7 +83,7 @@
       margin-top: 4px;
     }
 
-    /* Card — same as dashboard panel */
+    
     .s-card {
       background: rgba(8,2,20,0.6);
       backdrop-filter: blur(16px);
@@ -106,7 +106,7 @@
     .s-card.accent-orange::before { background: linear-gradient(90deg, var(--orange), transparent); }
     .s-card.accent-red::before    { background: linear-gradient(90deg, var(--red), transparent); }
 
-    /* Card label */
+    
     .s-card-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 9px;
@@ -126,7 +126,7 @@
       box-shadow: 0 0 8px var(--cyan);
     }
 
-    /* Form fields */
+    
     .s-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
     .s-form-grid.full { grid-template-columns: 1fr; }
     .s-field { display: flex; flex-direction: column; gap: 6px; }
@@ -155,7 +155,7 @@
     .s-input.err { border-color: rgba(255,59,107,0.5); box-shadow: 0 0 0 2px rgba(255,59,107,0.07); }
     .s-input.ok  { border-color: rgba(0,245,196,0.4); }
 
-    /* Password wrap */
+    
     .pw-wrap { position: relative; }
     .pw-wrap .s-input { padding-right: 38px; }
     .pw-eye {
@@ -181,7 +181,7 @@
       letter-spacing: .3px;
     }
 
-    /* Strength bar */
+    
     .str-wrap { margin-top: 5px; }
     .str-bg { height: 2px; background: rgba(255,255,255,0.05); border-radius: 2px; }
     .str-fill { height: 100%; width: 0; transition: width .3s, background .3s; border-radius: 2px; }
@@ -194,7 +194,7 @@
       color: rgba(226,232,240,0.3);
     }
 
-    /* Service badge — same as dashboard */
+    
     .svc-badge {
       display: inline-flex;
       align-items: center;
@@ -219,7 +219,7 @@
       letter-spacing: 1px;
     }
 
-    /* Select */
+    
     .s-select {
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
@@ -240,7 +240,7 @@
     .s-select:focus { border-color: rgba(0,245,255,0.4); }
     .s-select option { background: #07050f; }
 
-    /* Buttons */
+    
     .s-btn-row { display: flex; gap: 10px; margin-top: 18px; align-items: center; flex-wrap: wrap; }
     .s-btn {
       display: flex; align-items: center; gap: 8px;
@@ -295,7 +295,7 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Toggles */
+    
     .s-toggle-row {
       display: flex;
       align-items: center;
@@ -339,7 +339,7 @@
     .s-toggle input:checked + .s-tsl { background: rgba(0,245,255,0.1); border-color: rgba(0,245,255,0.3); }
     .s-toggle input:checked + .s-tsl::before { transform: translateX(20px); background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
 
-    /* Security rows */
+    
     .s-sec-row {
       display: flex; align-items: center; justify-content: space-between;
       padding: 13px 0;
@@ -361,7 +361,7 @@
     .s-badge-ok   { color: var(--green);  border-color: rgba(0,245,196,0.2);  background: rgba(0,245,196,0.08); }
     .s-badge-warn { color: var(--orange); border-color: rgba(249,115,22,0.2); background: rgba(249,115,22,0.08); }
 
-    /* Danger zone */
+    
     .s-danger-card {
       background: rgba(8,2,20,0.6);
       backdrop-filter: blur(16px);
@@ -399,7 +399,7 @@
       margin-bottom: 16px;
     }
 
-    /* Saved indicator */
+    
     .s-saved {
       display: flex; align-items: center; gap: 7px;
       font-family: 'JetBrains Mono', monospace;
@@ -410,7 +410,7 @@
     .s-saved.show { opacity: 1; }
     .s-saved svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.5; }
 
-    /* Toast */
+    
     .toast {
       position: fixed; bottom: 24px; right: 24px;
       background: rgba(8,2,20,0.95);
@@ -441,7 +441,7 @@
 
 <div class="layout">
 
-  <!-- ── SIDEBAR (exact copy from dashboard) ── -->
+  
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <svg class="sb-shield" viewBox="0 0 40 40" fill="none">
@@ -495,10 +495,10 @@
     </button>
   </aside>
 
-  <!-- ── MAIN ── -->
+  
   <div class="main" style="display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:24px 28px;gap:20px;">
 
-    <!-- TOPBAR — exact copy from dashboard -->
+    
     <header class="topbar">
       <div class="topbar-left">
         <div class="topbar-title" style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;">Account Settings</div>
@@ -520,10 +520,10 @@
       </div>
     </header>
 
-    <!-- SETTINGS CONTENT -->
+    
     <div class="settings-layout">
 
-      <!-- LEFT NAV -->
+      
       <div class="settings-left">
         <div class="settings-nav-label">// CONFIG MODULES</div>
         <div class="settings-nav">
@@ -546,10 +546,10 @@
         </div>
       </div>
 
-      <!-- RIGHT PANELS -->
+      
       <div>
 
-        <!-- PROFILE -->
+        
         <div class="s-panel active" id="panel-profile">
           <div class="s-panel-head">
             <div class="s-panel-title">Profile Information</div>
@@ -600,7 +600,7 @@
           </div>
         </div>
 
-        <!-- PASSWORD -->
+        
         <div class="s-panel" id="panel-password">
           <div class="s-panel-head">
             <div class="s-panel-title">Change Password</div>
@@ -668,7 +668,7 @@
           </div>
         </div>
 
-        <!-- ALERTS -->
+        
         <div class="s-panel" id="panel-alerts">
           <div class="s-panel-head">
             <div class="s-panel-title">Alert Configuration</div>
@@ -725,7 +725,7 @@
           </div>
         </div>
 
-        <!-- SECURITY -->
+        
         <div class="s-panel" id="panel-security">
           <div class="s-panel-head">
             <div class="s-panel-title">Security Status</div>
@@ -775,12 +775,12 @@
           </div>
         </div>
 
-      </div><!-- end right -->
-    </div><!-- end settings-layout -->
-  </div><!-- end main -->
-</div><!-- end layout -->
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- TOAST -->
+
 <div class="toast" id="toast">
   <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
   <span id="toast-msg">Saved</span>
@@ -789,7 +789,7 @@
 <script>
 const API = `${API_BASE}`;
 
-/* ── MATRIX (same as dashboard) ── */
+
 const mc = document.getElementById('matrix-canvas');
 const mct = mc.getContext('2d');
 let cols = [];
@@ -809,7 +809,7 @@ window.addEventListener('resize',()=>{rsz();initC();});
 rsz(); initC();
 setInterval(drawMatrix,80);
 
-/* ── CLOCK ── */
+
 (function tick(){
   const n=new Date(), p=v=>String(v).padStart(2,'0');
   document.getElementById('clock').textContent=
@@ -817,7 +817,7 @@ setInterval(drawMatrix,80);
   setTimeout(tick,1000);
 })();
 
-/* ── AUTH GUARD + LOAD USER ── */
+
 function navigateTo(page){ window.location.href = page; }
 
 async function loadUser(){
@@ -832,7 +832,7 @@ async function loadUser(){
       const d=await res.json(), u=d.user||d;
       fillUI(u); localStorage.setItem('user',JSON.stringify(u));
     }
-  }catch{ /* offline — cache shown */ }
+  }catch{  }
 }
 
 function fillUI(u){
@@ -845,7 +845,7 @@ function fillUI(u){
   if(u.service) document.getElementById('p-service').textContent = u.service;
 }
 
-/* ── TAB SWITCH ── */
+
 function switchTab(id){
   document.querySelectorAll('.s-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.s-panel').forEach(p=>p.classList.remove('active'));
@@ -853,7 +853,7 @@ function switchTab(id){
   document.getElementById('panel-'+id).classList.add('active');
 }
 
-/* ── SHOW/HIDE PASSWORD ── */
+
 function toggleEye(inputId, btn){
   const inp = document.getElementById(inputId);
   const showing = inp.type === 'text';
@@ -863,7 +863,7 @@ function toggleEye(inputId, btn){
     : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
 }
 
-/* ── STRENGTH METER ── */
+
 function pwStrength(pw){
   if(!pw) return {pct:0,lbl:'—',col:'rgba(255,255,255,0.05)'};
   let s=0;
@@ -913,7 +913,7 @@ function setErr(id,msg){
   document.getElementById(id).focus();
 }
 
-/* ── PROFILE SAVE ── */
+
 async function saveProfile(){
   const token = localStorage.getItem('token')||localStorage.getItem('userToken');
   const name  = document.getElementById('p-name').value.trim();
@@ -953,17 +953,13 @@ function resetProfile(){
   toast('Reset to saved values');
 }
 
-/* ── PASSWORD CHANGE ── */
+
 async function changePassword(){
   const cur = document.getElementById('pw-cur').value;
   const nw  = document.getElementById('pw-new').value;
-  const cfm = document.getElementById('pw-cfm').value;
-
-  // Get email from localStorage — backend requires it
+  const cfm = document.getElementById('pw-cfm').value;
   const user  = JSON.parse(localStorage.getItem('user') || localStorage.getItem('userData') || '{}');
-  const email = user.email || document.getElementById('p-email').value;
-
-  // Client-side validation
+  const email = user.email || document.getElementById('p-email').value;
   let valid = true;
   if(!email){ toast('Session error — please log in again', true); return; }
   if(!cur){ setErr('pw-cur','Current password required'); valid=false; }
@@ -978,8 +974,7 @@ async function changePassword(){
   try {
     const res = await fetch(`${API}/api/auth/change-password`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      // Backend needs: email, currentPassword, newPassword
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, currentPassword: cur, newPassword: nw })
     });
     const d = await res.json();
@@ -1008,11 +1003,11 @@ async function changePassword(){
 }
 
 function confirmDelete(){
-  if(confirm('⚠ PERMANENT: Delete account and all data? Cannot be undone.'))
+  if(confirm(' PERMANENT: Delete account and all data? Cannot be undone.'))
     toast('Account deletion not yet implemented',true);
 }
 
-/* ── ALERTS ── */
+
 function saveAlerts(){
   const prefs={
     bruteforce:document.getElementById('al-bruteforce').checked,
@@ -1044,7 +1039,7 @@ function loadAlerts(){
   document.getElementById('al-severity').value=p.severity||'MEDIUM';
 }
 
-/* ── SECURITY SETTINGS ── */
+
 function saveSecSettings(){
   const prefs={
     autoLogout:document.getElementById('sec-autologout').checked,
@@ -1061,14 +1056,14 @@ function loadSecSettings(){
   document.getElementById('sec-loginlog').checked=p.loginLog!==false;
 }
 
-/* ── LOGOUT ── */
+
 function doLogout(){
   ['token','userToken','user','userData'].forEach(k=>localStorage.removeItem(k));
   window.location.href='login.html';
 }
 function logout(){ doLogout(); }
 
-/* ── HELPERS ── */
+
 function showSaved(id){
   const el=document.getElementById(id);
   el.classList.add('show');
@@ -1082,7 +1077,7 @@ function toast(msg,err=false){
   setTimeout(()=>t.classList.remove('on'),3200);
 }
 
-/* ── INIT ── */
+
 loadUser();
 loadAlerts();
 loadSecSettings();

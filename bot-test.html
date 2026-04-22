@@ -127,7 +127,7 @@
 
   <span class="badge">Bot Test</span>
 
-  <h2>🤖 Bot Filtering Test</h2>
+  <h2> Bot Filtering Test</h2>
 
   <p>
     This page tests bot detection using honeypot fields.
@@ -135,11 +135,11 @@
   </p>
 
   <form id="testForm">
-    <!-- Visible fields -->
+    
     <input type="text" name="username" placeholder="Username" required>
     <input type="email" name="email" placeholder="Email" required>
 
-    <!-- Hidden honeypot fields (bots usually fill these) -->
+    
     <input type="text" id="honeypot_phone" name="phone" style="display: none;">
     <input type="text" id="honeypot_website" name="website" style="display: none;">
 
@@ -163,9 +163,7 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  // Get userId from localStorage
+document.addEventListener("DOMContentLoaded", function () {
   function getUserId() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     return user._id || user.id || user.email || "ANONYMOUS";
@@ -176,9 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const honeypotInteractionSpan = document.getElementById("honeypotInteractions");
 
   let honeypotInteractions = 0;
-  let isBotDetected = false;
-
-  // Track interactions with hidden fields
+  let isBotDetected = false;
   const honeypotFields = ['honeypot_phone', 'honeypot_website'];
 
   honeypotFields.forEach(fieldId => {
@@ -199,15 +195,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // Check if honeypot fields have values
+    e.preventDefault();
     const honeypot_phone = document.getElementById('honeypot_phone').value;
     const honeypot_website = document.getElementById('honeypot_website').value;
 
     if (isBotDetected || honeypot_phone || honeypot_website || honeypotInteractions > 0) {
       resultDiv.className = "bot-detected";
-      resultDiv.innerHTML = "<b>✗ Bot Detected!</b><br>Automated form submission detected. Request blocked.";
+      resultDiv.innerHTML = "<b> Bot Detected!</b><br>Automated form submission detected. Request blocked.";
 
       fetch(API_BASE + "/api/logs", {
         method: "POST",
@@ -223,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     } else {
       resultDiv.className = "human-verified";
-      resultDiv.innerHTML = "<b>✓ Human Verified</b><br>Form passed bot detection. Request accepted.";
+      resultDiv.innerHTML = "<b> Human Verified</b><br>Form passed bot detection. Request accepted.";
     }
   });
 

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
-/* ===== VARIABLES ===== */
+
 :root {
   --cyan:    #00f5ff;
   --violet:  #7c3aed;
@@ -18,10 +18,10 @@
 
 
 
-/* ===== RESET ===== */
+
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-/* ===== BODY ===== */
+
 body {
   background: var(--bg);
   font-family: 'Space Grotesk', sans-serif;
@@ -30,7 +30,7 @@ body {
   overflow: hidden;
 }
 
-/* ===== AMBIENT MATRIX ===== */
+
 #matrix-canvas {
   position: fixed;
   inset: 0;
@@ -39,7 +39,7 @@ body {
   pointer-events: none;
 }
 
-/* ===== MESH BACKGROUND ===== */
+
 .mesh-bg {
   position: fixed;
   inset: 0;
@@ -56,7 +56,7 @@ body {
   100% { transform: scale(1.04); }
 }
 
-/* ===== GRID OVERLAY ===== */
+
 .grid-overlay {
   position: fixed;
   inset: 0;
@@ -69,7 +69,7 @@ body {
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
 }
 
-/* ===== LAYOUT ===== */
+
 .layout {
   display: flex;
   height: 100vh;
@@ -77,7 +77,7 @@ body {
   z-index: 1;
 }
 
-/* ===== SIDEBAR ===== */
+
 .sidebar {
   width: var(--sb-w);
   flex-shrink: 0;
@@ -91,7 +91,7 @@ body {
   overflow: hidden;
 }
 
-/* Gradient right edge glow */
+
 .sidebar::after {
   content: '';
   position: absolute;
@@ -109,7 +109,7 @@ body {
   100% { opacity: 1; }
 }
 
-/* ===== SIDEBAR HEADER ===== */
+
 .sidebar-header {
   display: flex;
   align-items: center;
@@ -157,7 +157,7 @@ body {
   margin-bottom: 8px;
 }
 
-/* ===== NAV ===== */
+
 .sb-nav {
   list-style: none;
   display: flex;
@@ -210,7 +210,7 @@ body {
   box-shadow: 0 0 10px var(--cyan);
 }
 
-/* ===== SIDEBAR STATUS ===== */
+
 .sb-status-block {
   display: flex;
   flex-direction: column;
@@ -243,7 +243,7 @@ body {
   50%      { opacity:0.4; }
 }
 
-/* ===== LOGOUT ===== */
+
 .sb-logout {
   display: flex;
   align-items: center;
@@ -268,7 +268,7 @@ body {
   box-shadow: 0 0 16px rgba(255,59,107,0.1);
 }
 
-/* ===== MAIN CONTENT ===== */
+
 .main {
   flex: 1;
   overflow-y: auto;
@@ -282,7 +282,7 @@ body {
 .main::-webkit-scrollbar-track { background: transparent; }
 .main::-webkit-scrollbar-thumb { background: rgba(0,245,255,0.15); border-radius: 2px; }
 
-/* ===== TOP BAR ===== */
+
 .topbar-left {
   display: flex;
   align-items: center;
@@ -392,21 +392,21 @@ body {
   gap: 1px;
 }
 
-/* ===== STAT CARD BODY ===== */
+
 .stat-card-body {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-/* ===== ATTACKS LIST ===== */
+
 .attacks-list {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-/* ===== THREAT BANNER ===== */
+
 .threat-banner {
   display: flex;
   align-items: center;
@@ -460,7 +460,7 @@ body {
   white-space: nowrap;
 }
 
-/* ===== STAT ROWS ===== */
+
 .stats-row {
   display: grid;
   gap: 16px;
@@ -469,7 +469,7 @@ body {
 #statsRow1 { grid-template-columns: repeat(4, 1fr); }
 #statsRow2 { grid-template-columns: repeat(3, 1fr); }
 
-/* ===== STAT CARDS ===== */
+
 .stat-card {
   background: rgba(8,2,20,0.6);
   backdrop-filter: blur(16px);
@@ -499,7 +499,7 @@ body {
 }
 .stat-card:hover::before { opacity: 1; }
 
-/* Card top-border colors */
+
 .user-card::before   { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
 .org-card::before    { background: linear-gradient(90deg, transparent, var(--violet), transparent); }
 .svc-card::before    { background: linear-gradient(90deg, transparent, var(--orange), transparent); }
@@ -507,7 +507,7 @@ body {
 .metric-card::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
 .danger-card::before { background: linear-gradient(90deg, transparent, var(--red), transparent); }
 
-/* Card icon */
+
 .stat-card-icon {
   width: 36px; height: 36px;
   border-radius: 8px;
@@ -545,7 +545,7 @@ body {
   color: var(--muted);
 }
 
-/* Service badge */
+
 .service-badge {
   display: inline-block;
   margin-top: 8px;
@@ -565,7 +565,7 @@ body {
   border-color: rgba(0,245,196,0.2);
 }
 
-/* Metric cards */
+
 .metric-top {
   display: flex;
   justify-content: space-between;
@@ -609,7 +609,7 @@ body {
 .metric-bar-fill.red   { background: linear-gradient(90deg, #ff0040, var(--red)); box-shadow: 0 0 6px var(--red); }
 .metric-bar-fill.green { background: linear-gradient(90deg, #00c9a0, var(--green)); box-shadow: 0 0 6px var(--green); }
 
-/* Card glow */
+
 .stat-card-glow {
   position: absolute;
   bottom: -30px; right: -30px;
@@ -627,7 +627,7 @@ body {
 .stat-card-glow.green  { background: rgba(0,245,196,0.25); }
 .stat-card-glow.red    { background: rgba(255,59,107,0.25); }
 
-/* ===== CHARTS GRID ===== */
+
 .charts-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -635,7 +635,7 @@ body {
   flex-shrink: 0;
 }
 
-/* ===== PANELS ===== */
+
 .panel, .chart-panel {
   background: rgba(8,2,20,0.6);
   backdrop-filter: blur(16px);
@@ -688,7 +688,7 @@ body {
 }
 .doughnut-wrap { height: 260px; }
 
-/* ===== LIVE PANEL ===== */
+
 .live-panel { flex-shrink: 0; }
 
 .live-pulse-dot {
@@ -722,7 +722,7 @@ body {
   box-shadow: 0 0 12px rgba(0,245,255,0.1);
 }
 
-/* ===== ATTACK ROWS ===== */
+
 .attack-row {
   display: flex;
   justify-content: space-between;
@@ -785,7 +785,7 @@ body {
   color: rgba(226,232,240,0.25);
 }
 
-/* ===== RESPONSIVE ===== */
+
 @media (max-width: 1200px) {
   #statsRow1 { grid-template-columns: repeat(2, 1fr); }
   .charts-grid { grid-template-columns: 1fr; }
@@ -808,7 +808,7 @@ body {
   .metric-number { font-size: 28px; }
 }
 
-/* ===== MAP + HEATMAP GRID ===== */
+
 .map-heat-grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
@@ -817,7 +817,7 @@ body {
   animation: cardReveal 0.5s cubic-bezier(.16,1,.3,1) both;
 }
 
-/* ===== WORLD MAP ===== */
+
 .map-panel { display: flex; flex-direction: column; gap: 14px; }
 
 .map-legend {
@@ -854,7 +854,7 @@ body {
   display: block;
 }
 
-/* Scan line sweep on map */
+
 .map-scan-line {
   position: absolute;
   left: 0; right: 0;
@@ -864,7 +864,7 @@ body {
   pointer-events: none;
 }
 
-/* Map tooltip */
+
 .map-attacks-overlay {
   position: absolute;
   display: none;
@@ -902,7 +902,7 @@ body {
   gap: 16px;
 }
 
-/* Map bottom stats */
+
 .map-stats-row {
   display: flex;
   justify-content: space-around;
@@ -930,7 +930,7 @@ body {
   display: block;
 }
 
-/* ===== HEATMAP ===== */
+
 .heatmap-panel { display: flex; flex-direction: column; gap: 10px; }
 
 .heatmap-labels-top {
@@ -946,7 +946,7 @@ body {
   font-size: 8px;
   color: rgba(226,232,240,0.2);
   text-align: center;
-  /* only show every 3rd label */
+  
 }
 
 .heatmap-body {
@@ -994,7 +994,7 @@ body {
   position: relative;
 }
 
-/* Heatmap legend */
+
 .heatmap-legend-row {
   display: flex;
   align-items: center;
@@ -1019,7 +1019,7 @@ body {
     rgba(255,200,50,1));
 }
 
-/* Heatmap insight */
+
 .heatmap-insight {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
@@ -1031,7 +1031,7 @@ body {
   color: rgba(251,191,36,0.7);
 }
 
-/* Heatmap floating tooltip */
+
 .heat-tooltip {
   position: fixed;
   display: none;
@@ -1064,7 +1064,7 @@ body {
   margin-left: 4px;
 }
 
-/* ===== RESPONSIVE ===== */
+
 @media (max-width: 1100px) {
   .map-heat-grid { grid-template-columns: 1fr; }
   .world-map-wrap { height: 220px; }

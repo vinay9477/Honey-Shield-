@@ -1,7 +1,6 @@
 function register() {
-  const msg = document.getElementById("msg");
+  var msg = document.getElementById("msg");
 
-  // Basic validations
   if (!name.value || !email.value || !password.value || !confirmPassword.value || !org.value) {
     msg.className = "message error";
     msg.innerText = "All fields are required.";
@@ -31,14 +30,13 @@ function register() {
       organization: org.value
     })
   })
-  .then(res => res.json())
-  .then(data => {
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
     msg.className = "message success";
     msg.innerText = "Registration successful. Redirecting...";
 
-    setTimeout(() => {
+    setTimeout(function() {
       window.location.href = "login.html";
     }, 1200);
   });
 }
-

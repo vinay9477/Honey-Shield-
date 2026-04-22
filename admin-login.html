@@ -20,6 +20,103 @@
       --dim: rgba(240,234,250,0.18);
       --border: rgba(255,42,74,0.12);
     }
+    body.light-mode {
+      --bg: #f0f2f5;
+      --surface: rgba(255, 255, 255, 0.97);
+      --red: #dc2626;
+      --red-dim: rgba(220,38,38,0.1);
+      --red-glow: rgba(220,38,38,0.2);
+      --violet: #7c3aed;
+      --amber: #b45309;
+      --text: #111827;
+      --muted: #4b5563;
+      --dim: #6b7280;
+      --border: rgba(220,38,38,0.12);
+    }
+    body.light-mode .bg-grid {
+      background-image:
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px) !important;
+    }
+    body.light-mode .bg-glow-1 { background: radial-gradient(circle, rgba(139,35,232,0.04) 0%, transparent 70%) !important; }
+    body.light-mode .bg-glow-2 { background: radial-gradient(circle, rgba(220,38,38,0.03) 0%, transparent 70%) !important; }
+    body.light-mode .scanlines { opacity: 0.01 !important; }
+    body.light-mode .danger-stripe { opacity: 0.4; }
+    body.light-mode .card {
+      box-shadow: 0 8px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05) !important;
+    }
+    body.light-mode .card-head { border-bottom-color: rgba(0,0,0,0.08); }
+    body.light-mode .head-eyebrow { color: var(--red); }
+    body.light-mode .head-eyebrow::before { background: var(--red); }
+    body.light-mode .head-title {
+      background: linear-gradient(120deg, #111827 40%, var(--red) 100%);
+      -webkit-background-clip: text; background-clip: text;
+    }
+    body.light-mode .head-subtitle { color: #6b7280; }
+    body.light-mode .field label { color: #4b5563; }
+    body.light-mode .field label::before { color: var(--red); }
+    body.light-mode .field input {
+      background: #ffffff !important;
+      border: 1px solid rgba(0,0,0,0.15) !important;
+      color: #111827;
+    }
+    body.light-mode .field input:focus {
+      border-color: rgba(220,38,38,0.4) !important;
+      box-shadow: 0 0 0 3px rgba(220,38,38,0.08) !important;
+      background: #fff8f8 !important;
+    }
+    body.light-mode .field input::placeholder { color: #9ca3af; }
+    body.light-mode .pw-toggle { color: #6b7280; }
+    body.light-mode .pw-toggle:hover { color: var(--red); }
+    body.light-mode .warn-box {
+      background: rgba(180,83,9,0.06);
+      border-color: rgba(180,83,9,0.15);
+      border-left-color: var(--amber);
+    }
+    body.light-mode .warn-box-text { color: #78350f; }
+    body.light-mode .warn-box-text strong { color: #92400e; }
+    body.light-mode .status-msg.error {
+      background: rgba(220,38,38,0.06); color: #991b1b;
+      border-color: rgba(220,38,38,0.15);
+    }
+    body.light-mode .status-msg.success {
+      background: rgba(4,120,87,0.06); color: #065f46;
+      border-color: rgba(4,120,87,0.15);
+    }
+    body.light-mode .btn-auth {
+      box-shadow: 0 4px 20px rgba(220,38,38,0.2);
+    }
+    body.light-mode .lock-overlay { background: rgba(255,255,255,0.96) !important; }
+    body.light-mode .lock-label { color: #111827 !important; }
+    body.light-mode .lock-sub { color: #4b5563 !important; }
+    body.light-mode .card-foot { border-top-color: rgba(0,0,0,0.08); }
+    body.light-mode .card-foot a { color: #6b7280; }
+    body.light-mode .card-foot a:hover { color: #111827; }
+    body.light-mode .restricted-badge {
+      color: var(--red); background: rgba(220,38,38,0.06);
+      border-color: rgba(220,38,38,0.15);
+    }
+    body.light-mode .head-icon-wrap {
+      background: rgba(220,38,38,0.08);
+      border-color: rgba(220,38,38,0.2);
+    }
+
+
+    .theme-toggle {
+      position: fixed; top: 20px; right: 20px; z-index: 1000;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text); font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s ease;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .theme-toggle:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
+    body.light-mode .theme-toggle {
+      background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.12);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
     html, body { height: 100%; overflow: hidden; }
     body {
       font-family: 'DM Sans', sans-serif;
@@ -28,7 +125,7 @@
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* ─── ANIMATED BG ─── */
+
     .bg-grid {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background-image:
@@ -51,13 +148,13 @@
     }
     @keyframes glowDrift { from{transform:translate(0,0)} to{transform:translate(40px,30px)} }
 
-    /* ─── SCANLINES ─── */
+
     .scanlines {
       position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.03;
       background: repeating-linear-gradient(0deg, rgba(0,0,0,0.8) 0px, rgba(0,0,0,0.8) 1px, transparent 1px, transparent 4px);
     }
 
-    /* ─── DANGER STRIPE (top) ─── */
+
     .danger-stripe {
       position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 10;
       background: repeating-linear-gradient(90deg,
@@ -67,7 +164,7 @@
     }
     @keyframes stripeScroll { from{background-position:0 0} to{background-position:30px 0} }
 
-    /* ─── CARD ─── */
+
     .card {
       position: relative; z-index: 1;
       width: 100%; max-width: 420px; margin: 20px 16px;
@@ -80,13 +177,13 @@
     }
     @keyframes cardIn { from{opacity:0;transform:translateY(20px) scale(0.98)} to{opacity:1;transform:none} }
 
-    /* corner cut decorator */
+
     .card-corner {
       position: absolute; top: 0; right: 0; width: 16px; height: 16px;
       background: var(--red); clip-path: polygon(100% 0, 0 0, 100% 100%);
     }
 
-    /* ─── HEADER ─── */
+
     .card-head {
       padding: 24px 28px 20px;
       border-bottom: 1px solid var(--border);
@@ -126,7 +223,7 @@
       font-size: 10px; color: var(--dim); letter-spacing: 1px; margin-top: 4px;
     }
 
-    /* ─── BODY ─── */
+
     .card-body { padding: 24px 28px; display: flex; flex-direction: column; gap: 16px; }
 
     .field { display: flex; flex-direction: column; gap: 6px; }
@@ -163,7 +260,7 @@
     }
     .pw-toggle:hover { color: var(--red); }
 
-    /* ─── WARN BOX ─── */
+
     .warn-box {
       display: flex; gap: 12px; align-items: flex-start;
       background: rgba(255,184,48,0.05);
@@ -180,7 +277,7 @@
     }
     .warn-box-text strong { color: var(--amber); font-weight: 500; }
 
-    /* ─── STATUS MSG ─── */
+
     .status-msg {
       font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.5px;
       padding: 11px 14px; border-radius: 3px; display: none; text-align: center;
@@ -194,7 +291,7 @@
       border: 1px solid rgba(0,245,150,0.2); display: block;
     }
 
-    /* ─── BUTTON ─── */
+
     .btn-auth {
       width: 100%; padding: 14px;
       background: linear-gradient(135deg, var(--red), #c41e38);
@@ -215,7 +312,7 @@
     .btn-auth:active { transform: translateY(0); }
     .btn-auth:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
-    /* ─── FOOTER ─── */
+
     .card-foot {
       padding: 14px 28px;
       border-top: 1px solid var(--border);
@@ -233,7 +330,7 @@
       border-radius: 2px;
     }
 
-    /* ─── LOCK OVERLAY ─── */
+
     .lock-overlay {
       position: absolute; inset: 0; z-index: 20; border-radius: 4px;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
@@ -264,6 +361,7 @@
   <link rel="stylesheet" href="public/css/responsive.css">
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Mode" onclick="toggleTheme()">T</button>
 <div class="bg-grid"></div>
 <div class="bg-glow-1"></div>
 <div class="bg-glow-2"></div>
@@ -273,14 +371,14 @@
 <div class="card" id="card">
   <div class="card-corner"></div>
 
-  <!-- Lock overlay -->
+
   <div class="lock-overlay" id="lockOverlay">
-    <div class="lock-icon" id="lockIcon">🔒</div>
+    <div class="lock-icon" id="lockIcon">&#128274;</div>
     <div class="lock-label" id="lockLabel" style="color:var(--text)">AUTHENTICATING</div>
     <div class="lock-sub" id="lockSub">Verifying credentials...</div>
   </div>
 
-  <!-- Header -->
+
   <div class="card-head">
     <div class="head-icon-wrap">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -297,7 +395,7 @@
     </div>
   </div>
 
-  <!-- Body -->
+
   <div class="card-body">
     <div class="field">
       <label>Admin Username</label>
@@ -316,7 +414,7 @@
     </div>
 
     <div class="warn-box">
-      <div class="warn-box-icon">⚠</div>
+      <div class="warn-box-icon"></div>
       <div class="warn-box-text">
         Restricted access. All login attempts are <strong>logged and monitored</strong>.
         Unauthorized access is a <strong>criminal offence</strong>.
@@ -327,7 +425,7 @@
     <button class="btn-auth" id="loginBtn" onclick="doLogin()">AUTHENTICATE</button>
   </div>
 
-  <!-- Footer -->
+
   <div class="card-foot">
     <a href="login.html">← Operator Login</a>
     <div class="restricted-badge">ADMIN ZONE</div>
@@ -353,16 +451,16 @@ function showLock(success){
   const sub=document.getElementById('lockSub');
   ov.classList.add('show');
   if(success){
-    icon.textContent='🔓'; lbl.style.color='#00f596'; lbl.textContent='ACCESS GRANTED';
+    icon.textContent='\u{1F513}'; lbl.style.color='#00f596'; lbl.textContent='ACCESS GRANTED';
     sub.style.color='#00f596'; sub.textContent='Redirecting to control center...';
   } else {
-    icon.textContent='⛔'; lbl.style.color='var(--red)'; lbl.textContent='ACCESS DENIED';
+    icon.textContent='\u{26D4}'; lbl.style.color='var(--red)'; lbl.textContent='ACCESS DENIED';
     sub.style.color='var(--red)'; sub.textContent='Invalid credentials';
     document.getElementById('card').classList.add('shake');
     setTimeout(()=>{
       document.getElementById('card').classList.remove('shake');
       ov.classList.remove('show');
-      icon.textContent='🔒'; lbl.style.color='var(--text)'; lbl.textContent='AUTHENTICATING';
+      icon.textContent='\u{1F512}'; lbl.style.color='var(--text)'; lbl.textContent='AUTHENTICATING';
       sub.style.color='var(--muted)'; sub.textContent='Verifying credentials...';
     },1800);
   }
@@ -371,7 +469,7 @@ function showLock(success){
 async function doLogin(){
   const username=document.getElementById('username').value.trim();
   const password=document.getElementById('password').value;
-  if(!username||!password){setStatus('⚠ All fields required','error');return;}
+  if(!username||!password){setStatus('All fields required','error');return;}
 
   const btn=document.getElementById('loginBtn');
   btn.disabled=true; btn.textContent='VERIFYING...';
@@ -390,22 +488,36 @@ async function doLogin(){
       setTimeout(()=>window.location.replace('admin-dashboard.html'),2000);
     } else {
       showLock(false);
-      setStatus('✗ '+(data.message||'Invalid credentials'),'error');
+      setStatus(' '+(data.message||'Invalid credentials'),'error');
       btn.disabled=false; btn.textContent='AUTHENTICATE';
     }
-  }catch(e){
-    // Offline fallback for dev — hardcoded admin/admin
+  }catch(e){
     if(username==='admin'&&password==='admin'){
       localStorage.setItem('admin',JSON.stringify({username}));
       showLock(true);
       setTimeout(()=>window.location.replace('admin-dashboard.html'),2000);
     } else {
       showLock(false);
-      setStatus('⚠ Server unreachable — check backend','error');
+      setStatus('Server unreachable - check backend','error');
       btn.disabled=false; btn.textContent='AUTHENTICATE';
     }
   }
 }
+
+
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+  const isLight = document.body.classList.contains('light-mode');
+  localStorage.setItem('honeyshield-theme', isLight ? 'light' : 'dark');
+  document.getElementById('themeToggle').textContent = isLight ? 'L' : 'D';
+}
+(function() {
+  const saved = localStorage.getItem('honeyshield-theme');
+  if (saved === 'light') {
+    document.body.classList.add('light-mode');
+    document.getElementById('themeToggle').textContent = 'L';
+  }
+})();
 </script>
 </body>
 </html>

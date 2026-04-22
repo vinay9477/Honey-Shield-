@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="public/css/cyber-dashboard.css">
   <style>
-    /* ── PAGE-SPECIFIC ─────────────────────────────────────── */
+    
     .services-header {
       display: flex;
       align-items: center;
@@ -53,7 +53,7 @@
     }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-    /* FILTER TABS */
+    
     .filter-tabs {
       display: flex;
       gap: 8px;
@@ -80,7 +80,7 @@
       color: var(--cyan);
     }
 
-    /* SERVICES GRID */
+    
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -88,7 +88,7 @@
       margin-bottom: 40px;
     }
 
-    /* SERVICE CARD */
+    
     .svc-card {
       position: relative;
       background: rgba(13,11,22,0.8);
@@ -117,7 +117,7 @@
     .svc-card.active-svc { border-color: rgba(0,245,196,0.3); }
     .svc-card.active-svc::before { opacity: 1; background: linear-gradient(90deg, var(--green), var(--cyan)); }
 
-    /* card colour accent by type */
+    
     .svc-card.type-honeypot::before  { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
     .svc-card.type-bot::before       { background: linear-gradient(90deg, var(--cyan), var(--violet)); }
     .svc-card.type-sql::before       { background: linear-gradient(90deg, #f97316, #fb923c); }
@@ -241,7 +241,7 @@
     }
     .btn-code:hover { border-color: rgba(0,245,255,0.3); color: var(--cyan); }
 
-    /* ── CODE MODAL ────────────────────────────────────────── */
+    
     .modal-overlay {
       position: fixed; inset: 0; z-index: 100;
       background: rgba(3,1,10,0.85);
@@ -365,7 +365,7 @@
     }
     .btn-test:hover { border-color: rgba(0,245,196,0.4); color: var(--green); background: rgba(0,245,196,0.08); }
 
-    /* TOAST */
+    
     .toast {
       position: fixed;
       bottom: 28px; right: 28px;
@@ -397,7 +397,7 @@
 
 <div class="layout">
 
-  <!-- SIDEBAR (same as dashboard) -->
+  
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <svg class="sb-shield" viewBox="0 0 40 40" fill="none">
@@ -451,10 +451,10 @@
     </button>
   </aside>
 
-  <!-- MAIN -->
+  
   <main class="main" id="mainContent">
 
-    <!-- TOP BAR -->
+    
     <header class="topbar">
       <div class="topbar-left">
         <div class="topbar-title">
@@ -477,7 +477,7 @@
       </div>
     </header>
 
-    <!-- SERVICES HEADER -->
+    
     <div class="services-header">
       <div>
         <div class="services-title">Protection Modules</div>
@@ -489,7 +489,7 @@
       </div>
     </div>
 
-    <!-- FILTER TABS -->
+    
     <div class="filter-tabs">
       <button class="ftab active" onclick="filterCards('all', this)">ALL</button>
       <button class="ftab" onclick="filterCards('injection', this)">INJECTION</button>
@@ -498,18 +498,18 @@
       <button class="ftab" onclick="filterCards('file', this)">FILE</button>
     </div>
 
-    <!-- SERVICES GRID -->
+    
     <div class="services-grid" id="servicesGrid"></div>
 
   </main>
 </div>
 
-<!-- CODE MODAL -->
+
 <div class="modal-overlay" id="codeModal" onclick="closeModal(event)">
   <div class="modal">
     <div class="modal-head">
       <div class="modal-title" id="modalTitle">Integration Code</div>
-      <button class="modal-close" onclick="hideModal()">✕</button>
+      <button class="modal-close" onclick="hideModal()"></button>
     </div>
     <div class="modal-body">
       <div class="modal-desc" id="modalDesc">Paste this snippet into your frontend to activate protection.</div>
@@ -524,18 +524,15 @@
   </div>
 </div>
 
-<!-- TOAST -->
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CLOCK ──────────────────────────────────────────────────
 function updateClock() {
   document.getElementById('topClock').textContent =
     new Date().toTimeString().split(' ')[0] + ' UTC';
 }
-setInterval(updateClock, 1000); updateClock();
-
-// ── MATRIX BG ─────────────────────────────────────────────
+setInterval(updateClock, 1000); updateClock();
 const canvas = document.getElementById('matrix-canvas');
 const ctx    = canvas.getContext('2d');
 function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
@@ -561,25 +558,21 @@ setInterval(() => {
     if (y > canvas.height && Math.random() > 0.975) cols[i] = 0;
     cols[i] += 14;
   });
-}, 55);
-
-// ── NAV ────────────────────────────────────────────────────
+}, 55);
 function navigateTo(page) {
   document.getElementById('mainContent').style.opacity = '0';
   document.getElementById('mainContent').style.transform = 'translateY(8px)';
   setTimeout(() => { window.location.href = page; }, 250);
 }
-function logout() { localStorage.clear(); window.location.href = 'login.html'; }
-
-// ── SERVICES DATA ──────────────────────────────────────────
+function logout() { localStorage.clear(); window.location.href = 'login.html'; }
 const SERVICES = [
   {
-    id: 'honeypot', icon: '🍯', name: 'Honeypot Protection',
+    id: 'honeypot', icon: '', name: 'Honeypot Protection',
     cat: 'DECEPTION', tags: ['honeypot', 'network'],
     group: 'network',
     desc: 'Redirects suspicious users to a controlled decoy. Records malicious behavior for deep analysis.',
     best: 'Login pages, admin panels',
-    code: `<!-- Honeypot Protection -->
+    code: `
 <script>
 let attempts = 0, lastTime = Date.now();
 
@@ -595,12 +588,12 @@ document.querySelector("form").addEventListener("submit", function(e) {
 <\/script>`
   },
   {
-    id: 'bot', icon: '🤖', name: 'Bot Filtering',
+    id: 'bot', icon: '', name: 'Bot Filtering',
     cat: 'DETECTION', tags: ['bot', 'auth'],
     group: 'auth',
     desc: 'Detects and blocks automated bots using hidden honeypot fields that real users never touch.',
     best: 'Public websites, registration forms',
-    code: `<!-- Bot Filtering -->
+    code: `
 <input type="text" name="company_name" style="display:none">
 <script>
 document.querySelector("form").addEventListener("submit", function(e) {
@@ -612,12 +605,12 @@ document.querySelector("form").addEventListener("submit", function(e) {
 <\/script>`
   },
   {
-    id: 'sql', icon: '💉', name: 'SQL Injection Prevention',
+    id: 'sql', icon: '', name: 'SQL Injection Prevention',
     cat: 'INJECTION', tags: ['sql', 'injection'],
     group: 'injection',
     desc: 'Blocks malicious SQL patterns in user input before they ever reach the database layer.',
     best: 'Database-backed apps',
-    code: `<!-- SQL Injection Prevention -->
+    code: `
 <script>
 document.querySelector("form").addEventListener("submit", function(e) {
   const inputs = document.querySelectorAll("input");
@@ -632,12 +625,12 @@ document.querySelector("form").addEventListener("submit", function(e) {
 <\/script>`
   },
   {
-    id: 'xss', icon: '🎯', name: 'XSS Protection',
+    id: 'xss', icon: '', name: 'XSS Protection',
     cat: 'INJECTION', tags: ['xss', 'injection'],
     group: 'injection',
     desc: 'Detects and sanitizes malicious script injection in user-generated content before rendering.',
     best: 'Web apps with user content',
-    code: `<!-- XSS Protection -->
+    code: `
 <script>
 function sanitize(input) {
   const d = document.createElement('div');
@@ -658,12 +651,12 @@ document.querySelector("form").addEventListener("submit", function(e) {
 <\/script>`
   },
   {
-    id: 'csrf', icon: '🔗', name: 'CSRF Token Protection',
+    id: 'csrf', icon: '', name: 'CSRF Token Protection',
     cat: 'AUTH', tags: ['csrf', 'auth'],
     group: 'auth',
     desc: 'Prevents unauthorized cross-site requests by injecting and validating unique session tokens.',
     best: 'Forms and state-changing API endpoints',
-    code: `<!-- CSRF Token Protection -->
+    code: `
 <script>
 function genToken() { return 'csrf_' + Math.random().toString(36).substr(2, 9); }
 const token = genToken();
@@ -680,12 +673,12 @@ document.querySelector("form").addEventListener("submit", function(e) {
 <\/script>`
   },
   {
-    id: 'bruteforce', icon: '🔪', name: 'Brute Force Detection',
+    id: 'bruteforce', icon: '', name: 'Brute Force Detection',
     cat: 'AUTH', tags: ['bruteforce', 'auth'],
     group: 'auth',
     desc: 'Implements progressive account lockout after multiple failed login attempts are detected.',
     best: 'Login and auth pages',
-    code: `<!-- Brute Force Detection -->
+    code: `
 <script>
 const MAX = 5, LOCK = 15 * 60 * 1000;
 let log = JSON.parse(localStorage.getItem('bf') || '{}');
@@ -707,12 +700,12 @@ document.querySelector("form").addEventListener("submit", function(e) {
 <\/script>`
   },
   {
-    id: 'ratelimit', icon: '⚡', name: 'Rate Limiting',
+    id: 'ratelimit', icon: '', name: 'Rate Limiting',
     cat: 'NETWORK', tags: ['ratelimit', 'network'],
     group: 'network',
     desc: 'Throttles excessive requests per user within a configurable time window to prevent abuse.',
     best: 'APIs and public endpoints',
-    code: `<!-- Rate Limiting -->
+    code: `
 <script>
 const LIMIT = 10, WINDOW = 60000;
 let log = JSON.parse(localStorage.getItem('rl') || '[]');
@@ -731,12 +724,12 @@ document.querySelector("form").addEventListener("submit", function(e) {
 <\/script>`
   },
   {
-    id: 'traversal', icon: '🗂️', name: 'Path Traversal Prevention',
+    id: 'traversal', icon: '', name: 'Path Traversal Prevention',
     cat: 'FILE', tags: ['traversal', 'file'],
     group: 'file',
     desc: 'Blocks attempts to access restricted files via "../" and absolute path manipulation attacks.',
     best: 'File download / serving applications',
-    code: `<!-- Path Traversal Prevention -->
+    code: `
 <script>
 function isMalicious(path) {
   return /\.\.|\\|:\//.test(path) || path.startsWith('/') || path.startsWith('\\');
@@ -751,12 +744,12 @@ document.querySelector("form").addEventListener("submit", function(e) {
 <\/script>`
   },
   {
-    id: 'fileupload', icon: '📁', name: 'File Upload Validation',
+    id: 'fileupload', icon: '', name: 'File Upload Validation',
     cat: 'FILE', tags: ['fileupload', 'file'],
     group: 'file',
     desc: 'Validates file type, size, and MIME type before acceptance to prevent malicious uploads.',
     best: 'File upload forms',
-    code: `<!-- File Upload Validation -->
+    code: `
 <script>
 const ALLOWED = ['image/jpeg','image/png','application/pdf'];
 const MAX_MB  = 5 * 1024 * 1024;
@@ -779,12 +772,12 @@ document.querySelector("form").addEventListener("submit", function(e) {
 <\/script>`
   },
   {
-    id: 'ddos', icon: '🌊', name: 'DDoS Protection',
+    id: 'ddos', icon: '', name: 'DDoS Protection',
     cat: 'NETWORK', tags: ['ddos', 'network'],
     group: 'network',
     desc: 'Detects and mitigates distributed denial-of-service patterns through real-time traffic analysis.',
     best: 'High-traffic applications',
-    code: `<!-- DDoS Protection -->
+    code: `
 <script>
 const THRESHOLD = { req: 100, window: 10000 };
 let ts = [];
@@ -806,12 +799,12 @@ document.querySelector("form").addEventListener("submit", function(e) {
 <\/script>`
   },
   {
-    id: 'keylogger', icon: '⌨️', name: 'Keylogger Detection',
+    id: 'keylogger', icon: '⌨', name: 'Keylogger Detection',
     cat: 'AUTH', tags: ['keylogger', 'auth'],
     group: 'auth',
     desc: 'Monitors for suspicious keyboard event patterns that indicate client-side keylogging activity.',
     best: 'Sensitive forms: login, payment, PII',
-    code: `<!-- Keylogger Detection -->
+    code: `
 <script>
 let flagged = false;
 let keys    = [];
@@ -831,9 +824,7 @@ document.querySelector("form").addEventListener("submit", function(e) {
 });
 <\/script>`
   }
-];
-
-// ── RUN TEST ───────────────────────────────────────────────
+];
 function runTest(id) {
   const pages = {
     honeypot:   'honeypot-test.html',
@@ -868,9 +859,7 @@ function loadActiveService() {
   } else {
     label.textContent = 'No service active';
   }
-}
-
-// ── RENDER CARDS ───────────────────────────────────────────
+}
 function renderCards(filter) {
   const grid = document.getElementById('servicesGrid');
   grid.innerHTML = '';
@@ -901,34 +890,29 @@ function renderCards(filter) {
       <div class="svc-actions">
         <button class="btn-activate ${isActive ? 'active-state' : ''}"
                 onclick="activateService('${s.id}')">
-          ${isActive ? '✓ ACTIVATED' : 'ACTIVATE'}
+          ${isActive ? ' ACTIVATED' : 'ACTIVATE'}
         </button>
         <button class="btn-code" onclick="showCode('${s.id}')">
           &lt;/&gt; CODE
         </button>
         <button class="btn-test" onclick="runTest('${s.id}')">
-          ▶ TEST
+           TEST
         </button>
       </div>`;
     grid.appendChild(card);
   });
-}
-
-// ── FILTER ─────────────────────────────────────────────────
+}
 function filterCards(group, btn) {
   document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   renderCards(group);
-}
-
-// ── ACTIVATE ───────────────────────────────────────────────
+}
 function activateService(id) {
   const raw = localStorage.getItem('user');
   if (!raw) { window.location.href = 'login.html'; return; }
   const user = JSON.parse(raw);
 
-  if (currentActive === id) {
-    // Deactivate
+  if (currentActive === id) {
     user.service = null;
     currentActive = null;
     showToast('Service deactivated', 'error');
@@ -936,18 +920,14 @@ function activateService(id) {
     user.service = id;
     currentActive = id;
     const svc = SERVICES.find(s => s.id === id);
-    showToast(`${svc.name} activated ✓`);
+    showToast(`${svc.name} activated `);
   }
   localStorage.setItem('user', JSON.stringify(user));
-  loadActiveService();
-
-  // Re-render current filter
+  loadActiveService();
   const activeTab = document.querySelector('.ftab.active');
   const currentGroup = activeTab ? activeTab.textContent.trim().toLowerCase() : 'all';
   renderCards(currentGroup === 'all' ? 'all' : currentGroup);
-}
-
-// ── CODE MODAL ─────────────────────────────────────────────
+}
 function showCode(id) {
   const svc = SERVICES.find(s => s.id === id);
   if (!svc) return;
@@ -972,22 +952,18 @@ function copyCode() {
   const code = document.getElementById('modalCode').textContent;
   navigator.clipboard.writeText(code).then(() => {
     const btn = document.getElementById('copyBtn');
-    btn.textContent = '✓ COPIED!';
+    btn.textContent = ' COPIED!';
     btn.classList.add('copied');
-    showToast('Code copied to clipboard ✓');
+    showToast('Code copied to clipboard ');
     setTimeout(() => { btn.textContent = 'COPY CODE'; btn.classList.remove('copied'); }, 2000);
   });
-}
-
-// ── TOAST ──────────────────────────────────────────────────
+}
 function showToast(msg, type = '') {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.className = 'toast show' + (type ? ' ' + type : '');
   setTimeout(() => { t.classList.remove('show'); }, 2500);
-}
-
-// ── INIT ───────────────────────────────────────────────────
+}
 document.addEventListener('DOMContentLoaded', () => {
   const raw = localStorage.getItem('user');
   if (!raw) { window.location.href = 'login.html'; return; }
@@ -1004,9 +980,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   loadActiveService();
-  renderCards('all');
-
-  // Fade in
+  renderCards('all');
   const main = document.getElementById('mainContent');
   main.style.opacity = '0';
   main.style.transform = 'translateY(12px)';

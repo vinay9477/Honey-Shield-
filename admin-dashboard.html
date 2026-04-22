@@ -26,10 +26,190 @@
       --dim: rgba(240,234,250,0.2);
       --sb: 230px;
     }
+
+    
+    body.light-mode {
+      --bg: #f0f2f5;
+      --surface: rgba(255, 255, 255, 0.97);
+      --card: rgba(255, 255, 255, 0.95);
+      --border: rgba(0,0,0,0.08);
+      --border-r: rgba(220,38,38,0.12);
+      --red: #dc2626;
+      --red-dim: rgba(220,38,38,0.08);
+      --violet: #7c3aed;
+      --cyan: #0e7490;
+      --green: #047857;
+      --amber: #b45309;
+      --orange: #c2410c;
+      --text: #111827;
+      --muted: #4b5563;
+      --dim: #6b7280;
+    }
+    body.light-mode { background: var(--bg); }
+    body.light-mode #bgCanvas { opacity: 0.015 !important; }
+    body.light-mode .bg-grid {
+      background-image:
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px) !important;
+    }
+    body.light-mode .bg-glow-1 { background: radial-gradient(circle,rgba(139,35,232,0.04) 0%,transparent 70%) !important; }
+    body.light-mode .bg-glow-2 { background: radial-gradient(circle,rgba(220,38,38,0.03) 0%,transparent 70%) !important; }
+    body.light-mode .danger-stripe { opacity: 0.35; }
+
+    
+    body.light-mode .sidebar {
+      background: rgba(255,255,255,0.98) !important;
+      border-right-color: rgba(0,0,0,0.08) !important;
+    }
+    body.light-mode .sidebar::after {
+      background: linear-gradient(180deg, transparent, rgba(220,38,38,0.12), rgba(139,35,232,0.08), transparent) !important;
+    }
+    body.light-mode .sb-brand { border-bottom-color: rgba(0,0,0,0.08); }
+    body.light-mode .sb-eyebrow { color: rgba(220,38,38,0.7); }
+    body.light-mode .sb-name { background: linear-gradient(90deg,#dc2626,#e11d48); -webkit-background-clip:text; background-clip:text; }
+    body.light-mode .sb-tag { color: rgba(220,38,38,0.5); }
+    body.light-mode .sb-section { color: #9ca3af; }
+    body.light-mode .sb-nav li { color: #4b5563; }
+    body.light-mode .sb-nav li:hover { background: rgba(220,38,38,0.05) !important; border-color: rgba(220,38,38,0.1) !important; color: #111827; }
+    body.light-mode .sb-nav li.active { background: rgba(220,38,38,0.07) !important; border-color: rgba(220,38,38,0.18) !important; color: var(--red); }
+    body.light-mode .sb-stats { background: rgba(220,38,38,0.04); border-color: rgba(220,38,38,0.1); }
+    body.light-mode .sb-stat-lbl { color: #6b7280; }
+    body.light-mode .admin-pill { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); }
+    body.light-mode .admin-name { color: #111827; }
+    body.light-mode .admin-role { color: rgba(220,38,38,0.7); }
+    body.light-mode .sb-bottom { border-top-color: rgba(0,0,0,0.08); }
+    body.light-mode .sb-icon-wrap { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.2); }
+    body.light-mode .admin-avatar { background: linear-gradient(135deg,#dc2626,#7c3aed); }
+    body.light-mode .btn-logout { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.15); color: var(--red); }
+    body.light-mode .btn-logout:hover { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.3); }
+
+    
+    body.light-mode .topbar {
+      background: rgba(255,255,255,0.92) !important;
+      border-bottom-color: rgba(0,0,0,0.08) !important;
+    }
+    body.light-mode .topbar::after {
+      background: linear-gradient(90deg,transparent,rgba(220,38,38,0.1),rgba(139,35,232,0.06),transparent) !important;
+    }
+    body.light-mode .tb-title { color: #111827; }
+    body.light-mode .tb-path { color: #6b7280; }
+    body.light-mode .tb-clock { color: #6b7280; }
+    body.light-mode .alert-badge { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.15); color: var(--red); }
+
+    
+    body.light-mode .scard { background: #ffffff; border-color: rgba(0,0,0,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    body.light-mode .scard:hover { border-color: rgba(0,0,0,0.15); }
+    body.light-mode .scard-label { color: #6b7280; }
+    body.light-mode .scard-sub { color: #6b7280; }
+
+    
+    body.light-mode .panel { background: #ffffff; border-color: rgba(0,0,0,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    body.light-mode .panel::before { background: linear-gradient(90deg,transparent,rgba(220,38,38,0.1),rgba(139,35,232,0.06),transparent) !important; }
+    body.light-mode .panel-corner { background: rgba(220,38,38,0.15) !important; }
+    body.light-mode .panel-title { color: #111827; }
+    body.light-mode .panel-meta { color: #6b7280; }
+    body.light-mode .panel-head { border-bottom-color: rgba(0,0,0,0.06); }
+
+    
+    body.light-mode thead { background: rgba(0,0,0,0.03); border-bottom-color: rgba(0,0,0,0.08); }
+    body.light-mode th { color: #6b7280; }
+    body.light-mode td { border-bottom-color: rgba(0,0,0,0.06); color: #374151; }
+    body.light-mode tbody tr:hover { background: rgba(220,38,38,0.03); }
+    body.light-mode .user-name { color: #111827; }
+    body.light-mode .user-email { color: var(--cyan); }
+    body.light-mode .log-count { color: #4b5563; }
+    body.light-mode .ip-tag { color: var(--amber); background: rgba(180,83,9,0.06); border-color: rgba(180,83,9,0.12); }
+    body.light-mode .empty-row td { color: #6b7280; }
+
+    
+    body.light-mode .search-bar { border-bottom-color: rgba(0,0,0,0.06); }
+    body.light-mode .search-input {
+      background: #ffffff !important; border-color: rgba(0,0,0,0.12) !important;
+      color: #111827;
+    }
+    body.light-mode .search-input:focus { border-color: rgba(220,38,38,0.3) !important; }
+    body.light-mode .search-input::placeholder { color: #9ca3af; }
+    body.light-mode .filter-select {
+      background: #ffffff !important; border-color: rgba(0,0,0,0.12) !important;
+      color: #111827;
+    }
+    body.light-mode .filter-select option { background: #fff; color: #111827; }
+
+    
+    body.light-mode .pagination { border-top-color: rgba(0,0,0,0.06); }
+    body.light-mode .page-info { color: #6b7280; }
+    body.light-mode .page-btn { border-color: rgba(0,0,0,0.1); color: #4b5563; }
+    body.light-mode .page-btn.active { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.25); color: var(--red); }
+    body.light-mode .page-btn:hover:not(:disabled) { border-color: rgba(220,38,38,0.3); color: var(--red); }
+
+    
+    body.light-mode .badge-green { background: rgba(4,120,87,0.08); color: #047857; border-color: rgba(4,120,87,0.2); }
+    body.light-mode .badge-red { background: rgba(220,38,38,0.08); color: #dc2626; border-color: rgba(220,38,38,0.2); }
+    body.light-mode .badge-cyan { background: rgba(14,116,144,0.08); color: #0e7490; border-color: rgba(14,116,144,0.2); }
+    body.light-mode .badge-amber { background: rgba(180,83,9,0.08); color: #b45309; border-color: rgba(180,83,9,0.2); }
+    body.light-mode .badge-dim { background: rgba(0,0,0,0.04); color: #6b7280; border-color: rgba(0,0,0,0.1); }
+
+    
+    body.light-mode .uss-card { background: #ffffff; border-color: rgba(0,0,0,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    body.light-mode .uss-lbl { color: #6b7280; }
+
+    
+    body.light-mode .drawer { background: rgba(255,255,255,0.99) !important; border-left-color: rgba(220,38,38,0.12) !important; }
+    body.light-mode .drawer-head { border-bottom-color: rgba(0,0,0,0.08); }
+    body.light-mode .drawer-title { color: #111827; }
+    body.light-mode .drawer-email { color: #6b7280; }
+    body.light-mode .drawer-close { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.15); }
+    body.light-mode .di-card { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.06); }
+    body.light-mode .di-lbl { color: #6b7280; }
+    body.light-mode .di-val { color: #111827; }
+    body.light-mode .overlay { background: rgba(0,0,0,0.2) !important; }
+    body.light-mode .drawer-body::-webkit-scrollbar-thumb { background: rgba(220,38,38,0.15); }
+    body.light-mode .main::-webkit-scrollbar-thumb { background: rgba(220,38,38,0.15); }
+
+    
+    body.light-mode .svc-modal { background: #fff !important; border-color: rgba(0,0,0,0.1) !important; }
+    body.light-mode .svc-modal-backdrop { background: rgba(0,0,0,0.3) !important; }
+    body.light-mode .svc-modal-title { color: #111827; }
+    body.light-mode .svc-modal-sub { color: #6b7280; }
+    body.light-mode .svc-modal-head { border-bottom-color: rgba(0,0,0,0.06); }
+    body.light-mode .svc-opt { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); }
+    body.light-mode .svc-opt:hover { border-color: rgba(14,116,144,0.3); background: rgba(14,116,144,0.05); }
+    body.light-mode .svc-opt.selected { border-color: rgba(14,116,144,0.5); background: rgba(14,116,144,0.08); }
+    body.light-mode .svc-opt-name { color: #111827; }
+    body.light-mode .svc-opt-desc { color: #6b7280; }
+    body.light-mode .confirm-modal { background: #fff !important; border-color: rgba(220,38,38,0.15) !important; }
+    body.light-mode .confirm-modal-backdrop { background: rgba(0,0,0,0.35) !important; }
+    body.light-mode .confirm-title { color: var(--red); }
+    body.light-mode .confirm-sub { color: #4b5563; }
+    body.light-mode .btn-confirm-no { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); color: #4b5563; }
+    body.light-mode .btn-confirm-no:hover { background: rgba(0,0,0,0.08); color: #111827; }
+
+    
+    body.light-mode .btn-view { background: rgba(14,116,144,0.06); border-color: rgba(14,116,144,0.2); color: var(--cyan); }
+    body.light-mode .btn-view:hover { background: rgba(14,116,144,0.12); border-color: rgba(14,116,144,0.35); }
+    body.light-mode .btn-danger { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.2); color: var(--red); }
+    body.light-mode .btn-danger:hover { background: rgba(220,38,38,0.14); border-color: rgba(220,38,38,0.4); }
+    body.light-mode .btn-download { background: rgba(4,120,87,0.06); border-color: rgba(4,120,87,0.2); color: var(--green); }
+    body.light-mode .btn-download:hover { background: rgba(4,120,87,0.12); border-color: rgba(4,120,87,0.35); }
+    body.light-mode .log-bar { background: rgba(220,38,38,0.1); }
+
+    
+    .theme-toggle {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text); font-size: 17px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.1); background: rgba(255,255,255,0.12); }
+    body.light-mode .theme-toggle {
+      background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1);
+    }
+    body.light-mode .theme-toggle:hover { background: rgba(0,0,0,0.1); }
     html, body { height: 100%; overflow: hidden; }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; }
 
-    /* ── BG ── */
+    
     #bgCanvas { position: fixed; inset: 0; z-index: 0; opacity: 0.045; pointer-events: none; }
     .bg-grid {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -41,7 +221,7 @@
     .bg-glow-1 { position:fixed;width:700px;height:700px;top:-200px;right:-100px;background:radial-gradient(circle,rgba(139,35,232,0.09) 0%,transparent 70%);pointer-events:none;z-index:0; }
     .bg-glow-2 { position:fixed;width:500px;height:500px;bottom:-100px;left:100px;background:radial-gradient(circle,rgba(255,42,74,0.06) 0%,transparent 70%);pointer-events:none;z-index:0; }
 
-    /* ── TOP DANGER STRIPE ── */
+    
     .danger-stripe {
       position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 100;
       background: repeating-linear-gradient(90deg,var(--red) 0px,var(--red) 20px,#000 20px,#000 30px);
@@ -49,7 +229,7 @@
     }
     @keyframes stripeScroll { from{background-position:0} to{background-position:30px 0} }
 
-    /* ── SIDEBAR ── */
+    
     .sidebar {
       width: var(--sb); flex-shrink: 0;
       background: rgba(6,3,15,0.98);
@@ -95,7 +275,7 @@
 
     .sb-divider { height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.055),transparent); margin:8px 10px; }
 
-    /* Sidebar stat box */
+    
     .sb-stats { margin:0 10px; padding:12px; background:rgba(255,42,74,0.05); border:1px solid rgba(255,42,74,0.12); border-radius:3px; }
     .sb-stat-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
     .sb-stat-row:last-child { margin-bottom:0; }
@@ -127,12 +307,12 @@
     }
     .btn-logout:hover { background:rgba(255,42,74,0.14); border-color:rgba(255,42,74,0.4); }
 
-    /* ── MAIN ── */
+    
     .main { flex:1; min-width:0; height:100vh; overflow-y:auto; overflow-x:hidden; position:relative; z-index:1; display:flex; flex-direction:column; padding-top:2px; }
     .main::-webkit-scrollbar { width:4px; }
     .main::-webkit-scrollbar-thumb { background:rgba(255,42,74,0.2); border-radius:2px; }
 
-    /* TOPBAR */
+    
     .topbar {
       display:flex; align-items:center; justify-content:space-between;
       padding:14px 26px; border-bottom:1px solid var(--border);
@@ -154,10 +334,10 @@
     .alert-dot { width:6px; height:6px; border-radius:50%; background:var(--red); animation:blink 1.4s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.2} }
 
-    /* CONTENT */
+    
     .content { padding:22px 26px; display:flex; flex-direction:column; gap:18px; flex:1; }
 
-    /* ── STAT CARDS ── */
+    
     .stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
     .scard {
       background:var(--card); border:1px solid var(--border);
@@ -185,7 +365,7 @@
     .scard.a .scard-val { color:var(--amber); }
     .scard-sub { font-size:11px; color:var(--dim); }
 
-    /* ── PANEL ── */
+    
     .panel {
       background:var(--card); border:1px solid var(--border);
       border-radius:3px; overflow:hidden; position:relative;
@@ -198,13 +378,13 @@
     .panel-title-icon { width:16px; height:16px; opacity:0.8; }
     .panel-meta { font-family:'DM Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; }
 
-    /* ── CHARTS ── */
+    
     .charts-row { display:grid; grid-template-columns:1.5fr 1fr; gap:12px; }
     .chart-wrap { height:230px; padding:14px 18px; position:relative; }
 
     .mid-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
-    /* ── TABLE ── */
+    
     .tbl-wrap { overflow-x:auto; }
     table { width:100%; border-collapse:collapse; }
     thead { background:rgba(255,255,255,0.025); border-bottom:1px solid var(--border); }
@@ -214,7 +394,7 @@
     tbody tr:hover { background:rgba(255,42,74,0.04); }
     tbody tr:last-child td { border-bottom:none; }
 
-    /* ── BADGES ── */
+    
     .badge { display:inline-block; padding:2px 8px; border-radius:2px; font-family:'DM Mono',monospace; font-size:8px; letter-spacing:1px; border:1px solid; white-space:nowrap; }
     .badge-green  { background:rgba(0,245,150,0.08); color:var(--green); border-color:rgba(0,245,150,0.2); }
     .badge-red    { background:rgba(255,42,74,0.08);  color:var(--red);   border-color:rgba(255,42,74,0.2); }
@@ -236,10 +416,10 @@
     .type-INVALID_FILE_TYPE,.type-OVERSIZED_FILE { background:rgba(20,184,166,0.08);color:#2dd4bf;border-color:rgba(20,184,166,0.2); }
     .type-UNKNOWN                    { background:rgba(255,255,255,0.04);color:var(--muted);border-color:var(--border); }
 
-    /* ── IP TAG ── */
+    
     .ip-tag { font-family:'DM Mono',monospace; font-size:10px; color:var(--amber); background:rgba(255,184,48,0.06); padding:2px 7px; border-radius:2px; border:1px solid rgba(255,184,48,0.12); }
 
-    /* ── SEARCH ── */
+    
     .search-bar { display:flex; gap:8px; padding:11px 14px; border-bottom:1px solid var(--border); }
     .search-input { flex:1; padding:7px 12px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.07); border-radius:2px; color:var(--text); font-family:'DM Mono',monospace; font-size:12px; outline:none; transition:border-color .2s; }
     .search-input:focus { border-color:rgba(255,42,74,0.35); }
@@ -247,7 +427,7 @@
     .filter-select { padding:7px 11px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.07); border-radius:2px; color:var(--text); font-family:'DM Mono',monospace; font-size:10px; outline:none; cursor:pointer; }
     .filter-select option { background:#0c0918; }
 
-    /* ── DRAWER ── */
+    
     .drawer { position:fixed; top:0; right:-600px; width:560px; height:100vh; background:rgba(8,5,18,0.99); border-left:1px solid rgba(255,42,74,0.2); z-index:100; display:flex; flex-direction:column; transition:right .35s cubic-bezier(.16,1,.3,1); backdrop-filter:blur(20px); }
     .drawer.open { right:0; }
     .drawer-head { display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid var(--border); flex-shrink:0; }
@@ -265,7 +445,7 @@
     .overlay { position:fixed; inset:0; background:rgba(3,1,10,0.65); z-index:99; display:none; backdrop-filter:blur(4px); }
     .overlay.show { display:block; }
 
-    /* ── PAGINATION ── */
+    
     .pagination { display:flex; align-items:center; justify-content:space-between; padding:11px 18px; border-top:1px solid var(--border); }
     .page-info { font-family:'DM Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:1px; }
     .page-btns { display:flex; gap:3px; }
@@ -274,22 +454,22 @@
     .page-btn.active { background:rgba(255,42,74,0.08); border-color:rgba(255,42,74,0.35); color:var(--red); }
     .page-btn:disabled { opacity:.3; cursor:not-allowed; }
 
-    /* ── VIEW BTN ── */
+    
     .btn-view { padding:3px 10px; font-family:'DM Mono',monospace; font-size:8px; letter-spacing:1px; border:1px solid rgba(0,229,255,0.2); border-radius:2px; background:rgba(0,229,255,0.05); color:var(--cyan); cursor:pointer; transition:all .2s; }
     .btn-view:hover { background:rgba(0,229,255,0.1); border-color:rgba(0,229,255,0.4); }
-    /* ── DOWNLOAD BTN ── */
+    
     .btn-download { display:flex; align-items:center; gap:5px; padding:5px 12px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:1px; border:1px solid rgba(0,245,150,0.25); border-radius:2px; background:rgba(0,245,150,0.06); color:var(--green); cursor:pointer; transition:all .2s; text-decoration:none; }
     .btn-download:hover { background:rgba(0,245,150,0.14); border-color:rgba(0,245,150,0.5); }
     .btn-download svg { width:12px; height:12px; }
 
-    /* ── EMPTY / LOADING ── */
+    
     .empty-row td { text-align:center; padding:40px!important; font-family:'DM Mono',monospace; font-size:10px; color:var(--dim); letter-spacing:1px; }
     .loading-td { text-align:center; padding:40px!important; }
     .spinner { width:18px; height:18px; border:2px solid rgba(255,42,74,0.2); border-top-color:var(--red); border-radius:50%; animation:spin .7s linear infinite; display:inline-block; }
     @keyframes spin { to{transform:rotate(360deg)} }
     @keyframes rowIn { from{opacity:0;transform:translateX(-5px)} to{opacity:1;transform:none} }
 
-    /* ── USER STAT STRIP ── */
+    
     .user-stat-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
     .uss-card { background:var(--card); border:1px solid var(--border); border-radius:3px; padding:16px 18px; display:flex; flex-direction:column; gap:4px; position:relative; overflow:hidden; transition:transform .2s; }
     .uss-card:hover { transform:translateY(-2px); }
@@ -305,7 +485,7 @@
     .uss-card.a .uss-val { color:var(--amber); }
     .uss-lbl { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--dim); text-transform:uppercase; }
 
-    /* ── USER TABLE EXTRAS ── */
+    
     .user-cell { display:flex; flex-direction:column; gap:2px; }
     .user-name { font-size:13px; font-weight:500; color:var(--text); }
     .user-email { font-family:'DM Mono',monospace; font-size:10px; color:var(--cyan); }
@@ -317,7 +497,7 @@
     .btn-danger:hover { background:rgba(255,42,74,0.18); border-color:rgba(255,42,74,0.5); }
     .actions-cell { display:flex; gap:5px; align-items:center; flex-wrap:nowrap; }
 
-    /* ── SERVICE EDITOR MODAL ── */
+    
     .svc-modal-backdrop { position:fixed;inset:0;z-index:200;background:rgba(3,1,10,0.8);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s; }
     .svc-modal-backdrop.open { opacity:1;pointer-events:all; }
     .svc-modal { background:#0c0918; border:1px solid rgba(255,255,255,0.08); border-radius:4px; width:100%;max-width:380px;margin:16px; overflow:hidden; box-shadow:0 40px 100px rgba(0,0,0,0.7); transform:translateY(14px) scale(0.97); transition:transform .3s cubic-bezier(.16,1,.3,1); }
@@ -336,7 +516,7 @@
     .btn-svc-save { width:100%;padding:11px;background:linear-gradient(135deg,var(--cyan),#0095b3);border:none;border-radius:3px;color:#06030f;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all .2s; }
     .btn-svc-save:hover { transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,229,255,0.25); }
 
-    /* ── CONFIRM MODAL ── */
+    
     .confirm-modal-backdrop { position:fixed;inset:0;z-index:300;background:rgba(3,1,10,0.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s; }
     .confirm-modal-backdrop.open { opacity:1;pointer-events:all; }
     .confirm-modal { background:#0c0918;border:1px solid rgba(255,42,74,0.2);border-radius:4px;width:100%;max-width:340px;margin:16px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.7);transform:scale(0.95);transition:transform .25s cubic-bezier(.16,1,.3,1); }
@@ -353,7 +533,7 @@
     .btn-confirm-no:hover { background:rgba(255,255,255,0.08);color:var(--text); }
   </style>
   <script src="public/js/config.js"></script>
-  <link rel="stylesheet" href="public/css/responsive.css">
+  <link rel="stylesheet" href="public/css/responsive.css?v=2">
 </head>
 <body>
 <canvas id="bgCanvas"></canvas>
@@ -363,14 +543,14 @@
 <div class="danger-stripe"></div>
 <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
 
-<!-- USER DRAWER -->
+
 <div class="drawer" id="drawer">
   <div class="drawer-head">
     <div>
       <div class="drawer-title" id="drawerTitle">User Logs</div>
       <div class="drawer-email" id="drawerEmail"></div>
     </div>
-    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    <button class="drawer-close" onclick="closeDrawer()"></button>
   </div>
   <div class="drawer-body">
     <div class="drawer-info" id="drawerInfo"></div>
@@ -378,12 +558,12 @@
   </div>
 </div>
 
-<!-- SIDEBAR -->
+
 <aside class="sidebar">
   <div class="sb-brand">
     <div class="sb-eyebrow">// ADMIN PANEL</div>
     <div class="sb-logo">
-      <div class="sb-icon-wrap">🛡️</div>
+      <div class="sb-icon-wrap"></div>
       <div>
         <div class="sb-name">HoneyShield</div>
         <div class="sb-tag">CONTROL CENTER</div>
@@ -441,7 +621,7 @@
   </div>
 </aside>
 
-<!-- MAIN -->
+
 <div class="main">
   <header class="topbar">
     <div class="tb-left">
@@ -451,12 +631,17 @@
     <div class="tb-right">
       <div class="tb-clock" id="clock">--:--:--</div>
       <div class="alert-badge"><div class="alert-dot"></div>ADMIN MODE</div>
+      <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Mode" onclick="toggleTheme()"></button>
+      <button class="mobile-topbar-logout" style="display: none;" onclick="logout()">
+        <svg viewBox="0 0 20 20" fill="none" style="width:16px;height:16px;margin-right:4px;"><path d="M13 3h4v14h-4M8 14l4-4-4-4M12 10H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;font-weight:600;">LOGOUT</span>
+      </button>
     </div>
   </header>
 
   <div class="content">
 
-    <!-- OVERVIEW -->
+    
     <div id="sec-overview">
       <div class="stat-row" style="margin-bottom:16px">
         <div class="scard c"><div class="scard-corner"></div><div class="scard-label">Total Users</div><div class="scard-val" id="statUsers">—</div><div class="scard-sub">Registered operators</div></div>
@@ -507,10 +692,10 @@
       </div>
     </div>
 
-    <!-- USERS -->
+    
     <div id="sec-users" style="display:none">
 
-      <!-- Summary stat strip -->
+      
       <div class="user-stat-strip" id="userStatStrip" style="margin-bottom:14px">
         <div class="uss-card c"><div class="uss-val" id="ussTotalUsers">—</div><div class="uss-lbl">Total Users</div></div>
         <div class="uss-card g"><div class="uss-val" id="ussVerified">—</div><div class="uss-lbl">Verified</div></div>
@@ -572,7 +757,7 @@
       </div>
     </div>
 
-    <!-- LOGS -->
+    
     <div id="sec-logs" style="display:none">
       <div class="panel">
         <div class="panel-corner"></div>
@@ -610,7 +795,7 @@
       </div>
     </div>
 
-    <!-- ANALYTICS -->
+    
     <div id="sec-charts" style="display:none">
       <div class="charts-row" style="margin-bottom:16px">
         <div class="panel">
@@ -635,7 +820,6 @@
 </div>
 
 <script>
-// ── BG CANVAS (red matrix) ─────────────────────────────────────
 const mc=document.getElementById('bgCanvas'),mct=mc.getContext('2d');
 function rsz(){mc.width=innerWidth;mc.height=innerHeight}rsz();window.addEventListener('resize',rsz);
 const chars='01アイウエオ!@#$%^&*';let cols=[];
@@ -650,13 +834,8 @@ setInterval(()=>{
     mct.fillText(chars[Math.floor(Math.random()*chars.length)],i*16,y);
     if(y>mc.height&&Math.random()>.975)cols[i]=0;cols[i]+=14;
   });
-},55);
-
-// ── CLOCK ─────────────────────────────────────────────────────
-setInterval(()=>{document.getElementById('clock').textContent=new Date().toTimeString().split(' ')[0]+' UTC';},1000);
-
-// ── AUTH GUARD ────────────────────────────────────────────────
-// ── AUTH GUARD ── wait for DOM then check
+},55);
+setInterval(()=>{document.getElementById('clock').textContent=new Date().toTimeString().split(' ')[0]+' UTC';},1000);
 function logout(){localStorage.removeItem('admin');window.location.href='admin-login.html';}
 
 const adminRaw=localStorage.getItem('admin');
@@ -670,9 +849,7 @@ if(!adminRaw){
     if(nameEl) nameEl.textContent=admin.username||'Admin';
     if(avatarEl) avatarEl.textContent=(admin.username||'A')[0].toUpperCase();
   });
-}
-
-// ── SECTIONS ──────────────────────────────────────────────────
+}
 const sections=['overview','users','logs','charts'];
 const sectionTitles={overview:'Admin Overview',users:'All Users',logs:'System Logs',charts:'Analytics'};
 function showSection(id){
@@ -684,9 +861,7 @@ function showSection(id){
   });
   document.getElementById('sectionTitle').textContent=sectionTitles[id];
   document.getElementById('tbPathSub').textContent=sectionTitles[id];
-}
-
-// ── DATA ──────────────────────────────────────────────────────
+}
 let allUsers=[],allLogs=[],filteredUsers=[],filteredLogs=[];
 let userPage=1,logPage=1;
 const PAGE=20;
@@ -697,9 +872,7 @@ function typeBadge(type){
   const known=['AUTH','LOGIN_SUCCESS','LOGIN_FAIL','BRUTE_FORCE','SQL_INJECTION','XSS_ATTACK','CSRF_TEST','DDOS_ATTACK','HONEYPOT','BOT_DETECTED','RATE_LIMIT','PATH_TRAVERSAL','KEYLOGGER_DETECTED','INVALID_FILE_TYPE','OVERSIZED_FILE'];
   const cls=known.includes(t)?`type-${t}`:'type-UNKNOWN';
   return `<span class="badge ${cls}">${t.replace(/_/g,' ')}</span>`;
-}
-
-// ── CSV DOWNLOAD ──────────────────────────────────────────────
+}
 function downloadAdminLogs(){
   if(!filteredLogs.length){ alert('No logs to export'); return; }
   const userMap={};allUsers.forEach(u=>{userMap[u._id]=u.email;});
@@ -747,13 +920,12 @@ async function loadAll(){
     filteredUsers=[...allUsers]; filteredLogs=[...allLogs];
     updateUserStats(); renderUsers(); renderLogs(); renderRecentLogs(); buildCharts();
   }catch(e){
-    console.error('Admin load error:',e);
-    // Still render all sections with empty data so UI is navigable
+    console.error('Admin load error:',e);
     filteredUsers=[...allUsers]; filteredLogs=[...allLogs];
     updateUserStats(); renderUsers(); renderLogs(); renderRecentLogs();
-    document.getElementById('recentLogs').innerHTML='<tr class="empty-row"><td colspan="5">⚠ Server not reachable — start backend to see live data</td></tr>';
-    document.getElementById('usersBody').innerHTML='<tr class="empty-row"><td colspan="8">⚠ Server not reachable — no users to display</td></tr>';
-    document.getElementById('logsBody').innerHTML='<tr class="empty-row"><td colspan="5">⚠ Server not reachable</td></tr>';
+    document.getElementById('recentLogs').innerHTML='<tr class="empty-row"><td colspan="5"> Server not reachable — start backend to see live data</td></tr>';
+    document.getElementById('usersBody').innerHTML='<tr class="empty-row"><td colspan="8"> Server not reachable — no users to display</td></tr>';
+    document.getElementById('logsBody').innerHTML='<tr class="empty-row"><td colspan="5"> Server not reachable</td></tr>';
     ['statUsers','statServices','statThreats','statLogs','sbUsers','sbThreats','sbLogs'].forEach(id=>{
       if(document.getElementById(id).textContent==='—') document.getElementById(id).textContent='0';
     });
@@ -761,9 +933,7 @@ async function loadAll(){
       document.getElementById(id).textContent='0';
     });
   }
-}
-
-// ── USERS TABLE ───────────────────────────────────────────────
+}
 function updateUserStats(){
   const total=allUsers.length;
   const verified=allUsers.filter(u=>u.isVerified).length;
@@ -794,9 +964,7 @@ function filterUsers(){
   else if(sort==='name') filteredUsers.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
   else filteredUsers.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
   userPage=1;renderUsers();
-}
-
-// find max logs for bar scaling
+}
 function getMaxLogs(){ return Math.max(1,...allUsers.map(u=>u.logCount||0)); }
 
 function renderUsers(){
@@ -831,7 +999,7 @@ function renderUsers(){
     <span class="log-count">${logCount}</span>
   </div>
 </td>
-<td>${u.isVerified?'<span class="badge badge-green">✓ YES</span>':'<span class="badge badge-red">✗ NO</span>'}</td>
+<td>${u.isVerified?'<span class="badge badge-green"> YES</span>':'<span class="badge badge-red"> NO</span>'}</td>
 <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--dim)">${joined}</td>
 <td>
   <div class="actions-cell">
@@ -843,9 +1011,7 @@ function renderUsers(){
 </tr>`;
   }).join('');
   renderPagination('user',filteredUsers.length);
-}
-
-// ── SERVICE MODAL ─────────────────────────────────────────────
+}
 let svcEditId='', svcEditSel='none';
 function openSvcModal(userId,email,currentSvc){
   svcEditId=userId; svcEditSel=currentSvc||'none';
@@ -874,21 +1040,17 @@ async function saveSvc(){
       renderUsers(); updateUserStats();
       closeSvcModal();
     }
-  }catch(e){
-    // Offline: update locally
+  }catch(e){
     const u=allUsers.find(x=>x._id===svcEditId);
     if(u) u.service=svcEditSel;
     filteredUsers=filteredUsers.map(x=>x._id===svcEditId?{...x,service:svcEditSel}:x);
     renderUsers(); updateUserStats(); closeSvcModal();
   }
-}
-// close modals on backdrop click — wrapped in DOMContentLoaded so elements exist
+}
 document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('svcModalBackdrop')?.addEventListener('click',function(e){if(e.target===this)closeSvcModal();});
   document.getElementById('confirmModalBackdrop')?.addEventListener('click',function(e){if(e.target===this)closeConfirmModal();});
-});
-
-// ── DELETE CONFIRM ────────────────────────────────────────────
+});
 let deleteUserId='';
 function confirmDelete(userId,email){
   deleteUserId=userId;
@@ -906,12 +1068,9 @@ async function doDeleteUser(){
   allUsers=allUsers.filter(u=>u._id!==deleteUserId);
   filteredUsers=filteredUsers.filter(u=>u._id!==deleteUserId);
   allLogs=allLogs.filter(l=>l.userId!==deleteUserId);
-  renderUsers(); updateUserStats();
-  // update sidebar
+  renderUsers(); updateUserStats();
   document.getElementById('sbUsers').textContent=allUsers.length;
-}
-
-// ── LOGS TABLE ────────────────────────────────────────────────
+}
 function filterLogs(){
   const q=document.getElementById('logSearch').value.toLowerCase();
   const type=document.getElementById('logTypeFilter').value.toUpperCase();
@@ -964,9 +1123,7 @@ function renderRecentLogs(){
 <td style="color:var(--dim);font-size:11px;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${(l.message||'—').substring(0,50)}</td>
 </tr>`;
   }).join('');
-}
-
-// ── PAGINATION ────────────────────────────────────────────────
+}
 function renderPagination(prefix,total){
   const page=prefix==='user'?userPage:logPage;
   const pages=Math.ceil(total/PAGE);
@@ -984,9 +1141,7 @@ function renderPagination(prefix,total){
   const next=document.createElement('button');next.className='page-btn';next.textContent='→';next.disabled=page>=pages;
   next.onclick=()=>{if(prefix==='user'){userPage++;renderUsers();}else{logPage++;renderLogs();}};
   btns.appendChild(next);
-}
-
-// ── DRAWER ────────────────────────────────────────────────────
+}
 function openUserDrawer(userId,email,name){
   document.getElementById('drawerTitle').textContent=name+' — Logs';
   document.getElementById('drawerEmail').textContent=email;
@@ -998,7 +1153,7 @@ function openUserDrawer(userId,email,name){
 <div class="di-card"><div class="di-lbl">Email</div><div class="di-val" style="color:var(--cyan)">${user?.email||'—'}</div></div>
 <div class="di-card"><div class="di-lbl">Organization</div><div class="di-val">${user?.organization||'No org set'}</div></div>
 <div class="di-card"><div class="di-lbl">Service</div><div class="di-val">${hasSvc?`<span class="badge badge-green">${user.service.toUpperCase()}</span>`:'<span class="badge badge-dim">NONE</span>'}</div></div>
-<div class="di-card"><div class="di-lbl">Verified</div><div class="di-val">${user?.isVerified?'<span class="badge badge-green">✓ YES</span>':'<span class="badge badge-red">✗ NO</span>'}</div></div>`;
+<div class="di-card"><div class="di-lbl">Verified</div><div class="di-val">${user?.isVerified?'<span class="badge badge-green"> YES</span>':'<span class="badge badge-red"> NO</span>'}</div></div>`;
   const userLogs=allLogs.filter(l=>l.userId===userId||l.userId?.toString()===userId);
   const wrap=document.getElementById('drawerLogWrap');
   if(!userLogs.length){wrap.innerHTML='<div style="text-align:center;padding:40px;font-family:DM Mono,monospace;font-size:10px;color:var(--dim)">No logs for this user</div>';return;}
@@ -1022,9 +1177,7 @@ function openUserDrawer(userId,email,name){
 function closeDrawer(){
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('overlay').classList.remove('show');
-}
-
-// ── CHARTS ────────────────────────────────────────────────────
+}
 let charts={};
 const CHART_COLORS=['#ff2a4a','#ff7128','#fbbf24','#8b23e8','#3b82f6','#ec4899','#14b8a6','#f59e0b','#6366f1','#10b981'];
 const CAT_KEYS=[
@@ -1039,25 +1192,56 @@ function buildCharts(){
   allLogs.forEach(l=>{const t=(l.type||'').toUpperCase();CAT_KEYS.forEach(c=>{if(t.includes(c.k))catCounts[c.k]++;});});
 
   const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const atkD=new Array(7).fill(0),authD=new Array(7).fill(0);
-  allLogs.forEach(l=>{const d=new Date(l.createdAt).getDay(),idx=d===0?6:d-1;if(isAttack(l))atkD[idx]++;else authD[idx]++;});
+  const authD=new Array(7).fill(0);
+  const trendAttackMap={};
+  allLogs.forEach(l=>{
+    const d=new Date(l.createdAt).getDay(),idx=d===0?6:d-1;
+    if(!isAttack(l)){
+      authD[idx]++;
+    } else {
+      const t=(l.type||'').toUpperCase();
+      let matchIdx = CAT_KEYS.findIndex(c => t.includes(c.k));
+      let lbl, col;
+      if (matchIdx !== -1) {
+        lbl = CAT_KEYS[matchIdx].l;
+        col = CHART_COLORS[matchIdx % CHART_COLORS.length];
+      } else {
+        lbl = 'Other';
+        col = CHART_COLORS[CHART_COLORS.length - 1];
+      }
+      if(!trendAttackMap[lbl]){
+        trendAttackMap[lbl] = { data: new Array(7).fill(0), color: col };
+      }
+      trendAttackMap[lbl].data[idx]++;
+    }
+  });
+
   document.getElementById('chartMeta').textContent=`${allLogs.length} total events`;
 
   Object.values(charts).forEach(c=>c.destroy?.());charts={};
 
-  const gridColor='rgba(255,255,255,0.04)';
-  const tickColor='rgba(240,234,250,0.25)';
+  const isLight = document.body.classList.contains('light-mode');
+  const gridColor = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.04)';
+  const tickColor = isLight ? 'rgba(30,41,59,0.5)' : 'rgba(240,234,250,0.25)';
+  const legendColor = isLight ? 'rgba(30,41,59,0.6)' : 'rgba(240,234,250,0.5)';
   const baseChartOpts={responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{labels:{color:'rgba(240,234,250,0.5)',font:{size:10,family:'DM Mono'}}}},
+    plugins:{legend:{labels:{color:legendColor,font:{size:10,family:'DM Mono'}}}},
     scales:{y:{beginAtZero:true,grid:{color:gridColor},ticks:{color:tickColor,font:{family:'DM Mono',size:9}}},
             x:{grid:{display:false},ticks:{color:tickColor,font:{family:'DM Mono',size:9}}}}};
 
+  const trendDatasets = [
+    {label:'Auth',  data:authD,borderColor:'#00f596',backgroundColor:'rgba(0,245,150,0.07)',borderWidth:2,tension:0.4,fill:true,pointRadius:4,pointBackgroundColor:'#00f596'}
+  ];
+  Object.keys(trendAttackMap).forEach(k => {
+    trendDatasets.push({
+      label: k, data: trendAttackMap[k].data, borderColor: trendAttackMap[k].color, backgroundColor: trendAttackMap[k].color+'15', borderWidth: 2, tension: 0.4, fill: true, pointRadius: 3, pointBackgroundColor: trendAttackMap[k].color
+    });
+  });
+
   charts.trend=new Chart(document.getElementById('trendChart'),{
     type:'line',
-    data:{labels:days,datasets:[
-      {label:'Attacks',data:atkD,borderColor:'#ff2a4a',backgroundColor:'rgba(255,42,74,0.07)',borderWidth:2,tension:0.4,fill:true,pointRadius:4,pointBackgroundColor:'#ff2a4a'},
-      {label:'Auth',  data:authD,borderColor:'#00f596',backgroundColor:'rgba(0,245,150,0.07)',borderWidth:2,tension:0.4,fill:true,pointRadius:4,pointBackgroundColor:'#00f596'},
-    ]},options:{...baseChartOpts}
+    data:{labels:days,datasets:trendDatasets},
+    options:{...baseChartOpts}
   });
 
   const distEntries=CAT_KEYS.map((c,i)=>({label:c.l,val:catCounts[c.k],color:CHART_COLORS[i]})).filter(e=>e.val>0);
@@ -1095,11 +1279,28 @@ function buildCharts(){
   });
 }
 
-loadAll();
+loadAll();
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+  const isLight = document.body.classList.contains('light-mode');
+  localStorage.setItem('honeyshield-theme', isLight ? 'light' : 'dark');
+  document.getElementById('themeToggle').textContent = isLight ? '' : '';
+  if (typeof buildCharts === 'function' && allLogs.length) {
+    try { buildCharts(); } catch(e) {}
+  }
+}
+(function() {
+  const saved = localStorage.getItem('honeyshield-theme');
+  if (saved === 'light') {
+    document.body.classList.add('light-mode');
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = '';
+  }
+})();
 </script>
 <script src="public/js/admin.js"></script>
 
-<!-- SERVICE EDITOR MODAL -->
+
 <div class="svc-modal-backdrop" id="svcModalBackdrop">
   <div class="svc-modal">
     <div class="svc-modal-head">
@@ -1107,7 +1308,7 @@ loadAll();
         <div class="svc-modal-title">EDIT SERVICE</div>
         <div class="svc-modal-sub" id="svcModalEmail">—</div>
       </div>
-      <button class="drawer-close" onclick="closeSvcModal()">✕</button>
+      <button class="drawer-close" onclick="closeSvcModal()"></button>
     </div>
     <div class="svc-modal-body">
       <div class="svc-options" id="svcOptions">
@@ -1125,11 +1326,11 @@ loadAll();
   </div>
 </div>
 
-<!-- DELETE CONFIRM MODAL -->
+
 <div class="confirm-modal-backdrop" id="confirmModalBackdrop">
   <div class="confirm-modal">
     <div class="confirm-modal-body">
-      <div class="confirm-icon">⚠</div>
+      <div class="confirm-icon"></div>
       <div class="confirm-title">DELETE USER?</div>
       <div class="confirm-sub" id="confirmModalSub">This will permanently delete the user and all their logs.</div>
       <div class="confirm-btns">

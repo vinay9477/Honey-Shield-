@@ -1,4 +1,4 @@
-/* ==================== Reset & Base Styles ==================== */
+
 * {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -11,13 +11,11 @@ body {
   min-height: 100vh;
 }
 
-/* ==================== Layout ==================== */
 .layout {
   display: flex;
   height: 100vh;
 }
 
-/* ==================== Sidebar ==================== */
 .sidebar {
   width: 250px;
   background: linear-gradient(180deg, #0f172a 0%, #1a2847 100%);
@@ -40,7 +38,7 @@ body {
 }
 
 .sidebar h2::before {
-  content: "🛡️";
+  content: "";
   font-size: 28px;
 }
 
@@ -71,7 +69,6 @@ body {
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-/* ==================== Main Content ==================== */
 .main {
   flex: 1;
   padding: 30px;
@@ -79,7 +76,6 @@ body {
   background: linear-gradient(135deg, #0f172a 0%, #1a2847 50%, #0f172a 100%);
 }
 
-/* ==================== Top Bar ==================== */
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -117,7 +113,6 @@ body {
   box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
 }
 
-/* ==================== Stats Grid ==================== */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -201,7 +196,6 @@ body {
   background: linear-gradient(135deg, rgba(251, 146, 60, 0.1), rgba(254, 215, 170, 0.05));
 }
 
-/* ==================== Stats Grid (Secondary) ==================== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -209,7 +203,6 @@ body {
   margin-bottom: 40px;
 }
 
-/* ==================== Charts Section ==================== */
 .charts {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -252,7 +245,6 @@ body {
   border-color: rgba(239, 68, 68, 0.2);
 }
 
-/* ==================== Live Attacks Widget ==================== */
 .live-attacks {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
@@ -320,7 +312,6 @@ body {
   font-weight: 600;
 }
 
-/* ==================== Services Grid ==================== */
 .services {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -390,7 +381,6 @@ body {
   color: #86efac;
 }
 
-/* ==================== Buttons ==================== */
 .activate-btn {
   margin-top: 15px;
   padding: 10px 18px;
@@ -409,7 +399,6 @@ body {
   box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
 }
 
-/* ==================== Tables ==================== */
 .log-table {
   width: 100%;
   background: rgba(255, 255, 255, 0.08);
@@ -440,7 +429,6 @@ body {
   background: rgba(37, 99, 235, 0.1);
 }
 
-/* ==================== Code Section ==================== */
 .code-section {
   margin-top: 40px;
   background: rgba(255, 255, 255, 0.08);
@@ -470,7 +458,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* ==================== README Section ==================== */
 .readme {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
@@ -529,7 +516,6 @@ body {
   display: none;
 }
 
-/* ==================== Utility Classes ==================== */
 .hover-card {
   cursor: pointer;
 }
@@ -539,7 +525,6 @@ body {
   border-color: rgba(37, 99, 235, 0.5);
 }
 
-/* ==================== Settings Card ==================== */
 .settings-card {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
@@ -607,7 +592,6 @@ body {
   color: rgba(255, 255, 255, 0.3);
 }
 
-/* ==================== Buttons ==================== */
 .btn {
   padding: 10px 18px;
   border-radius: 8px;
@@ -651,7 +635,6 @@ body {
   background: rgba(96, 165, 250, 0.1);
 }
 
-/* ==================== Responsive Design ==================== */
 @media (max-width: 1024px) {
   .charts {
     grid-template-columns: 1fr;
@@ -690,7 +673,6 @@ body {
   }
 }
 
-/* ==================== Page Transitions ==================== */
 .main {
   opacity: 1;
   transition: opacity 0.4s ease-in-out;
@@ -722,7 +704,6 @@ body {
   }
 }
 
-/* Sidebar Link Transitions */
 .sidebar li {
   position: relative;
   overflow: hidden;

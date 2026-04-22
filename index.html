@@ -27,16 +27,16 @@
       overflow: hidden;
     }
 
-    /* MATRIX */
+
     #matrix { position:fixed; inset:0; z-index:0; opacity:0.06; pointer-events:none; }
 
-    /* GLOWS */
+
     .glow { position:fixed; border-radius:50%; filter:blur(120px); pointer-events:none; z-index:0; animation:drift 12s ease-in-out infinite alternate; }
     .glow-1 { width:600px; height:600px; background:rgba(124,58,237,0.14); top:-150px; right:-150px; animation-delay:0s; }
     .glow-2 { width:500px; height:500px; background:rgba(0,245,255,0.09); bottom:-150px; left:-150px; animation-delay:-6s; }
     @keyframes drift { from{transform:translate(0,0)} to{transform:translate(30px,30px)} }
 
-    /* GRID OVERLAY */
+
     .grid-overlay {
       position:fixed; inset:0; z-index:0; pointer-events:none;
       background-image:
@@ -45,7 +45,7 @@
       background-size: 60px 60px;
     }
 
-    /* WRAPPER */
+
     .wrapper {
       position:relative; z-index:1;
       display:flex; flex-direction:column;
@@ -55,7 +55,7 @@
     }
     @keyframes fadeUp { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:translateY(0)} }
 
-    /* LOGO AREA */
+
     .logo-area { display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center; }
     .shield-wrap {
       width:80px; height:80px;
@@ -87,7 +87,7 @@
       font-size:14px; color:var(--muted); letter-spacing:0.5px; max-width:360px; line-height:1.6;
     }
 
-    /* STATS ROW */
+
     .stats-row {
       display:flex; gap:24px; width:100%; justify-content:center;
       animation:fadeUp 0.7s 0.15s cubic-bezier(.16,1,.3,1) both;
@@ -104,7 +104,7 @@
     }
     .stat-lbl { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; margin-top:4px; }
 
-    /* ACTION CARDS */
+
     .cards {
       display:flex; flex-direction:column; gap:12px; width:100%;
       animation:fadeUp 0.7s 0.25s cubic-bezier(.16,1,.3,1) both;
@@ -154,7 +154,7 @@
     }
     .action-card:hover .card-arrow { transform:translateX(4px); color:var(--text); }
 
-    /* FOOTER */
+
     .footer {
       font-family:'JetBrains Mono',monospace; font-size:10px;
       letter-spacing:2px; color:rgba(226,232,240,0.2); text-align:center;
@@ -173,7 +173,7 @@
 
 <div class="wrapper">
 
-  <!-- LOGO -->
+
   <div class="logo-area">
     <div class="shield-wrap">
       <svg width="40" height="40" viewBox="0 0 44 44" fill="none">
@@ -196,26 +196,26 @@
     </div>
   </div>
 
-  <!-- STATS -->
+
   <div class="stats-row">
     <div class="stat">
-      <div class="stat-num">🍯</div>
+      <div class="stat-num">HP</div>
       <div class="stat-lbl">Honeypot</div>
     </div>
     <div class="stat">
-      <div class="stat-num">🔐</div>
+      <div class="stat-num">AG</div>
       <div class="stat-lbl">Auth Guard</div>
     </div>
     <div class="stat">
-      <div class="stat-num">📊</div>
+      <div class="stat-num">LL</div>
       <div class="stat-lbl">Live Logs</div>
     </div>
   </div>
 
-  <!-- ACTION CARDS -->
+
   <div class="cards">
     <a class="action-card register" href="register.html">
-      <div class="card-icon">✦</div>
+      <div class="card-icon"></div>
       <div class="card-text">
         <div class="card-title">New Operator</div>
         <div class="card-desc">Create a new account to start monitoring threats</div>
@@ -224,7 +224,7 @@
     </a>
 
     <a class="action-card login" href="login.html">
-      <div class="card-icon">🔑</div>
+      <div class="card-icon">&gt;</div>
       <div class="card-text">
         <div class="card-title">Operator Login</div>
         <div class="card-desc">Sign in to your security dashboard</div>
@@ -233,7 +233,7 @@
     </a>
 
     <a class="action-card admin" href="admin-login.html">
-      <div class="card-icon">⚠</div>
+      <div class="card-icon">!</div>
       <div class="card-text">
         <div class="card-title">Admin Panel</div>
         <div class="card-desc">Restricted — administrator access only</div>
@@ -247,7 +247,7 @@
 </div>
 
 <script>
-// Matrix
+
 const mc = document.getElementById('matrix'), mct = mc.getContext('2d');
 function rsz() { mc.width = innerWidth; mc.height = innerHeight; }
 rsz(); window.addEventListener('resize', rsz);

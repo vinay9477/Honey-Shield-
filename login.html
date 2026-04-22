@@ -83,7 +83,7 @@
     .otp-row{display:flex;gap:10px;justify-content:center}
     .otp-box{width:52px;height:58px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;text-align:center;outline:none;transition:border-color .2s,box-shadow .2s}
     .otp-box:focus{border-color:rgba(0,245,255,0.5);box-shadow:0 0 0 3px rgba(0,245,255,0.08)}
-    /* ── RESEND ROW — only added timer styles, no color changes ── */
+    
     .resend-row{text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
     .resend-row a{color:var(--cyan);cursor:pointer;text-decoration:underline}
     .resend-row a.disabled{color:var(--muted);cursor:not-allowed;text-decoration:none;pointer-events:none}
@@ -101,12 +101,12 @@
 <div class="glow glow-2"></div>
 <div class="grid-bg"></div>
 
-<!-- FORGOT PASSWORD MODAL -->
+
 <div class="modal-backdrop" id="forgotBackdrop">
   <div class="modal">
     <div class="modal-head">
       <div class="modal-title">FORGOT KEY?</div>
-      <button class="modal-close" onclick="closeForgot()">✕</button>
+      <button class="modal-close" onclick="closeForgot()"></button>
     </div>
     <div class="modal-body">
       <div class="modal-step active" id="step1">
@@ -129,7 +129,7 @@
           <input class="otp-box" id="otp4" maxlength="1" oninput="otpInput(4)" onkeydown="otpKey(event,4)">
           <input class="otp-box" id="otp5" maxlength="1" oninput="otpInput(5)" onkeydown="otpKey(event,5)">
         </div>
-        <!-- RESEND ROW WITH TIMER -->
+        
         <div class="resend-row" id="resendRow">Didn't receive it? <a id="resendLink" onclick="resendOtp()">Resend code</a></div>
         <div class="modal-status" id="step2Status"></div>
         <button class="btn-modal" id="verifyOtpBtn" onclick="verifyOtp()">VERIFY CODE</button>
@@ -156,7 +156,7 @@
         <button class="btn-modal" id="resetPwBtn" onclick="resetPassword()">RESET KEY</button>
       </div>
       <div class="modal-step" id="step4">
-        <div class="success-icon">🔓</div>
+        <div class="success-icon"></div>
         <div class="success-msg">KEY UPDATED!</div>
         <div class="success-sub">Your access key has been reset successfully.<br>You can now log in with your new key.</div>
         <button class="btn-modal" onclick="closeForgot();return false;">BACK TO LOGIN</button>
@@ -165,10 +165,10 @@
   </div>
 </div>
 
-<!-- LOGIN CARD -->
+
 <div class="card">
   <div class="lock-overlay" id="lockOverlay">
-    <div class="lock-icon" id="lockIcon">🔒</div>
+    <div class="lock-icon" id="lockIcon"></div>
     <div class="lock-msg" id="lockMsg" style="color:var(--text)">AUTHENTICATING</div>
     <div class="lock-sub" id="lockSub" style="color:var(--muted)">Please wait...</div>
   </div>
@@ -203,7 +203,7 @@
       <a class="forgot" onclick="openForgot();return false;">FORGOT KEY?</a>
     </div>
     <div class="verify-banner" id="verifyBanner">
-      ⚠ Email not verified. Check your inbox for the OTP code, or
+       Email not verified. Check your inbox for the OTP code, or
       <a onclick="window.location.href='register.html'">re-register to get a new code →</a>
     </div>
     <div class="status-msg" id="statusMsg"></div>
@@ -217,7 +217,6 @@
 </div>
 
 <script>
-// MATRIX BG
 const mc=document.getElementById('matrix'),mct=mc.getContext('2d');
 function rsz(){mc.width=innerWidth;mc.height=innerHeight}
 rsz();window.addEventListener('resize',rsz);
@@ -235,9 +234,7 @@ setInterval(()=>{
     if(y>mc.height&&Math.random()>.975)cols[i]=0;
     cols[i]+=14;
   });
-},55);
-
-// LOGIN LOGIC
+},55);
 let attempts=[];
 const TIME_LIMIT=3000;
 function clrErr(id){document.getElementById(id).textContent=''}
@@ -247,8 +244,8 @@ function togglePw(){const inp=document.getElementById('password'),btn=document.q
 function showLock(success){
   const overlay=document.getElementById('lockOverlay'),icon=document.getElementById('lockIcon'),msg=document.getElementById('lockMsg'),sub=document.getElementById('lockSub');
   overlay.classList.add('show');
-  if(success){icon.textContent='🔓';msg.style.color='var(--green)';msg.textContent='ACCESS GRANTED';sub.style.color='var(--green)';sub.textContent='Redirecting to dashboard...';spawnParticles('#00f5c4');}
-  else{icon.textContent='🚫';msg.style.color='var(--red)';msg.textContent='ACCESS DENIED';sub.style.color='var(--red)';sub.textContent='Invalid credentials';document.querySelector('.card').classList.add('shake');setTimeout(()=>{document.querySelector('.card').classList.remove('shake');overlay.classList.remove('show');icon.textContent='🔒';msg.style.color='var(--text)';msg.textContent='AUTHENTICATING';sub.style.color='var(--muted)';sub.textContent='Please wait...';},1600);}
+  if(success){icon.textContent='';msg.style.color='var(--green)';msg.textContent='ACCESS GRANTED';sub.style.color='var(--green)';sub.textContent='Redirecting to dashboard...';spawnParticles('#00f5c4');}
+  else{icon.textContent='';msg.style.color='var(--red)';msg.textContent='ACCESS DENIED';sub.style.color='var(--red)';sub.textContent='Invalid credentials';document.querySelector('.card').classList.add('shake');setTimeout(()=>{document.querySelector('.card').classList.remove('shake');overlay.classList.remove('show');icon.textContent='';msg.style.color='var(--text)';msg.textContent='AUTHENTICATING';sub.style.color='var(--muted)';sub.textContent='Please wait...';},1600);}
 }
 function spawnParticles(color){
   const overlay=document.getElementById('lockOverlay');
@@ -274,13 +271,9 @@ async function login(){
     else if(data.needsVerification){btn.textContent='AUTHENTICATE';btn.disabled=false;document.getElementById('verifyBanner').classList.add('show');setStatus('>> Email not verified — check your inbox for OTP','warn');}
     else{btn.textContent='AUTHENTICATE';btn.disabled=false;showLock(false);setStatus('>> '+(data.message||'Invalid credentials'),'error');}
   }catch(err){btn.textContent='AUTHENTICATE';btn.disabled=false;setStatus('>> Connection error — server not reachable','error');}
-}
-
-// FORGOT PASSWORD MODAL
+}
 let forgotEmail='',generatedOtp='',currentStep=1,offlineMode=false;
-let resendInterval=null;
-
-// ── RESEND TIMER (new feature) ──
+let resendInterval=null;
 function startResendTimer(seconds=60){
   const row=document.getElementById('resendRow');
   let remaining=seconds;
@@ -310,8 +303,7 @@ function resetForgotModal(){
   document.getElementById('newPw').value='';
   document.getElementById('confirmPw').value='';
   forgotEmail='';generatedOtp='';
-  clearInterval(resendInterval);
-  // reset resend row
+  clearInterval(resendInterval);
   document.getElementById('resendRow').innerHTML=`Didn't receive it? <a id="resendLink" onclick="resendOtp()">Resend code</a>`;
 }
 

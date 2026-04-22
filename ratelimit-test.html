@@ -119,7 +119,7 @@
 
   <span class="badge">Rate Limit Test</span>
 
-  <h2>⏱️ Rate Limiting Test</h2>
+  <h2> Rate Limiting Test</h2>
 
   <p>
     This page tests rate limiting protection.
@@ -145,8 +145,7 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  // Get userId from localStorage
+document.addEventListener("DOMContentLoaded", function () {
   function getUserId() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     return user._id || user.id || user.email || "ANONYMOUS";
@@ -173,10 +172,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (requestLog.length >= rateLimit.maxRequests) {
       resultDiv.className = "blocked";
-      resultDiv.innerHTML = "<b>✗ Rate Limit Exceeded!</b><br>Too many requests. Wait before trying again.";
-      requestBtn.disabled = true;
-
-      // Re-enable after some time
+      resultDiv.innerHTML = "<b> Rate Limit Exceeded!</b><br>Too many requests. Wait before trying again.";
+      requestBtn.disabled = true;
       setTimeout(() => {
         requestBtn.disabled = false;
         requestLog = [];
@@ -201,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem('rateLimitTest', JSON.stringify(requestLog));
 
     resultDiv.className = "success";
-    resultDiv.innerHTML = "<b>✓ Request Accepted</b><br>Requests remaining: " + (rateLimit.maxRequests - requestLog.length);
+    resultDiv.innerHTML = "<b> Request Accepted</b><br>Requests remaining: " + (rateLimit.maxRequests - requestLog.length);
 
     updateCounter();
   });

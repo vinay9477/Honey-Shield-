@@ -109,7 +109,7 @@
 
   <span class="badge">Path Traversal Test</span>
 
-  <h2>📁 Directory Traversal Prevention</h2>
+  <h2> Directory Traversal Prevention</h2>
 
   <p>
     This page tests directory traversal attack prevention.
@@ -134,8 +134,7 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  // Get userId from localStorage
+document.addEventListener("DOMContentLoaded", function () {
   function getUserId() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     return user._id || user.id || user.email || "ANONYMOUS";
@@ -156,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (isPathTraversal(fileName)) {
       resultDiv.className = "blocked";
-      resultDiv.innerHTML = "<b>✗ Path Traversal Detected!</b><br>Invalid file path blocked: " + fileName;
+      resultDiv.innerHTML = "<b> Path Traversal Detected!</b><br>Invalid file path blocked: " + fileName;
 
       fetch(API_BASE + "/api/logs", {
         method: "POST",
@@ -171,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     } else {
       resultDiv.className = "success";
-      resultDiv.innerHTML = "<b>✓ Safe Path</b><br>File path is valid: " + fileName;
+      resultDiv.innerHTML = "<b> Safe Path</b><br>File path is valid: " + fileName;
     }
   });
 
