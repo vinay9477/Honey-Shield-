@@ -129,7 +129,7 @@
 
   <span class="badge">DDoS Test</span>
 
-  <h2>⚡ DDoS Protection Test</h2>
+  <h2> DDoS Protection Test</h2>
 
   <p>
     This page tests DDoS attack detection.
@@ -158,8 +158,7 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  // Get userId from localStorage
+document.addEventListener("DOMContentLoaded", function () {
   function getUserId() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     return user._id || user.id || user.email || "ANONYMOUS";
@@ -186,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (requestTimestamps.length > ddosThreshold.requests) {
       resultDiv.className = "blocked";
-      resultDiv.innerHTML = "<b>✗ DDoS Attack Detected!</b><br>Too many rapid requests detected. Access temporarily restricted.";
+      resultDiv.innerHTML = "<b> DDoS Attack Detected!</b><br>Too many rapid requests detected. Access temporarily restricted.";
 
       singleBtn.disabled = true;
       spamBtn.disabled = true;
@@ -216,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCounter();
 
     resultDiv.className = "success";
-    resultDiv.innerHTML = "<b>✓ Request Accepted</b><br>Requests remaining: " + (ddosThreshold.requests - requestTimestamps.length);
+    resultDiv.innerHTML = "<b> Request Accepted</b><br>Requests remaining: " + (ddosThreshold.requests - requestTimestamps.length);
 
     return true;
   }
@@ -225,8 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
     makeRequest();
   });
 
-  spamBtn.addEventListener("click", function () {
-    // Make 10 rapid requests
+  spamBtn.addEventListener("click", function () {
     for (let i = 0; i < 10; i++) {
       if (!makeRequest()) {
         break;

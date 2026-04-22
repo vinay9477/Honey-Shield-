@@ -126,7 +126,7 @@
 
   <span class="badge">SQL Injection Test</span>
 
-  <h2>🛡️ SQL Injection Prevention Test</h2>
+  <h2> SQL Injection Prevention Test</h2>
 
   <p>
     This page tests SQL injection attack detection.
@@ -160,9 +160,7 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  // Get userId from localStorage
+document.addEventListener("DOMContentLoaded", function () {
   function getUserId() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     return user._id || user.id || user.email || "ANONYMOUS";
@@ -171,8 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("testForm");
   const resultDiv = document.getElementById("result");
 
-  function isSQLInjection(input) {
-    // Detect common SQL injection patterns
+  function isSQLInjection(input) {
     const sqlPatterns = /('|--|;|\b(OR|AND|UNION|DROP|SELECT|INSERT|DELETE|UPDATE|EXEC|EXECUTE|SCRIPT)\b)/i;
     return sqlPatterns.test(input);
   }
@@ -181,12 +178,10 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    // Check both fields
+    const password = document.getElementById("password").value;
     if (isSQLInjection(username) || isSQLInjection(password)) {
       resultDiv.className = "injection-detected";
-      resultDiv.innerHTML = "<b>✗ SQL Injection Detected!</b><br>Malicious SQL pattern detected and blocked.";
+      resultDiv.innerHTML = "<b> SQL Injection Detected!</b><br>Malicious SQL pattern detected and blocked.";
 
       fetch(API_BASE + "/api/logs", {
         method: "POST",
@@ -202,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     } else {
       resultDiv.className = "safe-input";
-      resultDiv.innerHTML = "<b>✓ Safe Input</b><br>No SQL injection patterns detected. Login processed.";
+      resultDiv.innerHTML = "<b> Safe Input</b><br>No SQL injection patterns detected. Login processed.";
     }
   });
 

@@ -3,19 +3,19 @@ function logout() {
   window.location.href = "admin-login.html";
 }
 
-const usersTable = document.getElementById("usersTable");
-const statUsers = document.getElementById("statUsers");
+var usersTable = document.getElementById("usersTable");
+var statUsers = document.getElementById("statUsers");
 
 fetch(API_BASE + "/api/admin/users")
-  .then(res => res.json())
-  .then(data => {
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
 
     statUsers.innerText = data.length;
 
-    let bot = 0;
-    let honey = 0;
+    var bot = 0;
+    var honey = 0;
 
-    data.forEach(u => {
+    data.forEach(function(u) {
 
       if (u.service === "bot") bot++;
       else honey++;
@@ -32,7 +32,6 @@ fetch(API_BASE + "/api/admin/users")
     });
 
   })
-  .catch(err => {
+  .catch(function(err) {
     console.error("Admin fetch error:", err);
   });
-

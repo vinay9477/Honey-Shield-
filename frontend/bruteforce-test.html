@@ -115,7 +115,7 @@
 
   <span class="badge">Brute Force Test</span>
 
-  <h2>🚫 Brute Force Detection</h2>
+  <h2> Brute Force Detection</h2>
 
   <p>
     This page tests brute force attack detection.
@@ -146,8 +146,7 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  // Get userId from localStorage
+document.addEventListener("DOMContentLoaded", function () {
   function getUserId() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     return user._id || user.id || user.email || "ANONYMOUS";
@@ -159,9 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const form = document.getElementById("testForm");
   const resultDiv = document.getElementById("result");
-  const attemptCountSpan = document.getElementById("attemptCount");
-
-  // Update attempt count display
+  const attemptCountSpan = document.getElementById("attemptCount");
   function updateDisplay() {
     const userId = "testuser";
     const attempts = loginAttempts[userId]?.count || 0;
@@ -178,17 +175,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!loginAttempts[userId]) {
       loginAttempts[userId] = { count: 0, lastAttempt: now };
-    }
-
-    // Reset if lockout period has passed
+    }
     if (now - loginAttempts[userId].lastAttempt > lockoutTime) {
       loginAttempts[userId].count = 0;
-    }
-
-    // Check if account is locked
+    }
     if (loginAttempts[userId].count >= maxAttempts) {
       resultDiv.className = "locked";
-      resultDiv.innerHTML = "<b>✗ Account Locked!</b><br>Too many failed attempts. Account locked for 15 minutes.";
+      resultDiv.innerHTML = "<b> Account Locked!</b><br>Too many failed attempts. Account locked for 15 minutes.";
 
       fetch(API_BASE + "/api/logs", {
         method: "POST",
@@ -202,19 +195,17 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch(err => console.error("Log error:", err));
 
       return;
-    }
-
-    // Increment attempt count
+    }
     loginAttempts[userId].count++;
     loginAttempts[userId].lastAttempt = now;
     localStorage.setItem('bruteforceTest', JSON.stringify(loginAttempts));
 
     if (loginAttempts[userId].count < maxAttempts) {
       resultDiv.className = "warning";
-      resultDiv.innerHTML = "<b>✗ Login Failed</b><br>Attempt " + loginAttempts[userId].count + " of " + maxAttempts;
+      resultDiv.innerHTML = "<b> Login Failed</b><br>Attempt " + loginAttempts[userId].count + " of " + maxAttempts;
     } else {
       resultDiv.className = "locked";
-      resultDiv.innerHTML = "<b>✗ Account Locked!</b><br>Maximum attempts reached.";
+      resultDiv.innerHTML = "<b> Account Locked!</b><br>Maximum attempts reached.";
     }
 
     updateDisplay();

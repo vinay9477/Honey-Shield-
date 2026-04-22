@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require("../models/User");
 const nodemailer = require("nodemailer");
 
-// ── EMAIL TRANSPORTER ────────────────────────────────────────
 const transporter = nodemailer.createTransport({
   service: process.env.EMAIL_SERVICE || "gmail",
   auth: {
@@ -13,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 
 async function sendOtpEmail(toEmail, userName, otp) {
-  const subject = "🔐 HoneyShield — Your Password Reset Code";
+  const subject = "HoneyShield - Your Password Reset Code";
   const html = `
   <!DOCTYPE html><html><head><meta charset="UTF-8"></head>
   <body style="margin:0;padding:0;background:#060a14;font-family:'Segoe UI',Arial,sans-serif;">
@@ -21,7 +20,6 @@ async function sendOtpEmail(toEmail, userName, otp) {
   <tr><td align="center">
   <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
     <tr><td style="background:linear-gradient(135deg,#0d1b2e,#0a1525);border:1px solid rgba(0,232,255,0.15);border-radius:12px 12px 0 0;padding:28px 32px;text-align:center;border-bottom:2px solid #00e8ff;">
-      <div style="font-size:32px;margin-bottom:8px;">🔐</div>
       <div style="font-family:monospace;font-size:11px;letter-spacing:4px;color:#00e8ff;text-transform:uppercase;margin-bottom:6px;">Password Reset</div>
       <div style="font-size:24px;font-weight:800;color:#ffffff;">HoneyShield</div>
     </td></tr>
@@ -40,7 +38,7 @@ async function sendOtpEmail(toEmail, userName, otp) {
     </td></tr>
     <tr><td style="background:#080f1e;border:1px solid rgba(0,232,255,0.1);border-top:none;border-radius:0 0 12px 12px;padding:18px 32px;text-align:center;">
       <p style="font-family:monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.2);margin:0;">
-        // HONEYSHIELD v2.0 — ALL CONNECTIONS MONITORED<br>
+        HONEYSHIELD v2.0<br>
         <span style="color:rgba(255,255,255,0.12);">Automated email. Do not reply.</span>
       </p>
     </td></tr>
@@ -57,7 +55,6 @@ async function sendOtpEmail(toEmail, userName, otp) {
   });
 }
 
-// LOGIN
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -74,7 +71,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// REGISTER
 router.post("/register", async (req, res) => {
   try {
     const { name, email, organization, password } = req.body;
@@ -93,7 +89,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// CHANGE PASSWORD
 router.post("/change-password", async (req, res) => {
   try {
     const { email, currentPassword, newPassword, userId } = req.body;
@@ -111,10 +106,8 @@ router.post("/change-password", async (req, res) => {
   }
 });
 
-// ── FORGOT PASSWORD ──────────────────────────────────────────
 const otpStore = new Map();
 
-// Step 1: Request OTP — sends to email
 router.post("/forgot-password", async (req, res) => {
   try {
     const { email } = req.body;
@@ -124,17 +117,15 @@ router.post("/forgot-password", async (req, res) => {
     if (!user) return res.status(404).json({ message: "No account found with that email" });
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
+    const expiresAt = Date.now() + 10 * 60 * 1000;
     otpStore.set(email, { otp, expiresAt, verified: false });
 
-    // Send OTP via email
     try {
       await sendOtpEmail(email, user.name, otp);
       console.log(`[HoneyShield] Reset OTP sent to ${email}`);
-      res.json({ message: "Reset code sent to your email" }); // OTP NOT returned in response
+      res.json({ message: "Reset code sent to your email" });
     } catch (emailErr) {
       console.error("[HoneyShield] Failed to send OTP email:", emailErr.message);
-      // Fallback: return OTP in response if email fails
       res.json({ message: "Reset code sent", otp });
     }
 
@@ -144,7 +135,6 @@ router.post("/forgot-password", async (req, res) => {
   }
 });
 
-// Step 2: Verify OTP
 router.post("/verify-otp", async (req, res) => {
   try {
     const { email, otp } = req.body;
@@ -153,7 +143,7 @@ router.post("/verify-otp", async (req, res) => {
     if (!record) return res.status(400).json({ message: "No reset code requested for this email" });
     if (Date.now() > record.expiresAt) {
       otpStore.delete(email);
-      return res.status(400).json({ message: "Reset code has expired — request a new one" });
+      return res.status(400).json({ message: "Reset code has expired, request a new one" });
     }
     if (record.otp !== otp.trim()) return res.status(400).json({ message: "Incorrect reset code" });
     record.verified = true;
@@ -164,14 +154,13 @@ router.post("/verify-otp", async (req, res) => {
   }
 });
 
-// Step 3: Set new password
 router.post("/reset-password", async (req, res) => {
   try {
     const { email, newPassword } = req.body;
     if (!email || !newPassword) return res.status(400).json({ message: "Email and new password are required" });
     if (newPassword.length < 6) return res.status(400).json({ message: "Password must be at least 6 characters" });
     const record = otpStore.get(email);
-    if (!record || !record.verified) return res.status(400).json({ message: "OTP not verified — complete verification first" });
+    if (!record || !record.verified) return res.status(400).json({ message: "OTP not verified, complete verification first" });
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "User not found" });
     user.password = newPassword;

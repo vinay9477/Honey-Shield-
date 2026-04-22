@@ -1,9 +1,5 @@
-/* ===================================================================
-   HONEY-SHIELD — Mobile Responsive Styles
-   Include AFTER cyber-dashboard.css and page-specific styles
-   =================================================================== */
 
-/* ── HAMBURGER MENU BUTTON (hidden by default, shown on mobile) ── */
+
 .mobile-menu-btn {
   display: none;
   position: fixed;
@@ -35,7 +31,6 @@
   transform: scale(0.95);
 }
 
-/* ── MOBILE OVERLAY (backdrop when sidebar open) ── */
 .mobile-overlay {
   position: fixed;
   inset: 0;
@@ -52,9 +47,6 @@
   visibility: visible;
 }
 
-/* ===================================================================
-   TEST SITES — Global Back Button Styles (Desktop Base)
-   =================================================================== */
 .back-btn {
   position: absolute;
   top: 20px;
@@ -86,12 +78,9 @@
   height: 18px;
 }
 
-/* ===================================================================
-   TABLET (≤ 900px) — Sidebar collapses to icons
-   =================================================================== */
 @media (max-width: 900px) {
 
-  /* Dashboard inline grids */
+  
   .stat-row {
     grid-template-columns: repeat(2, 1fr) !important;
   }
@@ -116,7 +105,7 @@
     flex-wrap: wrap;
   }
 
-  /* Settings layout */
+  
   .settings-layout {
     flex-direction: column !important;
   }
@@ -134,29 +123,26 @@
   }
 }
 
-/* ===================================================================
-   MOBILE (≤ 768px) — Full mobile layout
-   =================================================================== */
 @media (max-width: 768px) {
 
-  /* Show hamburger */
+  
   .mobile-menu-btn {
-    display: none !important; /* Disabled for bottom nav */
+    display: none !important; 
   }
 
-  /* Body scroll */
+  
   body {
     overflow: auto !important;
   }
 
-  /* Layout goes vertical */
+  
   .layout {
     flex-direction: column !important;
     height: auto !important;
     min-height: 100vh;
   }
 
-  /* Sidebar hidden desktop mode, replaced with bottom nav */
+  
   .sidebar {
     position: fixed !important;
     bottom: 0 !important;
@@ -164,7 +150,7 @@
     left: 0 !important;
     width: 100% !important;
     height: 64px !important;
-    transform: none !important; /* override slide out */
+    transform: none !important; 
     padding: 0 !important;
     border-right: none !important;
     border-top: 1px solid var(--border);
@@ -175,10 +161,10 @@
   }
 
   .sidebar::after {
-    display: none !important; /* Remove sidebar glow */
+    display: none !important; 
   }
 
-  /* Hide sidebar branding and extras */
+  
   .sidebar-header,
   .sb-brand,
   .sb-divider,
@@ -191,7 +177,7 @@
     display: none !important;
   }
 
-  /* Bottom Nav Flex Container */
+  
   .sb-nav {
     display: flex !important;
     flex-direction: row !important;
@@ -246,14 +232,14 @@
     border: none !important;
   }
 
-  /* Main content padding for bottom nav */
+  
   .main {
     width: 100% !important;
     padding: 20px 12px 90px !important;
     overflow-y: visible !important;
   }
 
-  /* Topbar */
+  
   .topbar {
     flex-direction: row;
     flex-wrap: wrap;
@@ -295,7 +281,7 @@
     font-size: 14px !important;
   }
 
-  /* Stat cards */
+  
   .stat-row {
     grid-template-columns: 1fr 1fr !important;
     gap: 10px !important;
@@ -309,13 +295,13 @@
     font-size: 22px !important;
   }
 
-  /* Mid row */
+  
   .mid-row {
     grid-template-columns: 1fr !important;
     gap: 12px !important;
   }
 
-  /* Charts */
+  
   .charts-row {
     grid-template-columns: 1fr !important;
   }
@@ -325,7 +311,7 @@
     gap: 12px !important;
   }
 
-  /* Live counter strip */
+  
   .live-counter-strip {
     grid-template-columns: 1fr !important;
     gap: 10px !important;
@@ -339,14 +325,14 @@
     font-size: 26px !important;
   }
 
-  /* Breakdown grid */
+  
   .breakdown-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 8px !important;
     padding: 12px !important;
   }
 
-  /* Map */
+  
   .map-wrap {
     height: 220px !important;
   }
@@ -365,7 +351,7 @@
     gap: 8px !important;
   }
 
-  /* Ticker */
+  
   .ticker-wrap {
     height: 30px !important;
   }
@@ -375,7 +361,7 @@
     font-size: 9px !important;
   }
 
-  /* Live attacks list */
+  
   .live-list {
     max-height: 200px !important;
     padding: 10px !important;
@@ -391,13 +377,13 @@
     margin-left: 0 !important;
   }
 
-  /* Content padding */
+  
   .content {
     padding: 16px 0 !important;
     gap: 14px !important;
   }
 
-  /* Panel */
+  
   .panel {
     border-radius: 10px !important;
   }
@@ -410,7 +396,7 @@
     padding: 12px 14px !important;
   }
 
-  /* Services grid */
+  
   .services-grid {
     grid-template-columns: 1fr !important;
     gap: 12px !important;
@@ -430,7 +416,7 @@
     font-size: 9px !important;
   }
 
-  /* Activity logs table */
+  
   .logs-table-wrap {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
@@ -441,7 +427,7 @@
     min-width: 600px !important;
   }
 
-  /* Settings */
+  
   .settings-layout {
     flex-direction: column !important;
     gap: 16px !important;
@@ -485,7 +471,7 @@
     padding: 16px !important;
   }
 
-  /* Admin dashboard */
+  
   .admin-stats {
     grid-template-columns: 1fr 1fr !important;
   }
@@ -494,7 +480,7 @@
     overflow-x: auto !important;
   }
 
-  /* Modal */
+  
   .modal {
     max-width: 95vw !important;
     margin: 8px !important;
@@ -508,7 +494,7 @@
     max-height: 200px !important;
   }
 
-  /* Toast */
+  
   .toast {
     bottom: 12px !important;
     right: 12px !important;
@@ -516,15 +502,12 @@
   }
 }
 
-/* ===================================================================
-   SMALL MOBILE (≤ 480px) — Extra tight
-   =================================================================== */
 @media (max-width: 480px) {
   .main {
     padding: 56px 8px 20px !important;
   }
 
-  /* Stat cards single col */
+  
   .stat-row {
     grid-template-columns: 1fr !important;
   }
@@ -533,12 +516,12 @@
     font-size: 20px !important;
   }
 
-  /* Breakdown single col */
+  
   .breakdown-grid {
     grid-template-columns: 1fr !important;
   }
 
-  /* Brand title on landing page */
+  
   .brand-title {
     font-size: 36px !important;
   }
@@ -569,12 +552,12 @@
     gap: 12px !important;
   }
 
-  /* Live counter */
+  
   .lc-val {
     font-size: 22px !important;
   }
 
-  /* Map */
+  
   .map-wrap {
     height: 180px !important;
   }
@@ -583,7 +566,7 @@
     font-size: 16px !important;
   }
 
-  /* Register / Login cards */
+  
   .card {
     margin: 12px 8px !important;
   }
@@ -601,7 +584,7 @@
     padding: 12px 20px !important;
   }
 
-  /* OTP boxes */
+  
   .otp-box {
     width: 42px !important;
     height: 48px !important;
@@ -612,17 +595,17 @@
     gap: 6px !important;
   }
 
-  /* Admin cards */
+  
   .admin-stats {
     grid-template-columns: 1fr !important;
   }
 
-  /* Settings tabs scroll */
+  
   .settings-left {
     padding-bottom: 8px !important;
   }
 }
-/* ===== MOBILE UX POLISH & ACCESSIBILITY ===== */
+
 @media (max-width: 768px) {
   .sb-nav li { padding: 14px 16px !important; font-size: 15px !important; margin-bottom: 4px; }
   .sb-nav li svg { width: 20px !important; height: 20px !important; }

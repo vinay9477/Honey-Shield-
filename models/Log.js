@@ -5,7 +5,7 @@ const logSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: false   // 🔥 CHANGE THIS
+      required: false
     },
     ip: String,
     type: String,

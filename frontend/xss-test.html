@@ -109,7 +109,7 @@
 
   <span class="badge">XSS Attack Test Mode</span>
 
-  <h2>🔒 XSS Protection Test</h2>
+  <h2> XSS Protection Test</h2>
 
   <p>
     This page tests XSS (Cross-Site Scripting) protection.
@@ -134,8 +134,7 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  // Get userId from localStorage
+document.addEventListener("DOMContentLoaded", function () {
   function getUserId() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     return user._id || user.id || user.email || "ANONYMOUS";
@@ -148,14 +147,12 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     const textarea = document.querySelector("textarea");
-    const userInput = textarea.value;
-
-    // Test for XSS patterns
+    const userInput = textarea.value;
     const xssPatterns = /<|>|script|iframe|onclick|onerror|javascript:/i;
 
     if (xssPatterns.test(userInput)) {
       resultDiv.className = "warning";
-      resultDiv.innerHTML = "<b>✓ XSS Attack Detected!</b><br>Malicious payload blocked successfully.";
+      resultDiv.innerHTML = "<b> XSS Attack Detected!</b><br>Malicious payload blocked successfully.";
 
       fetch(API_BASE + "/api/logs", {
         method: "POST",
@@ -171,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     } else {
       resultDiv.className = "success";
-      resultDiv.innerHTML = "<b>✓ Safe Input</b><br>No XSS patterns detected.";
+      resultDiv.innerHTML = "<b> Safe Input</b><br>No XSS patterns detected.";
     }
   });
 

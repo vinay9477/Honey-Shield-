@@ -5,24 +5,21 @@ const User = require("../models/User");
 const mongoose = require("mongoose");
 const { sendAttackAlert } = require("../utils/mailer");
 
-// Attack types that trigger email alerts
 const ALERT_TYPES = [
   "BRUTE_FORCE", "SQL_INJECTION", "XSS_ATTACK", "DDOS_ATTACK",
   "CSRF_TEST", "KEYLOGGER", "FILE_UPLOAD", "INVALID_FILE_TYPE",
   "PATH_TRAVERSAL", "RATE_LIMIT", "HONEYPOT", "BOT_DETECTED"
 ];
 
-// ADD LOG — triggers email alert if attack type matches
 router.post("/", async (req, res) => {
   try {
     const { userId, ip, type, message } = req.body;
     const log = new Log({ userId, ip, type, message });
     await log.save();
 
-    // Send email alert if this is a known attack type
     if (ALERT_TYPES.includes(type)) {
       try {
-        let targetEmail = process.env.EMAIL_USER; // Default to admin
+        let targetEmail = process.env.EMAIL_USER;
         let targetName = "Administrator";
 
         if (userId && userId !== "ANONYMOUS" && mongoose.Types.ObjectId.isValid(userId)) {
@@ -34,7 +31,6 @@ router.post("/", async (req, res) => {
         }
 
         if (targetEmail) {
-          // Fire and forget — don't block the response
           sendAttackAlert({
             toEmail: targetEmail,
             userName: targetName,
@@ -56,7 +52,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// VIEW LOGS — filter by userId query param
 router.get("/", async (req, res) => {
   try {
     const { userId } = req.query;
@@ -76,7 +71,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// VIEW LOGS BY USERID (route param)
 router.get("/:userId", async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.userId)) {

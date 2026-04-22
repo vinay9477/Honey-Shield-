@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="public/css/cyber-dashboard.css">
   <style>
-    /* ── PAGE HEADER ─────────────────────────────────────── */
+    
     .logs-header {
       display: flex;
       align-items: center;
@@ -44,7 +44,7 @@
       letter-spacing: 1px;
     }
 
-    /* ── FILTERS PANEL ───────────────────────────────────── */
+    
     .filters-panel {
       background: rgba(8,2,20,0.6);
       backdrop-filter: blur(16px);
@@ -125,7 +125,7 @@
     }
     .btn-clear:hover { border-color: rgba(255,59,107,0.4); color: var(--red); }
 
-    /* ── QUICK FILTER TABS ───────────────────────────────── */
+    
     .quick-filters {
       display: flex;
       gap: 8px;
@@ -161,7 +161,7 @@
       border-radius: 50%;
     }
 
-    /* ── LOGS TABLE PANEL ────────────────────────────────── */
+    
     .logs-panel {
       background: rgba(8,2,20,0.6);
       backdrop-filter: blur(16px);
@@ -219,7 +219,7 @@
     .log-table tbody tr:hover { background: rgba(255,255,255,0.03); }
     .log-table tbody tr:last-child td { border-bottom: none; }
 
-    /* ── TIME COL ────────────────────────────────────────── */
+    
     .log-time {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
@@ -228,7 +228,7 @@
     }
     .log-time-date { display: block; color: rgba(226,232,240,0.2); font-size: 10px; margin-top: 2px; }
 
-    /* ── TYPE BADGES ─────────────────────────────────────── */
+    
     .type-badge {
       display: inline-block;
       padding: 4px 10px;
@@ -259,7 +259,7 @@
     .type-ERROR        { background:rgba(255,59,107,0.1); color:var(--red);   border-color:rgba(255,59,107,0.25); }
     .type-UNKNOWN      { background:rgba(255,255,255,0.05);color:var(--muted);border-color:var(--border); }
 
-    /* ── IP ──────────────────────────────────────────────── */
+    
     .log-ip {
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
@@ -270,7 +270,7 @@
       border: 1px solid rgba(251,191,36,0.12);
     }
 
-    /* ── MESSAGE ─────────────────────────────────────────── */
+    
     .log-msg {
       max-width: 360px;
       overflow: hidden;
@@ -280,7 +280,7 @@
       color: rgba(226,232,240,0.45);
     }
 
-    /* ── EMPTY / LOADING ─────────────────────────────────── */
+    
     .log-empty {
       text-align: center;
       padding: 60px 20px !important;
@@ -309,7 +309,7 @@
       color: rgba(226,232,240,0.25);
     }
 
-    /* ── PAGINATION ──────────────────────────────────────── */
+    
     .pagination {
       display: flex;
       align-items: center;
@@ -365,7 +365,7 @@
 
 <div class="layout">
 
-  <!-- SIDEBAR -->
+  
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <svg class="sb-shield" viewBox="0 0 40 40" fill="none">
@@ -419,10 +419,10 @@
     </button>
   </aside>
 
-  <!-- MAIN -->
+  
   <main class="main" id="mainContent">
 
-    <!-- TOP BAR -->
+    
     <header class="topbar">
       <div class="topbar-left">
         <div class="topbar-title">
@@ -445,7 +445,7 @@
       </div>
     </header>
 
-    <!-- PAGE HEADER -->
+    
     <div class="logs-header">
       <div>
         <div class="logs-title">Security Event Logs</div>
@@ -454,7 +454,7 @@
       <div class="logs-count-pill" id="logCountPill">— EVENTS</div>
     </div>
 
-    <!-- QUICK FILTER TABS -->
+    
     <div class="quick-filters">
       <button class="qf-tab active" onclick="quickFilter('all', this)">
         <span class="qf-dot" style="background:var(--cyan)"></span> ALL
@@ -465,14 +465,14 @@
       <button class="qf-tab danger" onclick="quickFilter('attacks', this)">
         <span class="qf-dot" style="background:var(--red)"></span> ATTACKS
       </button>
-      <button class="qf-tab" onclick="quickFilter('SQL_INJECTION', this)">💉 SQL</button>
-      <button class="qf-tab" onclick="quickFilter('XSS_ATTACK', this)">🎯 XSS</button>
-      <button class="qf-tab" onclick="quickFilter('BRUTE_FORCE', this)">🔪 BRUTE</button>
-      <button class="qf-tab" onclick="quickFilter('DDOS_ATTACK', this)">🌊 DDOS</button>
-      <button class="qf-tab" onclick="quickFilter('HONEYPOT', this)">🍯 HONEYPOT</button>
+      <button class="qf-tab" onclick="quickFilter('SQL_INJECTION', this)"> SQL</button>
+      <button class="qf-tab" onclick="quickFilter('XSS_ATTACK', this)"> XSS</button>
+      <button class="qf-tab" onclick="quickFilter('BRUTE_FORCE', this)"> BRUTE</button>
+      <button class="qf-tab" onclick="quickFilter('DDOS_ATTACK', this)"> DDOS</button>
+      <button class="qf-tab" onclick="quickFilter('HONEYPOT', this)"> HONEYPOT</button>
     </div>
 
-    <!-- FILTERS PANEL -->
+    
     <div class="filters-panel">
       <div class="fg">
         <label>Log Type</label>
@@ -524,7 +524,7 @@
       </div>
     </div>
 
-    <!-- LOGS TABLE -->
+    
     <div class="logs-panel">
       <table class="log-table">
         <thead>
@@ -546,7 +546,7 @@
       </table>
     </div>
 
-    <!-- PAGINATION -->
+    
     <div class="pagination">
       <div class="page-info" id="pageInfo">Showing 0 of 0 events</div>
       <div class="page-btns" id="pageBtns"></div>
@@ -556,14 +556,11 @@
 </div>
 
 <script>
-// ── CLOCK ──────────────────────────────────────────────────
 function updateClock() {
   document.getElementById('topClock').textContent =
     new Date().toTimeString().split(' ')[0] + ' UTC';
 }
-setInterval(updateClock, 1000); updateClock();
-
-// ── MATRIX BG ─────────────────────────────────────────────
+setInterval(updateClock, 1000); updateClock();
 const canvas = document.getElementById('matrix-canvas');
 const ctx    = canvas.getContext('2d');
 function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
@@ -589,29 +586,19 @@ setInterval(() => {
     if (y > canvas.height && Math.random() > 0.975) cols[i] = 0;
     cols[i] += 14;
   });
-}, 55);
-
-// ── NAV ────────────────────────────────────────────────────
+}, 55);
 function navigateTo(page) {
   document.getElementById('mainContent').style.opacity = '0';
   setTimeout(() => { window.location.href = page; }, 200);
 }
-function logout() { localStorage.clear(); window.location.href = 'login.html'; }
-
-// ── STATE ──────────────────────────────────────────────────
+function logout() { localStorage.clear(); window.location.href = 'login.html'; }
 let allLogs      = [];
-let filteredLogs = [];
-
-// ── DOWNLOAD MY LOGS (own logs only, no cross-user data) ──────
+let filteredLogs = [];
 function downloadMyLogs(){
-  if(!filteredLogs.length){ alert('No logs to export'); return; }
-
-  // Get current user info for filename only
+  if(!filteredLogs.length){ alert('No logs to export'); return; }
   const userRaw = localStorage.getItem('user');
   const user = userRaw ? JSON.parse(userRaw) : {};
-  const safeEmail = (user.email||'user').replace(/[^a-z0-9]/gi,'-');
-
-  // Only include own log fields — no userId, no other user data
+  const safeEmail = (user.email||'user').replace(/[^a-z0-9]/gi,'-');
   const headers = ['Time','Date','Type','IP','Message'];
   const rows = filteredLogs.map(l => {
     const d = new Date(l.createdAt);
@@ -635,9 +622,7 @@ function downloadMyLogs(){
 }
 let currentSort  = { field: null, dir: 'desc' };
 let currentPage  = 1;
-const PAGE_SIZE  = 25;
-
-// ── ATTACK TYPE GROUPS ─────────────────────────────────────
+const PAGE_SIZE  = 25;
 const AUTH_TYPES   = ['AUTH','LOGIN','LOGIN_SUCCESS','LOGIN_FAIL'];
 const ATTACK_TYPES = [
   'HONEYPOT','BOT_DETECTED','SQL_INJECTION','XSS_ATTACK','CSRF_TEST',
@@ -651,9 +636,7 @@ function classifyLog(type) {
   if (AUTH_TYPES.some(a => t.includes(a)))   return 'auth';
   if (ATTACK_TYPES.some(a => t.includes(a))) return 'attack';
   return 'other';
-}
-
-// ── BADGE CLASS ────────────────────────────────────────────
+}
 function badgeClass(type) {
   if (!type) return 'type-UNKNOWN';
   const t = type.toUpperCase().replace(/\s+/g, '_');
@@ -664,16 +647,14 @@ function badgeClass(type) {
     'KEYLOGGER_DETECTED','ERROR'
   ];
   return known.includes(t) ? `type-${t}` : 'type-UNKNOWN';
-}
-
-// ── RENDER ─────────────────────────────────────────────────
+}
 function renderLogs(logs) {
   const body = document.getElementById('logBody');
   body.innerHTML = '';
 
   if (!logs || logs.length === 0) {
     body.innerHTML = `<tr><td colspan="4" class="log-empty">
-      <span class="log-empty-icon">📭</span>
+      <span class="log-empty-icon"></span>
       NO EVENTS FOUND
     </td></tr>`;
     return;
@@ -706,9 +687,7 @@ function renderLogs(logs) {
   renderPagination(logs.length);
   document.getElementById('logCountPill').textContent =
     `${logs.length} EVENT${logs.length !== 1 ? 'S' : ''}`;
-}
-
-// ── PAGINATION ─────────────────────────────────────────────
+}
 function renderPagination(total) {
   const pages = Math.ceil(total / PAGE_SIZE);
   const info  = document.getElementById('pageInfo');
@@ -724,9 +703,7 @@ function renderPagination(total) {
   prev.textContent = '← PREV';
   prev.disabled = currentPage === 1;
   prev.onclick = () => { currentPage--; renderLogs(filteredLogs); };
-  btns.appendChild(prev);
-
-  // page numbers
+  btns.appendChild(prev);
   for (let p = Math.max(1, currentPage - 2); p <= Math.min(pages, currentPage + 2); p++) {
     const btn = document.createElement('button');
     btn.className = `page-btn${p === currentPage ? ' active' : ''}`;
@@ -741,9 +718,7 @@ function renderPagination(total) {
   next.disabled = currentPage >= pages;
   next.onclick = () => { currentPage++; renderLogs(filteredLogs); };
   btns.appendChild(next);
-}
-
-// ── SORT ───────────────────────────────────────────────────
+}
 function sortBy(field) {
   document.querySelectorAll('.log-table th').forEach(th => {
     th.classList.remove('sort-asc', 'sort-desc');
@@ -769,9 +744,7 @@ function sortBy(field) {
 
   currentPage = 1;
   renderLogs(filteredLogs);
-}
-
-// ── QUICK FILTERS ──────────────────────────────────────────
+}
 function quickFilter(type, btn) {
   document.querySelectorAll('.qf-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
@@ -788,9 +761,7 @@ function quickFilter(type, btn) {
   }
   currentPage = 1;
   renderLogs(filteredLogs);
-}
-
-// ── APPLY FILTERS ──────────────────────────────────────────
+}
 function applyFilters() {
   const type     = document.getElementById('typeFilter').value;
   const search   = document.getElementById('searchInput').value.toLowerCase();
@@ -826,15 +797,11 @@ function clearFilters() {
   filteredLogs = [...allLogs];
   currentPage  = 1;
   renderLogs(filteredLogs);
-}
-
-// ── FETCH ──────────────────────────────────────────────────
+}
 document.addEventListener('DOMContentLoaded', () => {
   const raw = localStorage.getItem('user');
   if (!raw) { window.location.href = 'login.html'; return; }
-  const user = JSON.parse(raw);
-
-  // Avatar
+  const user = JSON.parse(raw);
   const avatarEl = document.getElementById('userAvatar');
   const nameEl   = document.getElementById('userName');
   if (user.name) {
@@ -851,8 +818,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(logs => {
       allLogs = (logs || []).filter(l =>
         !l.userId || l.userId === userId || l.user === userId || l.email === user.email
-      );
-      // default sort: newest first
+      );
       allLogs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       filteredLogs = [...allLogs];
       renderLogs(filteredLogs);
@@ -860,12 +826,10 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(() => {
       document.getElementById('logBody').innerHTML =
         `<tr><td colspan="4" class="log-empty">
-          <span class="log-empty-icon">⚠️</span>
+          <span class="log-empty-icon"></span>
           COULD NOT CONNECT TO SERVER
         </td></tr>`;
-    });
-
-  // Fade in
+    });
   const main = document.getElementById('mainContent');
   main.style.opacity = '0';
   main.style.transform = 'translateY(12px)';

@@ -4,7 +4,6 @@ const Admin = require("../models/Admin");
 const User = require("../models/User");
 const Log = require("../models/Log");
 
-// ── ADMIN LOGIN ──────────────────────────────────────────────
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const admin = await Admin.findOne({ username, password });
@@ -12,12 +11,10 @@ router.post("/login", async (req, res) => {
   res.json({ message: "Admin login successful" });
 });
 
-// ── ALL USERS (with log counts) ──────────────────────────────
 router.get("/users", async (req, res) => {
   try {
     const users = await User.find({}, "-password").sort({ createdAt: -1 });
 
-    // Attach log count per user
     const logCounts = await Log.aggregate([
       { $group: { _id: "$userId", count: { $sum: 1 } } }
     ]);
@@ -36,7 +33,6 @@ router.get("/users", async (req, res) => {
   }
 });
 
-// ── SINGLE USER DETAIL ───────────────────────────────────────
 router.get("/users/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id, "-password");
@@ -49,7 +45,6 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-// ── DELETE USER ──────────────────────────────────────────────
 router.delete("/users/:id", async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
@@ -60,7 +55,6 @@ router.delete("/users/:id", async (req, res) => {
   }
 });
 
-// ── UPDATE USER SERVICE ───────────────────────────────────────
 router.patch("/users/:id/service", async (req, res) => {
   try {
     const { service } = req.body;
@@ -72,7 +66,6 @@ router.patch("/users/:id/service", async (req, res) => {
   }
 });
 
-// ── ALL LOGS ──────────────────────────────────────────────────
 router.get("/logs", async (req, res) => {
   try {
     const logs = await Log.find({}).sort({ createdAt: -1 }).limit(500);
@@ -82,7 +75,6 @@ router.get("/logs", async (req, res) => {
   }
 });
 
-// ── STATS ─────────────────────────────────────────────────────
 router.get("/stats", async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();

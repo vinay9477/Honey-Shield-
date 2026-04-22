@@ -28,15 +28,15 @@
       overflow-x: hidden;
     }
 
-    /* MATRIX BG */
+    
     #matrix { position:fixed; inset:0; z-index:0; opacity:0.05; pointer-events:none; }
 
-    /* GLOWS */
+    
     .glow { position:fixed; border-radius:50%; filter:blur(100px); pointer-events:none; z-index:0; }
     .glow-1 { width:500px; height:500px; background:rgba(124,58,237,0.12); top:-100px; right:-100px; }
     .glow-2 { width:400px; height:400px; background:rgba(0,245,255,0.08); bottom:-100px; left:-100px; }
 
-    /* CARD */
+    
     .card {
       position:relative; z-index:1;
       width:100%; max-width:480px; margin:32px 16px;
@@ -54,7 +54,7 @@
     }
     @keyframes borderFlow { from{background-position:0%} to{background-position:300%} }
 
-    /* HEADER */
+    
     .card-head {
       padding:28px 36px 22px;
       border-bottom:1px solid var(--border);
@@ -72,7 +72,7 @@
       -webkit-background-clip:text;background-clip:text; -webkit-text-fill-color:transparent;
     }
 
-    /* STEPS */
+    
     .steps {
       display:flex; padding:18px 36px;
       border-bottom:1px solid var(--border);
@@ -102,13 +102,13 @@
     .step.active .step-label { color:var(--cyan); }
     .step.done  .step-label  { color:var(--violet); }
 
-    /* FORM BODY */
+    
     .card-body { padding:26px 36px; }
     .form-step { display:flex; flex-direction:column; gap:16px; animation:stepIn 0.3s ease forwards; }
     .form-step.hidden { display:none; }
     @keyframes stepIn { from{opacity:0;transform:translateX(14px)} to{opacity:1;transform:translateX(0)} }
 
-    /* FIELDS */
+    
     .field { display:flex; flex-direction:column; gap:7px; }
     .field label {
       font-family:'JetBrains Mono',monospace; font-size:10px;
@@ -131,7 +131,7 @@
       color:var(--red); letter-spacing:0.5px; min-height:14px;
     }
 
-    /* PASSWORD */
+    
     .pw-wrap { position:relative; }
     .pw-wrap input { padding-right:56px; width:100%; }
     .pw-toggle {
@@ -144,7 +144,7 @@
     .strength-fill  { height:100%; border-radius:2px; transition:width 0.3s,background 0.3s; width:0%; }
     .strength-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1px; margin-top:4px; }
 
-    /* TERMS */
+    
     .terms-row {
       display:flex; align-items:flex-start; gap:10px;
       padding:12px; background:rgba(255,255,255,0.02);
@@ -154,7 +154,7 @@
     .terms-row label { font-size:12px; color:var(--muted); cursor:pointer; line-height:1.5; }
     .terms-row a { color:var(--cyan); text-decoration:none; }
 
-    /* CONFIRM BOX */
+    
     .confirm-box {
       background:rgba(0,245,255,0.03); border:1px solid rgba(0,245,255,0.1);
       border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:10px;
@@ -163,7 +163,7 @@
     .confirm-key { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; }
     .confirm-val { font-size:13px; color:var(--text); font-weight:500; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
-    /* BUTTONS */
+    
     .btn-row { display:flex; gap:10px; margin-top:6px; }
     .btn-back {
       flex:0 0 auto; padding:13px 18px;
@@ -181,7 +181,7 @@
     .btn-next:hover, .btn-submit:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(124,58,237,0.45); }
     .btn-next:disabled, .btn-submit:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
 
-    /* STATUS */
+    
     .status-msg {
       font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.5px;
       padding:10px 14px; border-radius:8px; display:none; margin-top:4px;
@@ -189,7 +189,7 @@
     .status-msg.error   { background:rgba(255,59,107,0.1); color:var(--red);   border:1px solid rgba(255,59,107,0.2); display:block; }
     .status-msg.success { background:rgba(0,245,196,0.1);  color:var(--green); border:1px solid rgba(0,245,196,0.2);  display:block; }
 
-    /* OTP SCREEN */
+    
     .otp-screen { display:none; padding:32px 36px; }
     .otp-screen.show { display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center; }
     .otp-icon { font-size:48px; animation:pulse 2s ease-in-out infinite; }
@@ -224,7 +224,7 @@
     .btn-resend:hover    { border-color:rgba(255,255,255,0.2); color:var(--text); }
     .btn-resend:disabled { opacity:0.4; cursor:not-allowed; }
 
-    /* FOOTER */
+    
     .card-foot {
       padding:16px 36px; border-top:1px solid var(--border);
       text-align:center; font-size:13px; color:var(--muted);
@@ -243,7 +243,7 @@
 
 <div class="card">
 
-  <!-- HEADER -->
+  
   <div class="card-head">
     <svg class="shield-icon" viewBox="0 0 44 44" fill="none">
       <path d="M22 3L5 10V22C5 30.5 12.5 38 22 41C31.5 38 39 30.5 39 22V10L22 3Z"
@@ -263,7 +263,7 @@
     </div>
   </div>
 
-  <!-- STEPS -->
+  
   <div class="steps" id="stepsBar">
     <div class="step active" id="stepDot1">
       <div class="step-dot">01</div>
@@ -279,10 +279,10 @@
     </div>
   </div>
 
-  <!-- FORM -->
+  
   <div class="card-body" id="formBody">
 
-    <!-- STEP 1 -->
+    
     <div class="form-step" id="step1">
       <div class="field">
         <label>// Operator Name</label>
@@ -303,7 +303,7 @@
       </div>
     </div>
 
-    <!-- STEP 2 -->
+    
     <div class="form-step hidden" id="step2">
       <div class="field">
         <label>// Access Key</label>
@@ -329,7 +329,7 @@
       </div>
     </div>
 
-    <!-- STEP 3 -->
+    
     <div class="form-step hidden" id="step3">
       <div class="confirm-box" id="confirmBox"></div>
       <div class="terms-row">
@@ -349,9 +349,9 @@
 
   </div>
 
-  <!-- OTP SCREEN -->
+  
   <div class="otp-screen" id="otpScreen">
-    <div class="otp-icon">📬</div>
+    <div class="otp-icon"></div>
     <div class="otp-title">Verify your email</div>
     <div class="otp-sub">
       We sent a 6-digit code to<br>
@@ -366,7 +366,7 @@
     <button class="btn-resend" id="resendBtn" onclick="resendOTP()">Resend code</button>
   </div>
 
-  <!-- FOOTER -->
+  
   <div class="card-foot">
     Already have an account? <a href="login.html">Sign in →</a>
   </div>
@@ -374,7 +374,6 @@
 </div>
 
 <script>
-// ── MATRIX BG ──────────────────────────────────────────────────────
 const mc = document.getElementById('matrix'), mct = mc.getContext('2d');
 function resizeMC() { mc.width = innerWidth; mc.height = innerHeight; }
 resizeMC(); window.addEventListener('resize', resizeMC);
@@ -392,20 +391,16 @@ setInterval(() => {
     if (y>mc.height && Math.random()>.975) cols[i]=0;
     cols[i]+=14;
   });
-}, 55);
-
-// ── STATE ──────────────────────────────────────────────────────────
+}, 55);
 let currentStep  = 1;
-let pendingEmail = '';
-
-// ── STEP NAVIGATION ────────────────────────────────────────────────
+let pendingEmail = '';
 function setStepUI(n) {
   for (let i = 1; i <= 3; i++) {
     document.getElementById(`step${i}`).classList.toggle('hidden', i !== n);
     const dot = document.getElementById(`stepDot${i}`);
     dot.classList.remove('active','done');
     if (i === n) dot.classList.add('active');
-    if (i <  n) { dot.classList.add('done'); dot.querySelector('.step-dot').textContent = '✓'; }
+    if (i <  n) { dot.classList.add('done'); dot.querySelector('.step-dot').textContent = ''; }
     else         dot.querySelector('.step-dot').textContent = `0${i}`;
   }
 }
@@ -415,9 +410,7 @@ function goStep(n) {
   currentStep = n;
   if (n === 3) populateConfirm();
   setStepUI(n);
-}
-
-// ── VALIDATION ─────────────────────────────────────────────────────
+}
 function setErr(id, msg) { document.getElementById(id).textContent = msg; }
 function clrErr(id)      { document.getElementById(id).textContent = ''; }
 
@@ -442,9 +435,7 @@ function validateStep(n) {
     return ok;
   }
   return true;
-}
-
-// ── PASSWORD STRENGTH ───────────────────────────────────────────────
+}
 document.getElementById('password').addEventListener('input', function () {
   const pw = this.value;
   const fill = document.getElementById('strengthFill');
@@ -466,16 +457,12 @@ document.getElementById('password').addEventListener('input', function () {
     fill.style.cssText = 'width:100%;background:#00f5c4';
     lbl.style.color = '#00f5c4'; lbl.textContent = '>> STRONG';
   }
-});
-
-// ── TOGGLE PASSWORD ─────────────────────────────────────────────────
+});
 function togglePw(id, btn) {
   const inp = document.getElementById(id);
   inp.type = inp.type === 'password' ? 'text' : 'password';
   btn.textContent = inp.type === 'password' ? 'SHOW' : 'HIDE';
-}
-
-// ── CONFIRM SUMMARY ─────────────────────────────────────────────────
+}
 function populateConfirm() {
   const name  = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
@@ -485,9 +472,7 @@ function populateConfirm() {
     <div class="confirm-row"><span class="confirm-key">Email</span><span class="confirm-val">${email}</span></div>
     <div class="confirm-row"><span class="confirm-key">Org</span><span class="confirm-val">${org||'—'}</span></div>
     <div class="confirm-row"><span class="confirm-key">Access Key</span><span class="confirm-val" style="color:var(--green)">●●●●●●●●</span></div>`;
-}
-
-// ── SUBMIT ──────────────────────────────────────────────────────────
+}
 async function submitRegister() {
   clrErr('termsErr');
   const statusMsg = document.getElementById('statusMsg');
@@ -536,9 +521,7 @@ async function submitRegister() {
     statusMsg.className   = 'status-msg error';
     btn.textContent = 'ENROLL OPERATOR'; btn.disabled = false;
   }
-}
-
-// ── OTP SCREEN ──────────────────────────────────────────────────────
+}
 function showOTPScreen(email) {
   document.getElementById('formBody').style.display  = 'none';
   document.getElementById('stepsBar').style.display  = 'none';
